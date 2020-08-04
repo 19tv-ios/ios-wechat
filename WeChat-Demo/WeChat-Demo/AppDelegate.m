@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <JMessage/JMessage.h>
 
 @interface AppDelegate ()
 
@@ -27,6 +28,24 @@
     self.window.rootViewController = _tabBarController;
     
     [self.window makeKeyAndVisible];
+    
+    NSString *appkey = @"0a974aa68871f642444ae38b";
+    
+    [JMessage setupJMessage:launchOptions appKey:appkey   channel:nil apsForProduction:NO category:nil];
+    // Required - 注册 APNs 通知
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        //可以添加自定义categories
+        [JMessage registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
+                                                      UIUserNotificationTypeSound |
+                                                      UIUserNotificationTypeAlert)
+                                          categories:nil];
+    } else {
+        //categories 必须为nil
+        [JMessage registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                                      UIRemoteNotificationTypeSound |
+                                                      UIRemoteNotificationTypeAlert)
+                                          categories:nil];
+    }
     
     return YES;
 }
