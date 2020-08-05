@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -167,6 +167,48 @@
 			path = tabControllers;
 			sourceTree = "<group>";
 		};
+		52216B8924D99C660093A2F8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		52216B8A24D99C770093A2F8 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Class;
+			sourceTree = "<group>";
+		};
+		52216B8B24D99C9C0093A2F8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		52216B8C24D99CCA0093A2F8 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Class;
+			sourceTree = "<group>";
+		};
+		52216B8D24D99CD90093A2F8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		52216B8E24D99CEE0093A2F8 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Class;
+			sourceTree = "<group>";
+		};
 		5427B83A2CA0E213EDEC272D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,9 +220,9 @@
 		E2D4A36C24D94B2000CE151F /* 聊天 */ = {
 			isa = PBXGroup;
 			children = (
+				52216B8C24D99CCA0093A2F8 /* Class */,
+				52216B8B24D99C9C0093A2F8 /* Model */,
 				E2D4A37024D94BC900CE151F /* Controllers */,
-				E2D4A37524D94EDF00CE151F /* Model */,
-				E2D4A37624D94EE800CE151F /* Class */,
 			);
 			path = "聊天";
 			sourceTree = "<group>";
@@ -188,9 +230,9 @@
 		E2D4A36D24D94B3E00CE151F /* 通讯录 */ = {
 			isa = PBXGroup;
 			children = (
+				52216B8E24D99CEE0093A2F8 /* Class */,
+				52216B8D24D99CD90093A2F8 /* Model */,
 				E2D4A37124D94BE000CE151F /* Controllers */,
-				E2D4A37224D94E9D00CE151F /* Model */,
-				E2D4A37324D94EB300CE151F /* Class */,
 			);
 			path = "通讯录";
 			sourceTree = "<group>";
@@ -199,8 +241,8 @@
 			isa = PBXGroup;
 			children = (
 				E2D4A36F24D94BAA00CE151F /* Controllers */,
-				E2D4A37724D94F4300CE151F /* Model */,
-				E2D4A37824D94F4E00CE151F /* Class */,
+				52216B8A24D99C770093A2F8 /* Class */,
+				52216B8924D99C660093A2F8 /* Model */,
 			);
 			path = "我的";
 			sourceTree = "<group>";
@@ -230,48 +272,6 @@
 				22B47F5D24D909850078122F /* AddressViewController.h */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		E2D4A37224D94E9D00CE151F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		E2D4A37324D94EB300CE151F /* Class */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Class;
-			sourceTree = "<group>";
-		};
-		E2D4A37524D94EDF00CE151F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		E2D4A37624D94EE800CE151F /* Class */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Class;
-			sourceTree = "<group>";
-		};
-		E2D4A37724D94F4300CE151F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		E2D4A37824D94F4E00CE151F /* Class */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Class;
 			sourceTree = "<group>";
 		};
 		F26CF57130128CBBFE537F99 /* Pods */ = {
@@ -351,19 +351,22 @@
 				TargetAttributes = {
 					22B47F2024D908BA0078122F = {
 						CreatedOnToolsVersion = 9.4;
+						ProvisioningStyle = Automatic;
 					};
 					22B47F3824D908BB0078122F = {
 						CreatedOnToolsVersion = 9.4;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 22B47F2024D908BA0078122F;
 					};
 					22B47F4324D908BB0078122F = {
 						CreatedOnToolsVersion = 9.4;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 22B47F2024D908BA0078122F;
 					};
 				};
 			};
 			buildConfigurationList = 22B47F1C24D908BA0078122F /* Build configuration list for PBXProject "WeChat-Demo" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -416,15 +419,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-WeChat-Demo-checkManifestLockResult.txt",
 			);
@@ -618,10 +617,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "WeChat-Demo/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "tino.WeChat-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -635,10 +632,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "WeChat-Demo/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "tino.WeChat-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -651,11 +646,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "WeChat-DemoTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "tino.WeChat-DemoTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -669,11 +660,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "WeChat-DemoTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "tino.WeChat-DemoTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -686,11 +673,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "WeChat-DemoUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "tino.WeChat-DemoUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -703,11 +686,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "WeChat-DemoUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "tino.WeChat-DemoUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
