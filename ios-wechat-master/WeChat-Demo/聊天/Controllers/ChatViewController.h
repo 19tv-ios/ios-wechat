@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ChatViewCell.h"
+#import "ChatController.h"
 @interface ChatViewController : UIViewController
 
+@property(nonatomic,strong) UITableView* tableview;
+
+@property(nonatomic,strong) UISearchController* search;
+
+@property(nonatomic,strong) ChatController* chatController;
 @end
