@@ -118,6 +118,12 @@
         if (uesr.uid) {
             TabBarController *tabBarC = [[TabBarController alloc] init];
             [self presentViewController:tabBarC animated:YES completion:nil];
+        }else{
+            //提示信息有误
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"账户信息有误.请重新输入" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"ok" style:UIAlertActionStyleCancel handler:nil];
+            [alertController addAction:cancelAction];
+            [self presentViewController:alertController animated:YES completion:nil];
         }
     }];
 }
