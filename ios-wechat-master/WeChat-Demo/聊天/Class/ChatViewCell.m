@@ -23,17 +23,17 @@
 -(void)initSubviews{
     _timeLabel = [[UILabel alloc]init];
     _timeLabel = UILabel.new;
-    _timeLabel.text = @"19:00";
+    _timeLabel.text = [NSString stringWithFormat:@"%@",_model.latestMsgTime];
     _timeLabel.font = [UIFont systemFontOfSize:10];
     
     _nameLabel = [[UILabel alloc]init];
     _nameLabel = UILabel.new;
-    _nameLabel.text = @"TinoWu";
+    _nameLabel.text = _model.title;
     _nameLabel.font = [UIFont systemFontOfSize:15 weight:1];
     
     _wordLabel = [[UILabel alloc]init];
     _wordLabel = UILabel.new;
-    _wordLabel.text = @"哈哈哈哈哈";
+    _wordLabel.text = _model.latestMessageContentText;
     _wordLabel.font = [UIFont systemFontOfSize:12];
     
     [self.contentView sd_addSubviews:@[_timeLabel,_nameLabel,_wordLabel] ];
@@ -63,10 +63,12 @@
               .widthIs(150)
     .heightIs(30);
 }
--(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andModel:(JMSGConversation *)model{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
 //    self.textLabel.text = @"TinoWu";
 //    self.detailTextLabel.text = @"哈哈哈哈哈";
+    _model = model;
+    NSLog(@"%@",_model.title);
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     [self initSubviews];
     return self;

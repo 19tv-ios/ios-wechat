@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <JMessage/JMessage.h>
 @interface ChatViewCell : UITableViewCell
 
 @property(nonatomic,strong)UILabel* timeLabel;
@@ -16,6 +16,7 @@
 
 @property(nonatomic,strong)UILabel* wordLabel;
 
--(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
+@property(nonatomic,strong)JMSGConversation* model;
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andModel:(JMSGConversation*)model;
 -(void)initSubviews;
 @end

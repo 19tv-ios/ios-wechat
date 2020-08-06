@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2212FF1F24DB9F710086724D /* GetConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2212FF1E24DB9F710086724D /* GetConversation.m */; };
+		2212FF2224DBAB250086724D /* Chat.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2212FF2124DBAB250086724D /* Chat.plist */; };
+		2212FF2524DBF0040086724D /* GetMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 2212FF2424DBF0040086724D /* GetMsg.m */; };
 		22B47F2624D908BA0078122F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F2524D908BA0078122F /* AppDelegate.m */; };
 		22B47F2924D908BA0078122F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F2824D908BA0078122F /* ViewController.m */; };
 		22B47F2C24D908BA0078122F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22B47F2A24D908BA0078122F /* Main.storyboard */; };
@@ -16,10 +19,14 @@
 		22B47F3E24D908BB0078122F /* WeChat_DemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F3D24D908BB0078122F /* WeChat_DemoTests.m */; };
 		22B47F4924D908BB0078122F /* WeChat_DemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F4824D908BB0078122F /* WeChat_DemoUITests.m */; };
 		22B47F5824D908E60078122F /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F5724D908E60078122F /* TabBarController.m */; };
-		22B47F5C24D909240078122F /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F5B24D909240078122F /* ChatViewController.m */; };
 		22B47F5F24D909850078122F /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F5E24D909850078122F /* AddressViewController.m */; };
 		22B47F6224D90C8E0078122F /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F6124D90C8E0078122F /* MyViewController.m */; };
-		22B47F6424D91D850078122F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22B47F6324D91D850078122F /* Images.xcassets */; };
+		22B47F8124DA9B820078122F /* YouCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F7D24DA9B820078122F /* YouCell.m */; };
+		22B47F8224DA9B820078122F /* MeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F7E24DA9B820078122F /* MeCell.m */; };
+		22B47F8324DA9B820078122F /* ChatViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F7F24DA9B820078122F /* ChatViewCell.m */; };
+		22B47F8824DA9D570078122F /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F8424DA9D560078122F /* ChatViewController.m */; };
+		22B47F8924DA9D570078122F /* ChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F8624DA9D560078122F /* ChatController.m */; };
+		22B47F8C24DAB4B30078122F /* Image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22B47F8B24DAB4B30078122F /* Image.xcassets */; };
 		5239903F24D9AA2F00310576 /* SignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239903E24D9AA2F00310576 /* SignViewController.m */; };
 		5239904324D9B70E00310576 /* registerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239904224D9B70E00310576 /* registerViewController.m */; };
 		8CF6B0FD6D9C7547EDE797E2 /* libPods-WeChat-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD9065A6A368963FDD894F1 /* libPods-WeChat-Demo.a */; };
@@ -44,6 +51,12 @@
 
 /* Begin PBXFileReference section */
 		0FD9065A6A368963FDD894F1 /* libPods-WeChat-Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeChat-Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2212FF1D24DB9F710086724D /* GetConversation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetConversation.h; sourceTree = "<group>"; };
+		2212FF1E24DB9F710086724D /* GetConversation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetConversation.m; sourceTree = "<group>"; };
+		2212FF2024DBA7C40086724D /* GetProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetProtocol.h; sourceTree = "<group>"; };
+		2212FF2124DBAB250086724D /* Chat.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Chat.plist; sourceTree = "<group>"; };
+		2212FF2324DBF0040086724D /* GetMsg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetMsg.h; sourceTree = "<group>"; };
+		2212FF2424DBF0040086724D /* GetMsg.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetMsg.m; sourceTree = "<group>"; };
 		22B47F2124D908BA0078122F /* WeChat-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WeChat-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22B47F2424D908BA0078122F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		22B47F2524D908BA0078122F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -62,13 +75,22 @@
 		22B47F4A24D908BB0078122F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22B47F5624D908E60078122F /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		22B47F5724D908E60078122F /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
-		22B47F5A24D909240078122F /* ChatViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
-		22B47F5B24D909240078122F /* ChatViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		22B47F5D24D909850078122F /* AddressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
 		22B47F5E24D909850078122F /* AddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
 		22B47F6024D90C8E0078122F /* MyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		22B47F6124D90C8E0078122F /* MyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
-		22B47F6324D91D850078122F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		22B47F7A24DA9AFB0078122F /* Root.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Root.h; sourceTree = "<group>"; };
+		22B47F7B24DA9B820078122F /* YouCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouCell.h; sourceTree = "<group>"; };
+		22B47F7C24DA9B820078122F /* ChatViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewCell.h; sourceTree = "<group>"; };
+		22B47F7D24DA9B820078122F /* YouCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouCell.m; sourceTree = "<group>"; };
+		22B47F7E24DA9B820078122F /* MeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCell.m; sourceTree = "<group>"; };
+		22B47F7F24DA9B820078122F /* ChatViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewCell.m; sourceTree = "<group>"; };
+		22B47F8024DA9B820078122F /* MeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCell.h; sourceTree = "<group>"; };
+		22B47F8424DA9D560078122F /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
+		22B47F8524DA9D560078122F /* ChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatController.h; sourceTree = "<group>"; };
+		22B47F8624DA9D560078122F /* ChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatController.m; sourceTree = "<group>"; };
+		22B47F8724DA9D560078122F /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
+		22B47F8B24DAB4B30078122F /* Image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Image.xcassets; sourceTree = "<group>"; };
 		5239903D24D9AA2F00310576 /* SignViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignViewController.h; sourceTree = "<group>"; };
 		5239903E24D9AA2F00310576 /* SignViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignViewController.m; sourceTree = "<group>"; };
 		5239904124D9B70E00310576 /* registerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = registerViewController.h; sourceTree = "<group>"; };
@@ -139,11 +161,12 @@
 				22B47F2724D908BA0078122F /* ViewController.h */,
 				22B47F2824D908BA0078122F /* ViewController.m */,
 				22B47F2A24D908BA0078122F /* Main.storyboard */,
-				22B47F6324D91D850078122F /* Images.xcassets */,
 				22B47F2D24D908BB0078122F /* Assets.xcassets */,
 				22B47F2F24D908BB0078122F /* LaunchScreen.storyboard */,
 				22B47F3224D908BB0078122F /* Info.plist */,
 				22B47F3324D908BB0078122F /* main.m */,
+				22B47F8B24DAB4B30078122F /* Image.xcassets */,
+				2212FF2124DBAB250086724D /* Chat.plist */,
 			);
 			path = "WeChat-Demo";
 			sourceTree = "<group>";
@@ -175,11 +198,24 @@
 			path = tabControllers;
 			sourceTree = "<group>";
 		};
+		22B47F8D24DB06E80078122F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2212FF1D24DB9F710086724D /* GetConversation.h */,
+				2212FF1E24DB9F710086724D /* GetConversation.m */,
+				2212FF2024DBA7C40086724D /* GetProtocol.h */,
+				2212FF2324DBF0040086724D /* GetMsg.h */,
+				2212FF2424DBF0040086724D /* GetMsg.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		5239903C24D9A94200310576 /* 登录 */ = {
 			isa = PBXGroup;
 			children = (
 				5239903D24D9AA2F00310576 /* SignViewController.h */,
 				5239903E24D9AA2F00310576 /* SignViewController.m */,
+				22B47F7A24DA9AFB0078122F /* Root.h */,
 			);
 			path = "登录";
 			sourceTree = "<group>";
@@ -205,7 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				E2D4A37024D94BC900CE151F /* Controllers */,
-				E2D4A37524D94EDF00CE151F /* Model */,
+				22B47F8D24DB06E80078122F /* Model */,
 				E2D4A37624D94EE800CE151F /* Class */,
 			);
 			path = "聊天";
@@ -243,8 +279,10 @@
 		E2D4A37024D94BC900CE151F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				22B47F5A24D909240078122F /* ChatViewController.h */,
-				22B47F5B24D909240078122F /* ChatViewController.m */,
+				22B47F8524DA9D560078122F /* ChatController.h */,
+				22B47F8624DA9D560078122F /* ChatController.m */,
+				22B47F8724DA9D560078122F /* ChatViewController.h */,
+				22B47F8424DA9D560078122F /* ChatViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -272,16 +310,15 @@
 			path = Class;
 			sourceTree = "<group>";
 		};
-		E2D4A37524D94EDF00CE151F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		E2D4A37624D94EE800CE151F /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				22B47F7C24DA9B820078122F /* ChatViewCell.h */,
+				22B47F7F24DA9B820078122F /* ChatViewCell.m */,
+				22B47F8024DA9B820078122F /* MeCell.h */,
+				22B47F7E24DA9B820078122F /* MeCell.m */,
+				22B47F7B24DA9B820078122F /* YouCell.h */,
+				22B47F7D24DA9B820078122F /* YouCell.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -414,8 +451,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				22B47F3124D908BB0078122F /* LaunchScreen.storyboard in Resources */,
-				22B47F6424D91D850078122F /* Images.xcassets in Resources */,
+				22B47F8C24DAB4B30078122F /* Image.xcassets in Resources */,
 				22B47F2E24D908BB0078122F /* Assets.xcassets in Resources */,
+				2212FF2224DBAB250086724D /* Chat.plist in Resources */,
 				22B47F2C24D908BA0078122F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,15 +500,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22B47F8324DA9B820078122F /* ChatViewCell.m in Sources */,
+				22B47F8224DA9B820078122F /* MeCell.m in Sources */,
+				22B47F8824DA9D570078122F /* ChatViewController.m in Sources */,
+				2212FF1F24DB9F710086724D /* GetConversation.m in Sources */,
 				5239904324D9B70E00310576 /* registerViewController.m in Sources */,
+				2212FF2524DBF0040086724D /* GetMsg.m in Sources */,
 				22B47F2924D908BA0078122F /* ViewController.m in Sources */,
 				22B47F5824D908E60078122F /* TabBarController.m in Sources */,
-				22B47F5C24D909240078122F /* ChatViewController.m in Sources */,
 				22B47F5F24D909850078122F /* AddressViewController.m in Sources */,
 				22B47F3424D908BB0078122F /* main.m in Sources */,
 				22B47F2624D908BA0078122F /* AppDelegate.m in Sources */,
 				22B47F6224D90C8E0078122F /* MyViewController.m in Sources */,
 				5239903F24D9AA2F00310576 /* SignViewController.m in Sources */,
+				22B47F8924DA9D570078122F /* ChatController.m in Sources */,
+				22B47F8124DA9B820078122F /* YouCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -646,6 +690,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "tino.WeChat-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -8,9 +8,10 @@
 
 #import "AppDelegate.h"
 #import <JMessage/JMessage.h>
+#import "Root.h"
 #import <UserNotifications/UserNotifications.h>
-
-@interface AppDelegate ()
+#define appkey @"0a974aa68871f642444ae38b"
+@interface AppDelegate ()<Root>
 
 @end
 
@@ -19,22 +20,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    self.window = [ [UIWindow alloc] initWithFrame:[[UIScreen mainScreen]bounds] ];
-    //启动完成后显示状态栏
-    UIApplication* app = [UIApplication sharedApplication];
-    app.statusBarHidden = NO;
-    
-   // _tabBarController = [[TabBarController alloc] init];
-    _signViewController = [[SignViewController alloc] init];
-    
-    //self.window.rootViewController = _tabBarController;
-    
-    self.window.rootViewController = _signViewController;
-    [self.window makeKeyAndVisible];
-    
-    NSString *appkey = @"0a974aa68871f642444ae38b";
     // Required - 启动 JMessage SDK
-    [JMessage setupJMessage:launchOptions appKey:appkey channel:nil apsForProduction:NO category:nil  messageRoaming:YES];
+    [JMessage setupJMessage:launchOptions appKey:appkey channel:nil apsForProduction:NO category:nil messageRoaming:NO];
     // Required - 注册 APNs 通知
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
         //可以添加自定义categories
@@ -49,12 +36,31 @@
                                                       UNAuthorizationOptionAlert)
                                           categories:nil];
     }
+    self.window = [ [UIWindow alloc] initWithFrame:[[UIScreen mainScreen]bounds] ];
+    //启动完成后显示状态栏
+    UIApplication* app = [UIApplication sharedApplication];
+    app.statusBarHidden = NO;
+    
+    _tabBarController = [[TabBarController alloc] init];
+    _signViewController = [[SignViewController alloc] init];
+    _signViewController.delegate = self;
+    
+    self.window.rootViewController = _signViewController;
+    [self.window makeKeyAndVisible];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *plistPath = [paths objectAtIndex:0];//获取沙盒地址
+    self.tabBarController.chatView.address = [plistPath stringByAppendingPathComponent:@"Chat.plist"];
+    
     return YES;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // Required - 注册token
     [JMessage registerDeviceToken:deviceToken];
+}
+-(void)changeRootVC{
+    self.window.rootViewController = _tabBarController;
 }
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

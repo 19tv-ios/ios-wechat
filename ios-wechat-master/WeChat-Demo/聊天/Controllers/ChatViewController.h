@@ -9,11 +9,28 @@
 #import <UIKit/UIKit.h>
 #import "ChatViewCell.h"
 #import "ChatController.h"
-@interface ChatViewController : UIViewController
+#import <JMessage/JMessage.h>
+#import "GetConversation.h"
+#import "GetMsg.h"
+#import "GetProtocol.h"
+@interface ChatViewController : UIViewController<GetProtocol>
 
 @property(nonatomic,strong) UITableView* tableview;
 
 @property(nonatomic,strong) UISearchController* search;
 
 @property(nonatomic,strong) ChatController* chatController;
+
+@property(nonatomic,strong) NSMutableArray* conversationArray;
+
+@property(nonatomic,strong) NSMutableArray* msgArray;
+
+@property(nonatomic,strong) JMSGConversation* model;
+
+@property(nonatomic,strong) GetConversation* getModel;
+
+@property(nonatomic,strong) GetMsg* getMsg;
+
+@property(nonatomic,strong) NSString* address;
+-(void)getMsgModel;
 @end

@@ -35,7 +35,6 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    
     //初始化账号输入框
     [self setUpAccoutField];
     
@@ -115,9 +114,11 @@
     NSString *passWord = _passwordField.text;
     [JMSGUser loginWithUsername:username password:passWord completionHandler:^(id resultObject, NSError *error) {
         JMSGUser *uesr = resultObject;
+        NSLog(@"登陆成功");
         if (uesr.uid) {
-            TabBarController *tabBarC = [[TabBarController alloc] init];
-            [self presentViewController:tabBarC animated:YES completion:nil];
+            //TabBarController *tabBarC = [[TabBarController alloc] init];
+            //[self presentViewController:tabBarC animated:YES completion:nil];
+            [self.delegate changeRootVC];
         }
     }];
 }

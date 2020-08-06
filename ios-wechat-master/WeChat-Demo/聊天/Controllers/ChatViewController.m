@@ -17,6 +17,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+//    _conversationArray = [[NSMutableArray alloc]init];
+//    [self getConversationModel];
+//    _getModel.delegate = self;
+//    _tableview.tableHeaderView = [[UIView alloc]init];
+//    _tableview.tableFooterView = [[UIView alloc]init];
     _tableview = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     [self.view addSubview:_tableview];
     
@@ -48,6 +53,7 @@
     //self.navigationController.navigationBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 170);
     //[self.navigationController.navigationBar addSubview:_search.searchBar];
     self.navigationItem.searchController = _search;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,19 +62,19 @@
 }
 #pragma mark tableview delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 20;
+    return _conversationArray.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString* reuseID = @"chat";
-    //UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    ChatViewCell* cell = [tableView dequeueReusableCellWithIdentifier:reuseID];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    //ChatViewCell* cell = [tableView dequeueReusableCellWithIdentifier:reuseID];
+    _model = [[JMSGConversation alloc]init];
+    _model = [_conversationArray objectAtIndex:indexPath.row];
     if(!cell){
-        cell = [[ChatViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseID];
+        cell = [[ChatViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseID andModel:_model];
     }
     UIImage* image = [UIImage imageNamed:@"微信"];
     cell.imageView.image = image;
-    
-    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -78,11 +84,33 @@
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    JMSGMessage* msg = [_msgArray objectAtIndex:indexPath.row];
+    //con.conversationType = kJMSGConversationTypeSingle;
     _chatController = [[ChatController alloc]init];
     _chatController.hidesBottomBarWhenPushed = YES;
-    //[_chatController viewDidLoad];
+    //[_chatController getAllMsg];
+    //[NSThread sleepForTimeInterval:2];
     [self.navigationController pushViewController:_chatController animated:YES];
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
+}
+-(void)getConversationModel{
+    _getModel = [[GetConversation alloc]init];
+    [_getModel getConversation];
+//    _conversationArray = _getModel.allConversation;
+//    NSLog(@"conversation --- %@",_getModel.allConversation);
+}
+-(void)getMsgModel{
+    _msgArray = [[NSMutableArray alloc]init];
+    _getMsg = [[GetMsg alloc]init];
+    [_getMsg getMsgWithConversationArray:_conversationArray];
+}
+-(void)sendConversation:(NSMutableArray *)array{
+    _conversationArray = array;
+    //NSLog(@"send成功 --- %@",_conversationArray);
+}
+-(void)sendMsg:(NSMutableArray *)ary{
+    [_msgArray addObject:ary];
+    NSLog(@"收到收到");
 }
 /*
 #pragma mark - Navigation
