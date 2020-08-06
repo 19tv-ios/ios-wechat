@@ -30,7 +30,7 @@
     [self addChildViewController:_addressView withTitle:@"通讯录" Image:@"通讯录" selectedImage:@"通讯录"];
     
     _myView = [[MyViewController alloc]init];
-    [self addChildViewController:_myView withTitle:@"我的" Image:@"我的" selectedImage:@"我的"];
+    [self addChildViewController:_myView withTitle:@"个人中心" Image:@"我的" selectedImage:@"我的"];
     
     
 }
@@ -48,14 +48,6 @@
     [self addChildViewController:navController];
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
