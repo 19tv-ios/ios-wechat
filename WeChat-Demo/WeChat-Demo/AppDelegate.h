@@ -8,11 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "TabBarController.h"
+#import "SignViewController.h"
+
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) TabBarController* tabBarController;
+
+@property (strong, nonatomic) SignViewController *signViewController;
 
 @end
 

@@ -17,10 +17,15 @@
 		22B47F4924D908BB0078122F /* WeChat_DemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F4824D908BB0078122F /* WeChat_DemoUITests.m */; };
 		22B47F5824D908E60078122F /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F5724D908E60078122F /* TabBarController.m */; };
 		22B47F5C24D909240078122F /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F5B24D909240078122F /* ChatViewController.m */; };
-		22B47F5F24D909850078122F /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F5E24D909850078122F /* AddressViewController.m */; };
 		22B47F6224D90C8E0078122F /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F6124D90C8E0078122F /* MyViewController.m */; };
 		22B47F6424D91D850078122F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22B47F6324D91D850078122F /* Images.xcassets */; };
+		5239903F24D9AA2F00310576 /* SignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239903E24D9AA2F00310576 /* SignViewController.m */; };
+		5239904324D9B70E00310576 /* registerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239904224D9B70E00310576 /* registerViewController.m */; };
 		8CF6B0FD6D9C7547EDE797E2 /* libPods-WeChat-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD9065A6A368963FDD894F1 /* libPods-WeChat-Demo.a */; };
+		E21FE30024DA8D7A0094D779 /* DetailVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E21FE2FF24DA8D7A0094D779 /* DetailVc.m */; };
+		E21FE30324DA8D810094D779 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E21FE30224DA8D810094D779 /* AddressViewController.m */; };
+		E21FE30624DA8F980094D779 /* AddFriendsVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E21FE30524DA8F980094D779 /* AddFriendsVc.m */; };
+		E2EDBBD624DAB1F300FE8E02 /* newFriendsVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EDBBD524DAB1F300FE8E02 /* newFriendsVc.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,13 +67,23 @@
 		22B47F5724D908E60078122F /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		22B47F5A24D909240078122F /* ChatViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		22B47F5B24D909240078122F /* ChatViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
-		22B47F5D24D909850078122F /* AddressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
-		22B47F5E24D909850078122F /* AddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
 		22B47F6024D90C8E0078122F /* MyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		22B47F6124D90C8E0078122F /* MyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		22B47F6324D91D850078122F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		5239903D24D9AA2F00310576 /* SignViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignViewController.h; sourceTree = "<group>"; };
+		5239903E24D9AA2F00310576 /* SignViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignViewController.m; sourceTree = "<group>"; };
+		5239904124D9B70E00310576 /* registerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = registerViewController.h; sourceTree = "<group>"; };
+		5239904224D9B70E00310576 /* registerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = registerViewController.m; sourceTree = "<group>"; };
 		69AFE9673C9041676E05E05A /* Pods-WeChat-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChat-Demo.debug.xcconfig"; path = "Target Support Files/Pods-WeChat-Demo/Pods-WeChat-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		A36C5BAE38B0ABD6ADB1F0C6 /* Pods-WeChat-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChat-Demo.release.xcconfig"; path = "Target Support Files/Pods-WeChat-Demo/Pods-WeChat-Demo.release.xcconfig"; sourceTree = "<group>"; };
+		E21FE2FE24DA8D7A0094D779 /* DetailVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailVc.h; sourceTree = "<group>"; };
+		E21FE2FF24DA8D7A0094D779 /* DetailVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailVc.m; sourceTree = "<group>"; };
+		E21FE30124DA8D810094D779 /* AddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddressViewController.h; path = "../../../../../WeChat-Demo/通讯录/Controllers/AddressViewController.h"; sourceTree = "<group>"; };
+		E21FE30224DA8D810094D779 /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddressViewController.m; path = "../../../../../WeChat-Demo/通讯录/Controllers/AddressViewController.m"; sourceTree = "<group>"; };
+		E21FE30424DA8F980094D779 /* AddFriendsVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddFriendsVc.h; sourceTree = "<group>"; };
+		E21FE30524DA8F980094D779 /* AddFriendsVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddFriendsVc.m; sourceTree = "<group>"; };
+		E2EDBBD424DAB1F300FE8E02 /* newFriendsVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = newFriendsVc.h; sourceTree = "<group>"; };
+		E2EDBBD524DAB1F300FE8E02 /* newFriendsVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = newFriendsVc.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +118,8 @@
 				E2D4A36E24D94B6F00CE151F /* 我的 */,
 				E2D4A36C24D94B2000CE151F /* 聊天 */,
 				E2D4A36D24D94B3E00CE151F /* 通讯录 */,
+				5239904024D9B65200310576 /* 注册 */,
+				5239903C24D9A94200310576 /* 登录 */,
 				22B47F5924D908FA0078122F /* tabControllers */,
 				22B47F2324D908BA0078122F /* WeChat-Demo */,
 				22B47F3C24D908BB0078122F /* WeChat-DemoTests */,
@@ -167,6 +184,24 @@
 			path = tabControllers;
 			sourceTree = "<group>";
 		};
+		5239903C24D9A94200310576 /* 登录 */ = {
+			isa = PBXGroup;
+			children = (
+				5239903D24D9AA2F00310576 /* SignViewController.h */,
+				5239903E24D9AA2F00310576 /* SignViewController.m */,
+			);
+			path = "登录";
+			sourceTree = "<group>";
+		};
+		5239904024D9B65200310576 /* 注册 */ = {
+			isa = PBXGroup;
+			children = (
+				5239904124D9B70E00310576 /* registerViewController.h */,
+				5239904224D9B70E00310576 /* registerViewController.m */,
+			);
+			path = "注册";
+			sourceTree = "<group>";
+		};
 		5427B83A2CA0E213EDEC272D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,8 +261,14 @@
 		E2D4A37124D94BE000CE151F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				22B47F5E24D909850078122F /* AddressViewController.m */,
-				22B47F5D24D909850078122F /* AddressViewController.h */,
+				E21FE30124DA8D810094D779 /* AddressViewController.h */,
+				E21FE30224DA8D810094D779 /* AddressViewController.m */,
+				E21FE30424DA8F980094D779 /* AddFriendsVc.h */,
+				E21FE30524DA8F980094D779 /* AddFriendsVc.m */,
+				E21FE2FE24DA8D7A0094D779 /* DetailVc.h */,
+				E21FE2FF24DA8D7A0094D779 /* DetailVc.m */,
+				E2EDBBD424DAB1F300FE8E02 /* newFriendsVc.h */,
+				E2EDBBD524DAB1F300FE8E02 /* newFriendsVc.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -416,15 +457,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-WeChat-Demo-checkManifestLockResult.txt",
 			);
@@ -440,13 +477,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5239904324D9B70E00310576 /* registerViewController.m in Sources */,
+				E21FE30024DA8D7A0094D779 /* DetailVc.m in Sources */,
 				22B47F2924D908BA0078122F /* ViewController.m in Sources */,
+				E21FE30624DA8F980094D779 /* AddFriendsVc.m in Sources */,
+				E21FE30324DA8D810094D779 /* AddressViewController.m in Sources */,
 				22B47F5824D908E60078122F /* TabBarController.m in Sources */,
 				22B47F5C24D909240078122F /* ChatViewController.m in Sources */,
-				22B47F5F24D909850078122F /* AddressViewController.m in Sources */,
 				22B47F3424D908BB0078122F /* main.m in Sources */,
 				22B47F2624D908BA0078122F /* AppDelegate.m in Sources */,
 				22B47F6224D90C8E0078122F /* MyViewController.m in Sources */,
+				5239903F24D9AA2F00310576 /* SignViewController.m in Sources */,
+				E2EDBBD624DAB1F300FE8E02 /* newFriendsVc.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -625,6 +667,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "tino.WeChat-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)/**";
 			};
 			name = Debug;
 		};
@@ -642,6 +685,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "tino.WeChat-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)/**";
 			};
 			name = Release;
 		};
