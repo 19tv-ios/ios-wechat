@@ -32,5 +32,7 @@
 @property(nonatomic,strong) GetMsg* getMsg;
 
 @property(nonatomic,strong) NSString* address;
+
+@property(nonatomic,strong) JMSGMessage* certainMsg;
 -(void)getMsgModel;
 @end

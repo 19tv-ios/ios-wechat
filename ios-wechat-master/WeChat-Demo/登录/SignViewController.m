@@ -36,13 +36,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-<<<<<<< HEAD
-=======
     
     //初始化图标
     [self setUpIconImageView];
     
->>>>>>> ec69a94fef2fe39351a66c9d1ec3d7dd8ea61422
     //初始化账号输入框
     [self setUpAccoutField];
     
@@ -149,20 +146,15 @@
         JMSGUser *uesr = resultObject;
         NSLog(@"登陆成功");
         if (uesr.uid) {
-<<<<<<< HEAD
             TabBarController *tabBarC = [[TabBarController alloc] init];
             [self presentViewController:tabBarC animated:YES completion:nil];
             //[self.delegate changeRootVC];
-=======
-            TabBarController *tabBarC = [[TabBarController alloc] init];
-            [self presentViewController:tabBarC animated:YES completion:nil];
         }else{
             //提示信息有误
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"账户信息有误.请重新输入" message:nil preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"ok" style:UIAlertActionStyleCancel handler:nil];
             [alertController addAction:cancelAction];
             [self presentViewController:alertController animated:YES completion:nil];
->>>>>>> ec69a94fef2fe39351a66c9d1ec3d7dd8ea61422
         }
     }];
 }

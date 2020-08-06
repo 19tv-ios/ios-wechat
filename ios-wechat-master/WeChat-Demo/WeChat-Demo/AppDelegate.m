@@ -48,10 +48,6 @@
     self.window.rootViewController = _signViewController;
     [self.window makeKeyAndVisible];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *plistPath = [paths objectAtIndex:0];//获取沙盒地址
-    self.tabBarController.chatView.address = [plistPath stringByAppendingPathComponent:@"Chat.plist"];
-    
     return YES;
 }
 

@@ -47,13 +47,13 @@
     MeCell* meCell = [tableView cellForRowAtIndexPath:indexPath];
     //UITableViewCell* cell = [[UITableViewCell alloc]init];
 //    JMSGMessage* msg = [_msgArray objectAtIndex:indexPath.row];
-//    JMSGTextContent* textContent = (JMSGTextContent*)msg.content;
-//    NSString* text = textContent.text;
-//    NSLog(@"%@",text);
+    JMSGTextContent* textContent = (JMSGTextContent*)_model.content;
+    NSString* text = textContent.text;
+    NSLog(@"%@",text);
     if(!meCell){
         meCell = [[MeCell alloc]init];
     }
-//    meCell.wordLabel.text = text;
+    meCell.wordLabel.text = text;
     return meCell;
 }
 #pragma mark setup bottomview
@@ -118,10 +118,10 @@
 //        [self addToArray:temp];
 //    }];
 //}
--(void)addToArray:(NSMutableArray*)array{
-    _msgArray = array;
-    NSLog(@"%@ --- ",_msgArray);
-}
+//-(void)addToArray:(NSMutableArray*)array{
+//    _msgArray = array;
+//    NSLog(@"%@ --- ",_msgArray);
+//}
 /*
 #pragma mark - Navigation
 

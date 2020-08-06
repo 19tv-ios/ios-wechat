@@ -27,5 +27,5 @@
 @property(nonatomic,strong)JMSGMessage* model;
 
 -(instancetype)initWithMsg:(JMSGMessage*)msg;
--(void)getAllMsg;
+//-(void)getAllMsg;
 @end
