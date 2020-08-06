@@ -62,7 +62,7 @@
     self.iconImageView.layer.backgroundColor = [UIColor whiteColor].CGColor;
     self.iconImageView.layer.borderWidth = 0;
     self.iconImageView.layer.masksToBounds = YES;
-    [_iconImageView setImage:[UIImage imageNamed:@"微信"]];
+    [_iconImageView setImage:[UIImage imageNamed:@"微信1"]];
     [self.view addSubview:self.iconImageView];
     CGFloat left = (self.view.frame.size.width - 38 -38)/2 - 10;
     self.iconImageView.sd_layout
