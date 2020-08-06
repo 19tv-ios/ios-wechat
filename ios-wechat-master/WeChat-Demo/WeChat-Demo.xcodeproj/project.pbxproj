@@ -30,6 +30,10 @@
 		5239903F24D9AA2F00310576 /* SignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239903E24D9AA2F00310576 /* SignViewController.m */; };
 		5239904324D9B70E00310576 /* registerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239904224D9B70E00310576 /* registerViewController.m */; };
 		8CF6B0FD6D9C7547EDE797E2 /* libPods-WeChat-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD9065A6A368963FDD894F1 /* libPods-WeChat-Demo.a */; };
+		E2FB996F24DC10E000F48633 /* DetailVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FB996924DC10E000F48633 /* DetailVc.m */; };
+		E2FB997024DC10E000F48633 /* newFriendsVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FB996C24DC10E000F48633 /* newFriendsVc.m */; };
+		E2FB997124DC10E000F48633 /* AddFriendsVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FB996D24DC10E000F48633 /* AddFriendsVc.m */; };
+		E2FB997524DC171200F48633 /* Zhbutton.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FB997424DC171200F48633 /* Zhbutton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +101,14 @@
 		5239904224D9B70E00310576 /* registerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = registerViewController.m; sourceTree = "<group>"; };
 		69AFE9673C9041676E05E05A /* Pods-WeChat-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChat-Demo.debug.xcconfig"; path = "Target Support Files/Pods-WeChat-Demo/Pods-WeChat-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		A36C5BAE38B0ABD6ADB1F0C6 /* Pods-WeChat-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChat-Demo.release.xcconfig"; path = "Target Support Files/Pods-WeChat-Demo/Pods-WeChat-Demo.release.xcconfig"; sourceTree = "<group>"; };
+		E2FB996924DC10E000F48633 /* DetailVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailVc.m; sourceTree = "<group>"; };
+		E2FB996A24DC10E000F48633 /* AddFriendsVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendsVc.h; sourceTree = "<group>"; };
+		E2FB996B24DC10E000F48633 /* newFriendsVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = newFriendsVc.h; sourceTree = "<group>"; };
+		E2FB996C24DC10E000F48633 /* newFriendsVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = newFriendsVc.m; sourceTree = "<group>"; };
+		E2FB996D24DC10E000F48633 /* AddFriendsVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendsVc.m; sourceTree = "<group>"; };
+		E2FB996E24DC10E000F48633 /* DetailVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailVc.h; sourceTree = "<group>"; };
+		E2FB997324DC171200F48633 /* Zhbutton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Zhbutton.h; sourceTree = "<group>"; };
+		E2FB997424DC171200F48633 /* Zhbutton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Zhbutton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,8 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				E2D4A37124D94BE000CE151F /* Controllers */,
-				E2D4A37224D94E9D00CE151F /* Model */,
-				E2D4A37324D94EB300CE151F /* Class */,
+				E2FB997224DC16E400F48633 /* class */,
 			);
 			path = "通讯录";
 			sourceTree = "<group>";
@@ -261,8 +272,6 @@
 			isa = PBXGroup;
 			children = (
 				E2D4A36F24D94BAA00CE151F /* Controllers */,
-				E2D4A37724D94F4300CE151F /* Model */,
-				E2D4A37824D94F4E00CE151F /* Class */,
 			);
 			path = "我的";
 			sourceTree = "<group>";
@@ -290,24 +299,16 @@
 		E2D4A37124D94BE000CE151F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				22B47F5E24D909850078122F /* AddressViewController.m */,
 				22B47F5D24D909850078122F /* AddressViewController.h */,
+				22B47F5E24D909850078122F /* AddressViewController.m */,
+				E2FB996A24DC10E000F48633 /* AddFriendsVc.h */,
+				E2FB996D24DC10E000F48633 /* AddFriendsVc.m */,
+				E2FB996B24DC10E000F48633 /* newFriendsVc.h */,
+				E2FB996C24DC10E000F48633 /* newFriendsVc.m */,
+				E2FB996E24DC10E000F48633 /* DetailVc.h */,
+				E2FB996924DC10E000F48633 /* DetailVc.m */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		E2D4A37224D94E9D00CE151F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		E2D4A37324D94EB300CE151F /* Class */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Class;
 			sourceTree = "<group>";
 		};
 		E2D4A37624D94EE800CE151F /* Class */ = {
@@ -323,18 +324,13 @@
 			path = Class;
 			sourceTree = "<group>";
 		};
-		E2D4A37724D94F4300CE151F /* Model */ = {
+		E2FB997224DC16E400F48633 /* class */ = {
 			isa = PBXGroup;
 			children = (
+				E2FB997324DC171200F48633 /* Zhbutton.h */,
+				E2FB997424DC171200F48633 /* Zhbutton.m */,
 			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		E2D4A37824D94F4E00CE151F /* Class */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Class;
+			path = class;
 			sourceTree = "<group>";
 		};
 		F26CF57130128CBBFE537F99 /* Pods */ = {
@@ -501,11 +497,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				22B47F8324DA9B820078122F /* ChatViewCell.m in Sources */,
+				E2FB996F24DC10E000F48633 /* DetailVc.m in Sources */,
+				E2FB997024DC10E000F48633 /* newFriendsVc.m in Sources */,
 				22B47F8224DA9B820078122F /* MeCell.m in Sources */,
 				22B47F8824DA9D570078122F /* ChatViewController.m in Sources */,
 				2212FF1F24DB9F710086724D /* GetConversation.m in Sources */,
 				5239904324D9B70E00310576 /* registerViewController.m in Sources */,
 				2212FF2524DBF0040086724D /* GetMsg.m in Sources */,
+				E2FB997124DC10E000F48633 /* AddFriendsVc.m in Sources */,
+				E2FB997524DC171200F48633 /* Zhbutton.m in Sources */,
 				22B47F2924D908BA0078122F /* ViewController.m in Sources */,
 				22B47F5824D908E60078122F /* TabBarController.m in Sources */,
 				22B47F5F24D909850078122F /* AddressViewController.m in Sources */,
