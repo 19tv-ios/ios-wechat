@@ -144,9 +144,11 @@
     NSString *passWord = _passwordField.text;
     [JMSGUser loginWithUsername:username password:passWord completionHandler:^(id resultObject, NSError *error) {
         JMSGUser *uesr = resultObject;
+        NSLog(@"登陆成功");
         if (uesr.uid) {
             TabBarController *tabBarC = [[TabBarController alloc] init];
             [self presentViewController:tabBarC animated:YES completion:nil];
+            //[self.delegate changeRootVC];
         }else{
             //提示信息有误
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"账户信息有误.请重新输入" message:nil preferredStyle:UIAlertControllerStyleAlert];
