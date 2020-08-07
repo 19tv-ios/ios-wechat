@@ -27,10 +27,6 @@
 		22B47F8824DA9D570078122F /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F8424DA9D560078122F /* ChatViewController.m */; };
 		22B47F8924DA9D570078122F /* ChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F8624DA9D560078122F /* ChatController.m */; };
 		22B47F8C24DAB4B30078122F /* Image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22B47F8B24DAB4B30078122F /* Image.xcassets */; };
-		5224308924DCF24300B76C2A /* DetailVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 5224308424DCF24200B76C2A /* DetailVc.m */; };
-		5224308A24DCF24300B76C2A /* newFriendsVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 5224308524DCF24200B76C2A /* newFriendsVc.m */; };
-		5224308B24DCF24300B76C2A /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5224308824DCF24200B76C2A /* AddressViewController.m */; };
-		5224308D24DCF29C00B76C2A /* AddFriendsVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 5224308C24DCF29B00B76C2A /* AddFriendsVc.m */; };
 		5239903F24D9AA2F00310576 /* SignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239903E24D9AA2F00310576 /* SignViewController.m */; };
 		8CF6B0FD6D9C7547EDE797E2 /* libPods-WeChat-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD9065A6A368963FDD894F1 /* libPods-WeChat-Demo.a */; };
 /* End PBXBuildFile section */
@@ -95,14 +91,6 @@
 		22B47F8624DA9D560078122F /* ChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatController.m; sourceTree = "<group>"; };
 		22B47F8724DA9D560078122F /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		22B47F8B24DAB4B30078122F /* Image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Image.xcassets; sourceTree = "<group>"; };
-		5224308324DCF24200B76C2A /* newFriendsVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = newFriendsVc.h; path = ../../../../../Desktop/Controllers/newFriendsVc.h; sourceTree = "<group>"; };
-		5224308424DCF24200B76C2A /* DetailVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailVc.m; path = ../../../../../Desktop/Controllers/DetailVc.m; sourceTree = "<group>"; };
-		5224308524DCF24200B76C2A /* newFriendsVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = newFriendsVc.m; path = ../../../../../Desktop/Controllers/newFriendsVc.m; sourceTree = "<group>"; };
-		5224308624DCF24200B76C2A /* DetailVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailVc.h; path = ../../../../../Desktop/Controllers/DetailVc.h; sourceTree = "<group>"; };
-		5224308724DCF24200B76C2A /* AddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddressViewController.h; path = ../../../../../Desktop/Controllers/AddressViewController.h; sourceTree = "<group>"; };
-		5224308824DCF24200B76C2A /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddressViewController.m; path = ../../../../../Desktop/Controllers/AddressViewController.m; sourceTree = "<group>"; };
-		5224308C24DCF29B00B76C2A /* AddFriendsVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddFriendsVc.m; path = ../../../../../Desktop/Controllers/AddFriendsVc.m; sourceTree = "<group>"; };
-		5224308E24DCF2A100B76C2A /* AddFriendsVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AddFriendsVc.h; path = ../../../../../Desktop/Controllers/AddFriendsVc.h; sourceTree = "<group>"; };
 		5239903D24D9AA2F00310576 /* SignViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignViewController.h; sourceTree = "<group>"; };
 		5239903E24D9AA2F00310576 /* SignViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignViewController.m; sourceTree = "<group>"; };
 		5239904124D9B70E00310576 /* registerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = registerViewController.h; sourceTree = "<group>"; };
@@ -235,14 +223,6 @@
 		5224308024DCF20E00B76C2A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5224308E24DCF2A100B76C2A /* AddFriendsVc.h */,
-				5224308C24DCF29B00B76C2A /* AddFriendsVc.m */,
-				5224308724DCF24200B76C2A /* AddressViewController.h */,
-				5224308824DCF24200B76C2A /* AddressViewController.m */,
-				5224308624DCF24200B76C2A /* DetailVc.h */,
-				5224308424DCF24200B76C2A /* DetailVc.m */,
-				5224308324DCF24200B76C2A /* newFriendsVc.h */,
-				5224308524DCF24200B76C2A /* newFriendsVc.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -530,14 +510,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2212FF3B24DC0C090086724D /* registerViewController.m in Sources */,
-				5224308924DCF24300B76C2A /* DetailVc.m in Sources */,
-				5224308A24DCF24300B76C2A /* newFriendsVc.m in Sources */,
 				22B47F8324DA9B820078122F /* ChatViewCell.m in Sources */,
 				22B47F8224DA9B820078122F /* MeCell.m in Sources */,
 				22B47F8824DA9D570078122F /* ChatViewController.m in Sources */,
 				2212FF1F24DB9F710086724D /* GetConversation.m in Sources */,
 				2212FF2524DBF0040086724D /* GetMsg.m in Sources */,
-				5224308D24DCF29C00B76C2A /* AddFriendsVc.m in Sources */,
 				22B47F2924D908BA0078122F /* ViewController.m in Sources */,
 				22B47F5824D908E60078122F /* TabBarController.m in Sources */,
 				22B47F3424D908BB0078122F /* main.m in Sources */,
@@ -545,7 +522,6 @@
 				22B47F6224D90C8E0078122F /* MyViewController.m in Sources */,
 				5239903F24D9AA2F00310576 /* SignViewController.m in Sources */,
 				22B47F8924DA9D570078122F /* ChatController.m in Sources */,
-				5224308B24DCF24300B76C2A /* AddressViewController.m in Sources */,
 				22B47F8124DA9B820078122F /* YouCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
