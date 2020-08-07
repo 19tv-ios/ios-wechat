@@ -54,6 +54,33 @@
     
     //监听注册账号成功的通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(register:) name:@"register" object:nil];
+    
+//    NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0]; // 获取当前时间0秒后的时间
+//    NSTimeInterval time = [date timeIntervalSince1970]*1000;// *1000 是精确到毫秒(13位),不乘就是精确到秒(10位)
+//    NSString *timeString = [NSString stringWithFormat:@"%.0f", time];
+//    NSLog(@"%@",timeString);
+//
+//    NSTimeInterval time1 = [timeString doubleValue]/1000; // 传入的时间戳str如果是精确到毫秒的记得要/1000
+//    NSDate *detailDate = [NSDate dateWithTimeIntervalSince1970:time1];
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init]; // 实例化一个NSDateFormatter对象
+//    // 设定时间格式,这里可以设置成自己需要的格式
+//    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss SS"];
+//    NSString *currentDateStr = [dateFormatter stringFromDate:detailDate];
+//    NSLog(@"%@",currentDateStr);
+//
+//    NSDateFormatter *dateFormatter1 = [[NSDateFormatter alloc] init]; // 创建一个时间格式化对象
+//    [dateFormatter1 setDateFormat:@"YYYY-MM-dd HH:mm:ss SS"]; // 设定时间的格式
+//    NSDate *tempDate = [dateFormatter1 dateFromString:currentDateStr]; // 将字符串转换为时间对象
+//    NSString *timeStr = [NSString stringWithFormat:@"%ld", (long)[tempDate timeIntervalSince1970]*1000]; // 字符串转成时间戳,精确到毫秒*1000
+//    NSLog(@"%@",timeStr);
+//
+//    NSTimeInterval time12 = [timeStr doubleValue]/1000; // 传入的时间戳str如果是精确到毫秒的记得要/1000
+//    NSDate *detailDate12 = [NSDate dateWithTimeIntervalSince1970:time12];
+//    NSDateFormatter *dateFormatter12 = [[NSDateFormatter alloc] init]; // 实例化一个NSDateFormatter对象
+//    // 设定时间格式,这里可以设置成自己需要的格式
+//    [dateFormatter12 setDateFormat:@"YYYY-MM-dd HH:mm:ss SS"];
+//    NSString *currentDateStr1 = [dateFormatter12 stringFromDate:detailDate12];
+//    NSLog(@"%@",currentDateStr1);
 }
 #pragma mark - 初始化图标
 - (void)setUpIconImageView {

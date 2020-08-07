@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x767b;&#x5f55;/SignViewController.m"
-            timestampString = "618394320.652946"
+            timestampString = "618487369.3252079"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "52"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x6ce8;&#x518c;/registerViewController.m"
-            timestampString = "618371327.666684"
+            timestampString = "618490664.438346"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "185"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x6ce8;&#x518c;/registerViewController.m"
-            timestampString = "618371327.66698"
+            timestampString = "618490664.4384069"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "187"
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x6ce8;&#x518c;/registerViewController.m"
-            timestampString = "618371327.66716"
+            timestampString = "618490664.438453"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "199"
@@ -74,12 +74,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x6ce8;&#x518c;/registerViewController.m"
-            timestampString = "618371327.66734"
+            timestampString = "618490664.4384969"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "201"
             endingLineNumber = "201"
             landmarkName = "-accoutIsOK"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x6211;&#x7684;/Controllers/MyViewController.m"
+            timestampString = "618490664.43854"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "375"
+            endingLineNumber = "375"
+            landmarkName = "-setUpFillBirthdayLabel"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x6211;&#x7684;/Controllers/MyViewController.m"
+            timestampString = "618490664.438602"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
+            landmarkName = "-clickautographLabelSelectButton"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x6211;&#x7684;/Controllers/MyViewController.m"
+            timestampString = "618490664.43865"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "404"
+            endingLineNumber = "404"
+            landmarkName = "-infoChange:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
