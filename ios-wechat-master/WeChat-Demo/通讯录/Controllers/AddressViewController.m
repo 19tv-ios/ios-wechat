@@ -28,6 +28,7 @@
 @property (nonatomic,strong) newFriendsVc *FriendsVc;
 //uitableview
 @property (nonatomic,strong) UITableView *tableView;
+
 @end
 
 @implementation AddressViewController
@@ -117,7 +118,7 @@
         self.rowArray = [NSMutableArray arrayWithCapacity:0];
         for (NSInteger j = 0;j<self.userArray.count; j++) {
             JMSGUser *user = self.userArray[j];
-            NSString *pinyin = [self nameChangePinyin:user.username];
+            NSString *pinyin = [self nameChangePinyin:user.nickname];
             NSString *firstChar = [pinyin substringToIndex:1];
             NSString *str = [NSString stringWithFormat:@"%c",c];//字符转字符串
             if ([firstChar isEqualToString:str]) {//判断第一个字发音是否是当前字母，是的话加入rowArray
@@ -134,13 +135,25 @@
     //特殊昵称排序
     for (NSInteger i = 0; i<self.userArray.count; i++) {
         JMSGUser *user = self.userArray[i];
-        unichar first = [user.username characterAtIndex:0];
-        if (isdigit(first)||isalpha(first)) {//如果首个字符数字或者字母
-            if (self.specialArray == nil) {
-                self.specialArray = [NSMutableArray arrayWithCapacity:0];
+        if (user.nickname == nil) {//判断有无昵称，如果没有用username代替
+            unichar first = [user.username characterAtIndex:0];
+            if (isdigit(first)||isalpha(first)) {//如果首个字符数字或者字母
+                if (self.specialArray == nil) {
+                    self.specialArray = [NSMutableArray arrayWithCapacity:0];
+                }
+                [self.specialArray addObject:user];
             }
-            [self.specialArray addObject:user];
+        }else{
+            unichar first = [user.nickname characterAtIndex:0];
+            if (isdigit(first)||isalpha(first)) {//如果首个字符数字或者字母
+                if (self.specialArray == nil) {
+                    self.specialArray = [NSMutableArray arrayWithCapacity:0];
+                }
+                [self.specialArray addObject:user];
+            }
         }
+        
+        
     }
     if (self.specialArray.count != 0) {
         //如果有内容再加入索引
@@ -233,7 +246,7 @@
         NSArray *rowArray = self.sectionArray[indexPath.section];
         JMSGUser *user = rowArray[indexPath.row];
         cell.imageView.image = [UIImage imageNamed:@"微信"];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@",user.username];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@",user.nickname];
         
         
         return cell;
@@ -260,6 +273,9 @@
         NSLog(@"新的朋友页面");
     }else{
         DetailVc *Vc = [[DetailVc alloc]init];
+        NSArray *rowArray =  self.sectionArray[indexPath.section];
+        Vc.user = rowArray[indexPath.row];
+        NSLog(@"%@",Vc.user.username);
         Vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:Vc animated:YES];
         NSLog(@"%ld---%ld",indexPath.section,indexPath.row);

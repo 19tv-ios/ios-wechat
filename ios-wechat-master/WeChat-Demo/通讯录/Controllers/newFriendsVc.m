@@ -99,7 +99,7 @@
     [agreeBtn setTitle:@"同意" forState:UIControlStateNormal];
     
     [agreeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    agreeBtn.backgroundColor = [UIColor colorWithRed:169.0f/255.0f green:234.0f/255.0f blue:122.0f/255.0f alpha:1];
+    agreeBtn.backgroundColor = [UIColor colorWithRed:120.0f/255.0f green:194.0f/255.0f blue:109.0f/255.0f alpha:1];
 //    agreeBtn.tag = indexPath.row;
 //    [self.usernameDict setObject:user.username forKey:[NSString stringWithFormat:@"%ld",agreeBtn.tag]];
     agreeBtn.user = user;

@@ -29,6 +29,8 @@
 		5239903F24D9AA2F00310576 /* SignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239903E24D9AA2F00310576 /* SignViewController.m */; };
 		5239904324D9B70E00310576 /* registerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239904224D9B70E00310576 /* registerViewController.m */; };
 		8CF6B0FD6D9C7547EDE797E2 /* libPods-WeChat-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD9065A6A368963FDD894F1 /* libPods-WeChat-Demo.a */; };
+		E239E98F24DE94BB00E003F2 /* RemarkVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E239E98E24DE94BB00E003F2 /* RemarkVc.m */; };
+		E239E99424DEDB2B00E003F2 /* SettingVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E239E99324DEDB2B00E003F2 /* SettingVc.m */; };
 		E2EBF10724DDAD7B00A8F174 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EBF10624DDAD7B00A8F174 /* AddressViewController.m */; };
 		E2FB996F24DC10E000F48633 /* DetailVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FB996924DC10E000F48633 /* DetailVc.m */; };
 		E2FB997024DC10E000F48633 /* newFriendsVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FB996C24DC10E000F48633 /* newFriendsVc.m */; };
@@ -141,6 +143,10 @@
 		5239904224D9B70E00310576 /* registerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = registerViewController.m; sourceTree = "<group>"; };
 		69AFE9673C9041676E05E05A /* Pods-WeChat-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChat-Demo.debug.xcconfig"; path = "Target Support Files/Pods-WeChat-Demo/Pods-WeChat-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		A36C5BAE38B0ABD6ADB1F0C6 /* Pods-WeChat-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChat-Demo.release.xcconfig"; path = "Target Support Files/Pods-WeChat-Demo/Pods-WeChat-Demo.release.xcconfig"; sourceTree = "<group>"; };
+		E239E98D24DE94BB00E003F2 /* RemarkVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemarkVc.h; sourceTree = "<group>"; };
+		E239E98E24DE94BB00E003F2 /* RemarkVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemarkVc.m; sourceTree = "<group>"; };
+		E239E99224DEDB2B00E003F2 /* SettingVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingVc.h; sourceTree = "<group>"; };
+		E239E99324DEDB2B00E003F2 /* SettingVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingVc.m; sourceTree = "<group>"; };
 		E2EBEFF424DCED2900A8F174 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pods.xcodeproj; sourceTree = "<group>"; };
 		E2EBEFF924DCED2900A8F174 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E2EBEFFB24DCED2900A8F174 /* pinyin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
@@ -459,6 +465,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E239E98624DE887300E003F2 /* 好友页详情 */ = {
+			isa = PBXGroup;
+			children = (
+				E2FB996E24DC10E000F48633 /* DetailVc.h */,
+				E2FB996924DC10E000F48633 /* DetailVc.m */,
+				E239E98D24DE94BB00E003F2 /* RemarkVc.h */,
+				E239E98E24DE94BB00E003F2 /* RemarkVc.m */,
+				E239E99224DEDB2B00E003F2 /* SettingVc.h */,
+				E239E99324DEDB2B00E003F2 /* SettingVc.m */,
+			);
+			path = "好友页详情";
+			sourceTree = "<group>";
+		};
 		E2D4A36C24D94B2000CE151F /* 聊天 */ = {
 			isa = PBXGroup;
 			children = (
@@ -515,8 +534,7 @@
 				E2FB996D24DC10E000F48633 /* AddFriendsVc.m */,
 				E2FB996B24DC10E000F48633 /* newFriendsVc.h */,
 				E2FB996C24DC10E000F48633 /* newFriendsVc.m */,
-				E2FB996E24DC10E000F48633 /* DetailVc.h */,
-				E2FB996924DC10E000F48633 /* DetailVc.m */,
+				E239E98624DE887300E003F2 /* 好友页详情 */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1251,6 +1269,7 @@
 				2212FF1F24DB9F710086724D /* GetConversation.m in Sources */,
 				5239904324D9B70E00310576 /* registerViewController.m in Sources */,
 				E2EBF10724DDAD7B00A8F174 /* AddressViewController.m in Sources */,
+				E239E98F24DE94BB00E003F2 /* RemarkVc.m in Sources */,
 				2212FF2524DBF0040086724D /* GetMsg.m in Sources */,
 				E2FB997124DC10E000F48633 /* AddFriendsVc.m in Sources */,
 				E2FB997524DC171200F48633 /* Zhbutton.m in Sources */,
@@ -1261,6 +1280,7 @@
 				22B47F6224D90C8E0078122F /* MyViewController.m in Sources */,
 				5239903F24D9AA2F00310576 /* SignViewController.m in Sources */,
 				22B47F8924DA9D570078122F /* ChatController.m in Sources */,
+				E239E99424DEDB2B00E003F2 /* SettingVc.m in Sources */,
 				22B47F8124DA9B820078122F /* YouCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
