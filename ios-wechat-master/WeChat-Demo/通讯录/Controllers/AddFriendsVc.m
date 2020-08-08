@@ -14,7 +14,7 @@
 //添加按钮
 @property (nonatomic,strong) UIButton *addBtn;
 //添加原因
-@property (nonatomic,strong) UITextField *resonTextField;
+@property (nonatomic,strong) UITextField *reasonTextField;
 
 @end
 
@@ -32,22 +32,36 @@
     self.nameTextField.layer.borderColor = [UIColor grayColor].CGColor;
     self.nameTextField.delegate =  self;
     [self.view addSubview:self.nameTextField];
-    self.nameTextField.sd_layout.topSpaceToView(self.view, 130).leftSpaceToView( self.view, 96).widthIs(185).heightIs(40);
+    self.nameTextField.sd_layout.topSpaceToView(self.view, 135).leftSpaceToView(self.view, 95).widthIs(185).heightIs(40);
+    
+    UILabel *nameLabel = [[UILabel alloc]init];
+    nameLabel.text = @"用户名";
+    [self.view addSubview:nameLabel];
+    nameLabel.sd_layout.topSpaceToView(self.view, 135).leftSpaceToView(self.view, 10).widthIs(85).heightIs(40);
+    
     
     //添加原因
-    self.resonTextField = [[UITextField alloc]init];
-    self.resonTextField.placeholder = @"添加原因";
-    self.resonTextField.layer.borderWidth = 1.0f;
-    self.resonTextField.layer.borderColor = [UIColor grayColor].CGColor;
-    [self.view addSubview:self.resonTextField];
-    self.resonTextField.sd_layout.topSpaceToView(self.nameTextField, 40).leftSpaceToView( self.view, 96).widthIs(185).heightIs(200);
+    self.reasonTextField = [[UITextField alloc]init];
+    self.reasonTextField.placeholder = @"添加原因";
+    self.reasonTextField.layer.borderWidth = 1.0f;
+    self.reasonTextField.layer.borderColor = [UIColor grayColor].CGColor;
+    [self.view addSubview:self.reasonTextField];
+    self.reasonTextField.sd_layout.topSpaceToView(self.nameTextField, 40).leftSpaceToView( self.view, 95).widthIs(185).heightIs(200);
+    
+    UILabel *reasonLabel = [[UILabel alloc]init];
+    reasonLabel.text = @"添加原因";
+    [self.view addSubview:reasonLabel];
+    reasonLabel.sd_layout.topSpaceToView(self.nameTextField, 120).leftSpaceToView(self.view, 5).widthIs(90).heightIs(40);
     
     //添加按钮
     self.addBtn = [[UIButton alloc]init];
     [self.addBtn setTitle:@"添加到通讯录" forState:UIControlStateNormal];
+    self.addBtn.layer.borderWidth = 1.0f;
+    self.addBtn.layer.borderColor = [UIColor grayColor].CGColor;
+    
     [self.addBtn setTitleColor: [UIColor colorWithRed:92.0f/255.0f green:102.0f/255.0f blue:138.0f/255.0f alpha:10]  forState:UIControlStateNormal];
     [self.view addSubview:self.addBtn];
-    self.addBtn.sd_layout.topSpaceToView(self.resonTextField, 80).leftSpaceToView(self.view, 113).widthIs(150).heightIs(40);
+    self.addBtn.sd_layout.topSpaceToView(self.reasonTextField, 80).leftSpaceToView(self.view, 113).widthIs(150).heightIs(40);
     [self.addBtn addTarget:self action:@selector(addFriends) forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -56,7 +70,7 @@
 - (void)addFriends{
     
     NSString *nameStr = self.nameTextField.text;
-    NSString *resonStr = self.resonTextField.text;
+    NSString *resonStr = self.reasonTextField.text;
     
     NSLog(@"name:%@",nameStr);
     NSLog(@"reson:%@",resonStr);

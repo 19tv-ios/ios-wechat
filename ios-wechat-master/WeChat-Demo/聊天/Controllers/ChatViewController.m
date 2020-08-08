@@ -86,22 +86,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    JMSGMessage* msg = [_msgArray objectAtIndex:indexPath.row];
     //con.conversationType = kJMSGConversationTypeSingle;
-    JMSGConversation* con = [_conversationArray objectAtIndex:indexPath.row];
-    
-    
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_group_enter(group);
-    [con allMessages:^(id resultObject, NSError *error) {
-        self->_certainMsg = resultObject[0];
-        dispatch_group_leave(group);
-    }];
-    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        self->_chatController = [[ChatController alloc]initWithMsg:self->_certainMsg];
-        self->_chatController.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:self->_chatController animated:YES];
-        [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
-    });
-    
+    _chatController = [[ChatController alloc]init];
+    _chatController.hidesBottomBarWhenPushed = YES;
+    //[_chatController getAllMsg];
+    //[NSThread sleepForTimeInterval:2];
+    [self.navigationController pushViewController:_chatController animated:YES];
+    [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
 }
 -(void)getConversationModel{
     _getModel = [[GetConversation alloc]init];
@@ -111,11 +101,8 @@
 }
 -(void)getMsgModel{
     _msgArray = [[NSMutableArray alloc]init];
-    for(JMSGConversation* cnt in _conversationArray){
-        [cnt allMessages:^(id resultObject, NSError *error) {
-            [self->_msgArray addObject:resultObject];
-        }];
-    }
+    _getMsg = [[GetMsg alloc]init];
+    [_getMsg getMsgWithConversationArray:_conversationArray];
 }
 -(void)sendConversation:(NSMutableArray *)array{
     _conversationArray = array;

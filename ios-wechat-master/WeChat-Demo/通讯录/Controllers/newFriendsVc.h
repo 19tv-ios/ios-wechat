@@ -11,7 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface newFriendsVc : UIViewController
-
+//数组模型
+@property (nonatomic,strong) NSMutableArray *userModelArray;
+@property (nonatomic,strong) UITableView *tab;
 @end
 
 NS_ASSUME_NONNULL_END

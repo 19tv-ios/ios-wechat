@@ -1,8 +1,8 @@
-platform :ios,'11.4'
+platform :ios,'11.0'
 
 target 'WeChat-Demo' do
 pod 'AFNetworking'
 pod 'SDAutoLayout'
 pod 'JMessage'
-
+pod 'YUChineseSorting'
 end

@@ -10,10 +10,9 @@
 #import <JMessage/JMessage.h>
 #import "SDAutoLayout.h"
 #import "DetailVc.h"
+#import "Zhbutton.h"
 @interface newFriendsVc ()<JMessageDelegate,UITableViewDataSource,UITableViewDelegate>
 //新的朋友数组
-@property (nonatomic,strong) NSMutableArray *userModelArray;
-@property (nonatomic,strong) UITableView *tab;
 @property (nonatomic,strong) NSMutableDictionary *usernameDict;
 @end
  static NSString* ID = @"user";
@@ -37,24 +36,27 @@
     self.tab = [[UITableView alloc]init];
     self.tab.dataSource = self;
     self.tab.delegate = self;
-    self.tab.tableFooterView = [[UIView alloc]init];
+    self.tab.tableFooterView = [[UIView alloc]init];//隐藏多余的白线
     [self.view addSubview:self.tab];
     self.tab.sd_layout.topSpaceToView(self.view, 50).leftEqualToView(self.view).rightEqualToView(self.view).bottomEqualToView(self.view);
     
-}
-#pragma mark 监听
-- (void)onReceiveFriendNotificationEvent:(JMSGFriendNotificationEvent *)event{
-    NSLog(@"eventID:%@",event.eventID);
-    NSLog(@"reson:%@",event.getReason);
-    NSLog(@"username:%@",event.getFromUsername);
-    [self.userModelArray addObject:event.getFromUser];
     [self.tab reloadData];
     
 }
+#pragma mark 监听
+//- (void)onReceiveFriendNotificationEvent:(JMSGFriendNotificationEvent *)event{
+//    NSLog(@"eventID:%@",event.eventID);
+//    NSLog(@"reson:%@",event.getReason);
+//    NSLog(@"username:%@",event.getFromUsername);
+//    [self.userModelArray addObject:event.getFromUser];
+//    [self.tab reloadData];
+//
+//}
 
-- (void)agreeBtn:(UIButton *)btn{
-    NSString *str = [NSString stringWithFormat:@"%ld",btn.tag];
-    NSString *UserName = self.usernameDict[str];
+- (void)agreeBtn:(Zhbutton *)btn{
+//    NSString *str = [NSString stringWithFormat:@"%ld",btn.tag];
+    NSString *UserName = btn.user.username;
+    NSLog(@"fuckkkk%@",UserName);
     [JMSGFriendManager acceptInvitationWithUsername:UserName appKey:@"0a974aa68871f642444ae38b" completionHandler:^(id resultObject, NSError *error) {
         NSLog(@"error:%@",error);
     }];
@@ -93,16 +95,18 @@
     }];
     cell.textLabel.text = user.username;//user.nickname
     
-    UIButton *agreeBtn = [[UIButton alloc]init];
+    Zhbutton *agreeBtn = [[Zhbutton alloc]init];
     [agreeBtn setTitle:@"同意" forState:UIControlStateNormal];
+    
     [agreeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     agreeBtn.backgroundColor = [UIColor colorWithRed:169.0f/255.0f green:234.0f/255.0f blue:122.0f/255.0f alpha:1];
-    agreeBtn.tag = indexPath.row;
-    [self.usernameDict setObject:user.username forKey:[NSString stringWithFormat:@"%ld",agreeBtn.tag]];
-    
+//    agreeBtn.tag = indexPath.row;
+//    [self.usernameDict setObject:user.username forKey:[NSString stringWithFormat:@"%ld",agreeBtn.tag]];
+    agreeBtn.user = user;
     [agreeBtn addTarget:self action:@selector(agreeBtn:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:agreeBtn];
-    agreeBtn.sd_layout.topEqualToView(cell.contentView).leftSpaceToView(cell.contentView, 325).widthIs(50).heightIs(50);
+    agreeBtn.sd_layout.topEqualToView(cell.contentView).leftSpaceToView(cell.contentView, 325).widthIs(40).heightIs(45);
+    [agreeBtn sizeToFit];
     
     return cell;
 }
