@@ -12,7 +12,7 @@
 
 @property(nonatomic,strong)UITableView* tableview;
 
-@property(nonatomic,strong)UITextView* textView;
+@property(nonatomic,strong)UITextField* textView;
 
 @property(nonatomic,strong)UIButton* sendBtn;
 
@@ -26,6 +26,13 @@
 
 @property(nonatomic,strong)JMSGMessage* model;
 
--(instancetype)initWithMsg:(JMSGMessage*)msg;
+@property(nonatomic,strong)NSData* iconData;
+
+@property(nonatomic,strong)NSString* otherSide;
+
+@property(nonatomic,strong)JMSGMessage* freshMsg;
+
+@property(nonatomic)CGFloat cellHeight;
+-(instancetype)initWithMsg:(NSMutableArray*)msg;
 //-(void)getAllMsg;
 @end

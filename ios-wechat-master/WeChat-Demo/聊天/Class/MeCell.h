@@ -15,4 +15,10 @@
 @property(nonatomic,strong)UILabel* wordLabel;
 
 @property(nonatomic,strong)UIImageView* iconImage;
+
+@property(nonatomic,strong)NSString* text;
+
+@property(nonatomic)CGFloat labelHeight;
+
+-(instancetype)initWithText:(NSString*)text;
 @end

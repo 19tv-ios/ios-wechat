@@ -33,6 +33,6 @@
 
 @property(nonatomic,strong) NSString* address;
 
-@property(nonatomic,strong) JMSGMessage* certainMsg;
+@property(nonatomic,strong) NSMutableArray* certainMsg;
 -(void)getMsgModel;
 @end

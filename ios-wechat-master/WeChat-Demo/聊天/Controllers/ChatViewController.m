@@ -78,7 +78,7 @@
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 70;
+    return 75;
 }
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController{
     
@@ -87,17 +87,22 @@
 //    JMSGMessage* msg = [_msgArray objectAtIndex:indexPath.row];
     //con.conversationType = kJMSGConversationTypeSingle;
     JMSGConversation* con = [_conversationArray objectAtIndex:indexPath.row];
-    
+    _certainMsg = [[NSMutableArray alloc]init];
     
     dispatch_group_t group = dispatch_group_create();
     dispatch_group_enter(group);
     [con allMessages:^(id resultObject, NSError *error) {
-        self->_certainMsg = resultObject[0];
+        NSMutableArray* array = resultObject;
+        for(int i = (int)array.count-1;i>=0;i--){
+            [self->_certainMsg addObject:array[i]];
+        }
+        //self->_certainMsg = resultObject;
         dispatch_group_leave(group);
     }];
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
         self->_chatController = [[ChatController alloc]initWithMsg:self->_certainMsg];
         self->_chatController.hidesBottomBarWhenPushed = YES;
+        self->_chatController.title = con.title;
         [self.navigationController pushViewController:self->_chatController animated:YES];
         [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
     });
