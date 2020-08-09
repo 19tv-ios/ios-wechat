@@ -239,7 +239,7 @@ extern NSString *infopassword;
         if (data) {
             self.iconImageView.image = [UIImage imageWithData:data];
         } else {
-            self.iconImageView.image = [UIImage imageNamed:@"用户"];
+            self.iconImageView.image = [UIImage imageNamed:@"个人中心1"];
         }
     }];
     self.iconImageView.layer.cornerRadius = 30;

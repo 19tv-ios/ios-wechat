@@ -19,7 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _chatView = [[ChatViewController alloc]init];
-    [self addChildViewController:_chatView withTitle:@"聊天" Image:@"微信" selectedImage:@"微信"];
+    [self addChildViewController:_chatView withTitle:@"聊天" Image:@"聊天1" selectedImage:@"聊天1"];
     _chatView.getModel = [[GetConversation alloc]init];
     self.chatView.getModel.delegate = self.chatView;
     self.chatView.getMsg.delegate = self.chatView;
@@ -27,10 +27,10 @@
     [_chatView getMsgModel];
     
     _addressView = [[AddressViewController alloc]init];
-    [self addChildViewController:_addressView withTitle:@"通讯录" Image:@"通讯录" selectedImage:@"通讯录"];
+    [self addChildViewController:_addressView withTitle:@"通讯录" Image:@"通讯录1" selectedImage:@"通讯录1"];
     
     _myView = [[MyViewController alloc]init];
-    [self addChildViewController:_myView withTitle:@"个人中心" Image:@"我的" selectedImage:@"我的"];
+    [self addChildViewController:_myView withTitle:@"个人中心" Image:@"个人中心1" selectedImage:@"个人中心1"];
     
     
 }
