@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <JMessage/JMessage.h>
 @interface YouCell : UITableViewCell
+
+@property(nonatomic,strong)UIImageView* bubbleView;
+
+@property(nonatomic,strong)UILabel* wordLabel;
+
+@property(nonatomic,strong)UIImageView* iconImage;
+
+@property(nonatomic,strong)NSString* text;
+
+@property(nonatomic)CGFloat labelHeight;
+
+@property(nonatomic,strong)NSData* icon;
+-(instancetype)initWithText:(NSString*)text andIcon:(NSData*)data;
 
 @end

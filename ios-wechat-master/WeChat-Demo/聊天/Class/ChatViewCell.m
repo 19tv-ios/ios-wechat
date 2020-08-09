@@ -23,7 +23,12 @@
 -(void)initSubviews{
     _timeLabel = [[UILabel alloc]init];
     _timeLabel = UILabel.new;
-    _timeLabel.text = [NSString stringWithFormat:@"%@",_model.latestMsgTime];
+    NSTimeInterval interval = [_model.latestMsgTime doubleValue]/1000;
+    NSDate* lastDate = [NSDate dateWithTimeIntervalSince1970:interval];
+    NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"MM-dd HH:mm"];
+    NSString* lastTime = [formatter stringFromDate:lastDate];
+    _timeLabel.text = [NSString stringWithFormat:@"%@",lastTime];
     _timeLabel.font = [UIFont systemFontOfSize:10];
     
     _nameLabel = [[UILabel alloc]init];
@@ -35,6 +40,7 @@
     _wordLabel = UILabel.new;
     _wordLabel.text = _model.latestMessageContentText;
     _wordLabel.font = [UIFont systemFontOfSize:12];
+    
     
     [self.contentView sd_addSubviews:@[_timeLabel,_nameLabel,_wordLabel] ];
     
@@ -61,7 +67,8 @@
               .leftSpaceToView(self.imageView, 10)
               .autoHeightRatio(0)
               .widthIs(150)
-    .heightIs(30);
+              .heightIs(30);
+    [_wordLabel setMaxNumberOfLinesToShow:2];
 }
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andModel:(JMSGConversation *)model{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
