@@ -51,8 +51,10 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             cell.textLabel.text = @"备注和标签";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }else{
             cell.textLabel.text = @"朋友权限";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
     }else if (indexPath.section == 1){
         UISwitch *Switch = [[UISwitch alloc]init];
@@ -104,6 +106,8 @@
         [AlertController addAction:disagreeAction];
         [self presentViewController:AlertController animated:YES completion:nil];
     }
+    
+     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)DistubWay:(UISwitch *)sender{

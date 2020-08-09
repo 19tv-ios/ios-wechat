@@ -27,23 +27,23 @@
 		22B47F8824DA9D570078122F /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F8424DA9D560078122F /* ChatViewController.m */; };
 		22B47F8924DA9D570078122F /* ChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F8624DA9D560078122F /* ChatController.m */; };
 		22B47F8C24DAB4B30078122F /* Image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22B47F8B24DAB4B30078122F /* Image.xcassets */; };
-		5220FF4424DD325C00D51FDE /* SexPickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5220FF4224DD325C00D51FDE /* SexPickerTool.m */; };
-		5220FF4924DD327000D51FDE /* DatePickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5220FF4624DD327000D51FDE /* DatePickerTool.m */; };
-		5220FF4A24DD327000D51FDE /* DatePickerTool.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5220FF4724DD327000D51FDE /* DatePickerTool.xib */; };
-		5220FF4F24DD41B800D51FDE /* SexPickerTool.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5220FF4E24DD41B800D51FDE /* SexPickerTool.xib */; };
 		5220FF5224DD4B2500D51FDE /* changeInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5220FF5124DD4B2500D51FDE /* changeInfoViewController.m */; };
 		5239903F24D9AA2F00310576 /* SignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239903E24D9AA2F00310576 /* SignViewController.m */; };
-		5260742B24DCF72F00A91759 /* newFriendsVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 5260742A24DCF72F00A91759 /* newFriendsVc.m */; };
-		5260743324DCF73B00A91759 /* AddFriendsVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 5260742E24DCF73A00A91759 /* AddFriendsVc.m */; };
-		5260743424DCF73B00A91759 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5260742F24DCF73A00A91759 /* AddressViewController.m */; };
-		528A773224DE84890094F398 /* GFAddressPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 528A773024DE84890094F398 /* GFAddressPicker.m */; };
-		528A773324DE84890094F398 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 528A773124DE84890094F398 /* Address.plist */; };
-		52EED49924DFD55400A3EB9F /* MoreMessageVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EED49424DFD55400A3EB9F /* MoreMessageVc.m */; };
-		52EED49A24DFD55400A3EB9F /* SettingVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EED49624DFD55400A3EB9F /* SettingVc.m */; };
-		52EED49B24DFD55400A3EB9F /* RemarkVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EED49724DFD55400A3EB9F /* RemarkVc.m */; };
-		52EED49C24DFD55400A3EB9F /* DetailVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EED49824DFD55400A3EB9F /* DetailVc.m */; };
 		52EED49F24DFD57400A3EB9F /* Zhbutton.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EED49D24DFD57400A3EB9F /* Zhbutton.m */; };
 		8CF6B0FD6D9C7547EDE797E2 /* libPods-WeChat-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD9065A6A368963FDD894F1 /* libPods-WeChat-Demo.a */; };
+		E270658C24DFF12700B98381 /* RemarkVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E270658424DFF12700B98381 /* RemarkVc.m */; };
+		E270658D24DFF12700B98381 /* DetailVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E270658924DFF12700B98381 /* DetailVc.m */; };
+		E270658E24DFF12700B98381 /* SettingVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E270658A24DFF12700B98381 /* SettingVc.m */; };
+		E270658F24DFF12700B98381 /* MoreMessageVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E270658B24DFF12700B98381 /* MoreMessageVc.m */; };
+		E270659524DFF16B00B98381 /* AddFriendsVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E270659024DFF16A00B98381 /* AddFriendsVc.m */; };
+		E270659624DFF16B00B98381 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E270659224DFF16B00B98381 /* AddressViewController.m */; };
+		E270659724DFF16B00B98381 /* newFriendsVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E270659424DFF16B00B98381 /* newFriendsVc.m */; };
+		E27065A724DFF1F200B98381 /* GFAddressPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = E270659E24DFF1F200B98381 /* GFAddressPicker.m */; };
+		E27065A824DFF1F200B98381 /* SexPickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = E270659F24DFF1F200B98381 /* SexPickerTool.m */; };
+		E27065A924DFF1F200B98381 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = E27065A124DFF1F200B98381 /* Address.plist */; };
+		E27065AA24DFF1F200B98381 /* SexPickerTool.xib in Resources */ = {isa = PBXBuildFile; fileRef = E27065A224DFF1F200B98381 /* SexPickerTool.xib */; };
+		E27065AB24DFF1F200B98381 /* DatePickerTool.xib in Resources */ = {isa = PBXBuildFile; fileRef = E27065A324DFF1F200B98381 /* DatePickerTool.xib */; };
+		E27065AC24DFF1F200B98381 /* DatePickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = E27065A624DFF1F200B98381 /* DatePickerTool.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,8 +90,6 @@
 		22B47F4A24D908BB0078122F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22B47F5624D908E60078122F /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		22B47F5724D908E60078122F /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
-		22B47F5B24D909240078122F /* ChatViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
-		22B47F5E24D909850078122F /* AddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
 		22B47F6024D90C8E0078122F /* MyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		22B47F6124D90C8E0078122F /* MyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		22B47F7A24DA9AFB0078122F /* Root.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Root.h; sourceTree = "<group>"; };
@@ -106,39 +104,39 @@
 		22B47F8624DA9D560078122F /* ChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatController.m; sourceTree = "<group>"; };
 		22B47F8724DA9D560078122F /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		22B47F8B24DAB4B30078122F /* Image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Image.xcassets; sourceTree = "<group>"; };
-		5220FF4124DD325C00D51FDE /* SexPickerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SexPickerTool.h; path = ../../../../../Desktop/PickerView/PickerView/SexPickerTool.h; sourceTree = "<group>"; };
-		5220FF4224DD325C00D51FDE /* SexPickerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SexPickerTool.m; path = ../../../../../Desktop/PickerView/PickerView/SexPickerTool.m; sourceTree = "<group>"; };
-		5220FF4524DD326F00D51FDE /* DatePickerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DatePickerTool.h; path = ../../../../../Desktop/PickerView/PickerView/DatePickerTool.h; sourceTree = "<group>"; };
-		5220FF4624DD327000D51FDE /* DatePickerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DatePickerTool.m; path = ../../../../../Desktop/PickerView/PickerView/DatePickerTool.m; sourceTree = "<group>"; };
-		5220FF4724DD327000D51FDE /* DatePickerTool.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DatePickerTool.xib; path = ../../../../../Desktop/PickerView/PickerView/DatePickerTool.xib; sourceTree = "<group>"; };
-		5220FF4E24DD41B800D51FDE /* SexPickerTool.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SexPickerTool.xib; path = "../../../../../Desktop/PickerView的副本/PickerView/SexPickerTool.xib"; sourceTree = "<group>"; };
 		5220FF5024DD4B2500D51FDE /* changeInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = changeInfoViewController.h; sourceTree = "<group>"; };
 		5220FF5124DD4B2500D51FDE /* changeInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = changeInfoViewController.m; sourceTree = "<group>"; };
 		5239903D24D9AA2F00310576 /* SignViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignViewController.h; sourceTree = "<group>"; };
 		5239903E24D9AA2F00310576 /* SignViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignViewController.m; sourceTree = "<group>"; };
 		5239904124D9B70E00310576 /* registerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = registerViewController.h; sourceTree = "<group>"; };
 		5239904224D9B70E00310576 /* registerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = registerViewController.m; sourceTree = "<group>"; };
-		5260742A24DCF72F00A91759 /* newFriendsVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = newFriendsVc.m; sourceTree = "<group>"; };
-		5260742C24DCF73A00A91759 /* newFriendsVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = newFriendsVc.h; path = "/Users/macbookpro/ios-wechat/ios-wechat-master/WeChat-Demo/通讯录/Controllers/newFriendsVc.h"; sourceTree = "<absolute>"; };
-		5260742E24DCF73A00A91759 /* AddFriendsVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AddFriendsVc.m; path = "/Users/macbookpro/ios-wechat/ios-wechat-master/WeChat-Demo/通讯录/Controllers/AddFriendsVc.m"; sourceTree = "<absolute>"; };
-		5260742F24DCF73A00A91759 /* AddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AddressViewController.m; path = "/Users/macbookpro/ios-wechat/ios-wechat-master/WeChat-Demo/通讯录/Controllers/AddressViewController.m"; sourceTree = "<absolute>"; };
-		5260743024DCF73A00A91759 /* AddFriendsVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AddFriendsVc.h; path = "/Users/macbookpro/ios-wechat/ios-wechat-master/WeChat-Demo/通讯录/Controllers/AddFriendsVc.h"; sourceTree = "<absolute>"; };
-		5260743224DCF73B00A91759 /* AddressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AddressViewController.h; path = "/Users/macbookpro/ios-wechat/ios-wechat-master/WeChat-Demo/通讯录/Controllers/AddressViewController.h"; sourceTree = "<absolute>"; };
-		528A772F24DE84890094F398 /* GFAddressPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAddressPicker.h; sourceTree = "<group>"; };
-		528A773024DE84890094F398 /* GFAddressPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFAddressPicker.m; sourceTree = "<group>"; };
-		528A773124DE84890094F398 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
-		52EED49124DFD55400A3EB9F /* MoreMessageVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoreMessageVc.h; path = "通讯录/Controllers/好友页详情/MoreMessageVc.h"; sourceTree = SOURCE_ROOT; };
-		52EED49224DFD55400A3EB9F /* RemarkVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RemarkVc.h; path = "通讯录/Controllers/好友页详情/RemarkVc.h"; sourceTree = SOURCE_ROOT; };
-		52EED49324DFD55400A3EB9F /* SettingVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingVc.h; path = "通讯录/Controllers/好友页详情/SettingVc.h"; sourceTree = SOURCE_ROOT; };
-		52EED49424DFD55400A3EB9F /* MoreMessageVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoreMessageVc.m; path = "通讯录/Controllers/好友页详情/MoreMessageVc.m"; sourceTree = SOURCE_ROOT; };
-		52EED49524DFD55400A3EB9F /* DetailVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailVc.h; path = "通讯录/Controllers/好友页详情/DetailVc.h"; sourceTree = SOURCE_ROOT; };
-		52EED49624DFD55400A3EB9F /* SettingVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingVc.m; path = "通讯录/Controllers/好友页详情/SettingVc.m"; sourceTree = SOURCE_ROOT; };
-		52EED49724DFD55400A3EB9F /* RemarkVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RemarkVc.m; path = "通讯录/Controllers/好友页详情/RemarkVc.m"; sourceTree = SOURCE_ROOT; };
-		52EED49824DFD55400A3EB9F /* DetailVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailVc.m; path = "通讯录/Controllers/好友页详情/DetailVc.m"; sourceTree = SOURCE_ROOT; };
 		52EED49D24DFD57400A3EB9F /* Zhbutton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Zhbutton.m; path = "通讯录/class/Zhbutton.m"; sourceTree = SOURCE_ROOT; };
 		52EED49E24DFD57400A3EB9F /* Zhbutton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Zhbutton.h; path = "通讯录/class/Zhbutton.h"; sourceTree = SOURCE_ROOT; };
 		69AFE9673C9041676E05E05A /* Pods-WeChat-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChat-Demo.debug.xcconfig"; path = "Target Support Files/Pods-WeChat-Demo/Pods-WeChat-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		A36C5BAE38B0ABD6ADB1F0C6 /* Pods-WeChat-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChat-Demo.release.xcconfig"; path = "Target Support Files/Pods-WeChat-Demo/Pods-WeChat-Demo.release.xcconfig"; sourceTree = "<group>"; };
+		E270658424DFF12700B98381 /* RemarkVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemarkVc.m; sourceTree = "<group>"; };
+		E270658524DFF12700B98381 /* DetailVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailVc.h; sourceTree = "<group>"; };
+		E270658624DFF12700B98381 /* MoreMessageVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreMessageVc.h; sourceTree = "<group>"; };
+		E270658724DFF12700B98381 /* SettingVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingVc.h; sourceTree = "<group>"; };
+		E270658824DFF12700B98381 /* RemarkVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemarkVc.h; sourceTree = "<group>"; };
+		E270658924DFF12700B98381 /* DetailVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailVc.m; sourceTree = "<group>"; };
+		E270658A24DFF12700B98381 /* SettingVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingVc.m; sourceTree = "<group>"; };
+		E270658B24DFF12700B98381 /* MoreMessageVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreMessageVc.m; sourceTree = "<group>"; };
+		E270659024DFF16A00B98381 /* AddFriendsVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendsVc.m; sourceTree = "<group>"; };
+		E270659124DFF16A00B98381 /* AddFriendsVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendsVc.h; sourceTree = "<group>"; };
+		E270659224DFF16B00B98381 /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
+		E270659324DFF16B00B98381 /* AddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
+		E270659424DFF16B00B98381 /* newFriendsVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = newFriendsVc.m; sourceTree = "<group>"; };
+		E270659824DFF17300B98381 /* newFriendsVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = newFriendsVc.h; sourceTree = "<group>"; };
+		E270659E24DFF1F200B98381 /* GFAddressPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFAddressPicker.m; sourceTree = "<group>"; };
+		E270659F24DFF1F200B98381 /* SexPickerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SexPickerTool.m; sourceTree = "<group>"; };
+		E27065A024DFF1F200B98381 /* SexPickerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SexPickerTool.h; sourceTree = "<group>"; };
+		E27065A124DFF1F200B98381 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
+		E27065A224DFF1F200B98381 /* SexPickerTool.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SexPickerTool.xib; sourceTree = "<group>"; };
+		E27065A324DFF1F200B98381 /* DatePickerTool.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatePickerTool.xib; sourceTree = "<group>"; };
+		E27065A424DFF1F200B98381 /* GFAddressPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAddressPicker.h; sourceTree = "<group>"; };
+		E27065A524DFF1F200B98381 /* DatePickerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerTool.h; sourceTree = "<group>"; };
+		E27065A624DFF1F200B98381 /* DatePickerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerTool.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,15 +165,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2212FF2824DC03050086724D /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				22B47F5E24D909850078122F /* AddressViewController.m */,
-				22B47F5B24D909240078122F /* ChatViewController.m */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		22B47F1824D908BA0078122F = {
 			isa = PBXGroup;
 			children = (
@@ -191,7 +180,6 @@
 				22B47F2224D908BA0078122F /* Products */,
 				F26CF57130128CBBFE537F99 /* Pods */,
 				5427B83A2CA0E213EDEC272D /* Frameworks */,
-				2212FF2824DC03050086724D /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -265,15 +253,15 @@
 		5220FF3F24DD323100D51FDE /* Region.GenderAndBirthdayTool */ = {
 			isa = PBXGroup;
 			children = (
-				528A773124DE84890094F398 /* Address.plist */,
-				528A772F24DE84890094F398 /* GFAddressPicker.h */,
-				528A773024DE84890094F398 /* GFAddressPicker.m */,
-				5220FF4124DD325C00D51FDE /* SexPickerTool.h */,
-				5220FF4224DD325C00D51FDE /* SexPickerTool.m */,
-				5220FF4E24DD41B800D51FDE /* SexPickerTool.xib */,
-				5220FF4524DD326F00D51FDE /* DatePickerTool.h */,
-				5220FF4624DD327000D51FDE /* DatePickerTool.m */,
-				5220FF4724DD327000D51FDE /* DatePickerTool.xib */,
+				E27065A124DFF1F200B98381 /* Address.plist */,
+				E27065A524DFF1F200B98381 /* DatePickerTool.h */,
+				E27065A624DFF1F200B98381 /* DatePickerTool.m */,
+				E27065A324DFF1F200B98381 /* DatePickerTool.xib */,
+				E27065A424DFF1F200B98381 /* GFAddressPicker.h */,
+				E270659E24DFF1F200B98381 /* GFAddressPicker.m */,
+				E27065A024DFF1F200B98381 /* SexPickerTool.h */,
+				E270659F24DFF1F200B98381 /* SexPickerTool.m */,
+				E27065A224DFF1F200B98381 /* SexPickerTool.xib */,
 			);
 			path = Region.GenderAndBirthdayTool;
 			sourceTree = "<group>";
@@ -281,13 +269,13 @@
 		5224308024DCF20E00B76C2A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				52EED49024DFD52500A3EB9F /* 好友页详情 */,
-				5260743024DCF73A00A91759 /* AddFriendsVc.h */,
-				5260742E24DCF73A00A91759 /* AddFriendsVc.m */,
-				5260743224DCF73B00A91759 /* AddressViewController.h */,
-				5260742F24DCF73A00A91759 /* AddressViewController.m */,
-				5260742C24DCF73A00A91759 /* newFriendsVc.h */,
-				5260742A24DCF72F00A91759 /* newFriendsVc.m */,
+				E270659324DFF16B00B98381 /* AddressViewController.h */,
+				E270659224DFF16B00B98381 /* AddressViewController.m */,
+				E270659124DFF16A00B98381 /* AddFriendsVc.h */,
+				E270659024DFF16A00B98381 /* AddFriendsVc.m */,
+				E270659824DFF17300B98381 /* newFriendsVc.h */,
+				E270659424DFF16B00B98381 /* newFriendsVc.m */,
+				E270658324DFF12700B98381 /* 好友页详情 */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -311,22 +299,6 @@
 			path = "注册";
 			sourceTree = "<group>";
 		};
-		52EED49024DFD52500A3EB9F /* 好友页详情 */ = {
-			isa = PBXGroup;
-			children = (
-				52EED49524DFD55400A3EB9F /* DetailVc.h */,
-				52EED49824DFD55400A3EB9F /* DetailVc.m */,
-				52EED49124DFD55400A3EB9F /* MoreMessageVc.h */,
-				52EED49424DFD55400A3EB9F /* MoreMessageVc.m */,
-				52EED49224DFD55400A3EB9F /* RemarkVc.h */,
-				52EED49724DFD55400A3EB9F /* RemarkVc.m */,
-				52EED49324DFD55400A3EB9F /* SettingVc.h */,
-				52EED49624DFD55400A3EB9F /* SettingVc.m */,
-			);
-			name = "好友页详情";
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		5427B83A2CA0E213EDEC272D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -334,6 +306,21 @@
 				0FD9065A6A368963FDD894F1 /* libPods-WeChat-Demo.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E270658324DFF12700B98381 /* 好友页详情 */ = {
+			isa = PBXGroup;
+			children = (
+				E270658524DFF12700B98381 /* DetailVc.h */,
+				E270658924DFF12700B98381 /* DetailVc.m */,
+				E270658724DFF12700B98381 /* SettingVc.h */,
+				E270658A24DFF12700B98381 /* SettingVc.m */,
+				E270658824DFF12700B98381 /* RemarkVc.h */,
+				E270658424DFF12700B98381 /* RemarkVc.m */,
+				E270658624DFF12700B98381 /* MoreMessageVc.h */,
+				E270658B24DFF12700B98381 /* MoreMessageVc.m */,
+			);
+			path = "好友页详情";
 			sourceTree = "<group>";
 		};
 		E2D4A36C24D94B2000CE151F /* 聊天 */ = {
@@ -350,7 +337,6 @@
 			isa = PBXGroup;
 			children = (
 				5224308024DCF20E00B76C2A /* Controllers */,
-				E2D4A37224D94E9D00CE151F /* Model */,
 				E2D4A37324D94EB300CE151F /* Class */,
 			);
 			path = "通讯录";
@@ -361,8 +347,6 @@
 			children = (
 				E2D4A36F24D94BAA00CE151F /* Controllers */,
 				5220FF3F24DD323100D51FDE /* Region.GenderAndBirthdayTool */,
-				E2D4A37724D94F4300CE151F /* Model */,
-				E2D4A37824D94F4E00CE151F /* Class */,
 			);
 			path = "我的";
 			sourceTree = "<group>";
@@ -389,13 +373,6 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		E2D4A37224D94E9D00CE151F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		E2D4A37324D94EB300CE151F /* Class */ = {
 			isa = PBXGroup;
 			children = (
@@ -414,20 +391,6 @@
 				22B47F7E24DA9B820078122F /* MeCell.m */,
 				22B47F7B24DA9B820078122F /* YouCell.h */,
 				22B47F7D24DA9B820078122F /* YouCell.m */,
-			);
-			path = Class;
-			sourceTree = "<group>";
-		};
-		E2D4A37724D94F4300CE151F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		E2D4A37824D94F4E00CE151F /* Class */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -548,10 +511,10 @@
 				22B47F3124D908BB0078122F /* LaunchScreen.storyboard in Resources */,
 				22B47F8C24DAB4B30078122F /* Image.xcassets in Resources */,
 				22B47F2E24D908BB0078122F /* Assets.xcassets in Resources */,
+				E27065A924DFF1F200B98381 /* Address.plist in Resources */,
 				2212FF2224DBAB250086724D /* Chat.plist in Resources */,
-				5220FF4A24DD327000D51FDE /* DatePickerTool.xib in Resources */,
-				528A773324DE84890094F398 /* Address.plist in Resources */,
-				5220FF4F24DD41B800D51FDE /* SexPickerTool.xib in Resources */,
+				E27065AB24DFF1F200B98381 /* DatePickerTool.xib in Resources */,
+				E27065AA24DFF1F200B98381 /* SexPickerTool.xib in Resources */,
 				22B47F2C24D908BA0078122F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -600,30 +563,30 @@
 			files = (
 				2212FF3B24DC0C090086724D /* registerViewController.m in Sources */,
 				22B47F8324DA9B820078122F /* ChatViewCell.m in Sources */,
-				5260742B24DCF72F00A91759 /* newFriendsVc.m in Sources */,
+				E270659624DFF16B00B98381 /* AddressViewController.m in Sources */,
 				22B47F8224DA9B820078122F /* MeCell.m in Sources */,
+				E270658C24DFF12700B98381 /* RemarkVc.m in Sources */,
 				22B47F8824DA9D570078122F /* ChatViewController.m in Sources */,
 				2212FF1F24DB9F710086724D /* GetConversation.m in Sources */,
-				52EED49A24DFD55400A3EB9F /* SettingVc.m in Sources */,
-				5220FF4424DD325C00D51FDE /* SexPickerTool.m in Sources */,
+				E270659724DFF16B00B98381 /* newFriendsVc.m in Sources */,
+				E270658D24DFF12700B98381 /* DetailVc.m in Sources */,
+				E27065AC24DFF1F200B98381 /* DatePickerTool.m in Sources */,
+				E270659524DFF16B00B98381 /* AddFriendsVc.m in Sources */,
 				5220FF5224DD4B2500D51FDE /* changeInfoViewController.m in Sources */,
-				5260743324DCF73B00A91759 /* AddFriendsVc.m in Sources */,
 				2212FF2524DBF0040086724D /* GetMsg.m in Sources */,
+				E270658E24DFF12700B98381 /* SettingVc.m in Sources */,
 				22B47F2924D908BA0078122F /* ViewController.m in Sources */,
-				52EED49924DFD55400A3EB9F /* MoreMessageVc.m in Sources */,
 				22B47F5824D908E60078122F /* TabBarController.m in Sources */,
 				22B47F3424D908BB0078122F /* main.m in Sources */,
-				5260743424DCF73B00A91759 /* AddressViewController.m in Sources */,
-				52EED49C24DFD55400A3EB9F /* DetailVc.m in Sources */,
-				52EED49B24DFD55400A3EB9F /* RemarkVc.m in Sources */,
+				E27065A824DFF1F200B98381 /* SexPickerTool.m in Sources */,
 				22B47F2624D908BA0078122F /* AppDelegate.m in Sources */,
 				22B47F6224D90C8E0078122F /* MyViewController.m in Sources */,
+				E270658F24DFF12700B98381 /* MoreMessageVc.m in Sources */,
 				5239903F24D9AA2F00310576 /* SignViewController.m in Sources */,
 				52EED49F24DFD57400A3EB9F /* Zhbutton.m in Sources */,
-				5220FF4924DD327000D51FDE /* DatePickerTool.m in Sources */,
+				E27065A724DFF1F200B98381 /* GFAddressPicker.m in Sources */,
 				22B47F8924DA9D570078122F /* ChatController.m in Sources */,
 				22B47F8124DA9B820078122F /* YouCell.m in Sources */,
-				528A773224DE84890094F398 /* GFAddressPicker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
