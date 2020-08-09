@@ -7,10 +7,6 @@
 //
 
 #import "AddressViewController.h"
-<<<<<<< HEAD
-
-@interface AddressViewController ()
-=======
 #import <JMessage/JMessage.h>
 #import "DetailVc.h"
 #import "AddFriendsVc.h"
@@ -33,7 +29,7 @@
 //当前登陆用户
 @property (nonatomic,strong) JMSGUser *user;
 
->>>>>>> c8b8a691d3fc3af6c328df5942b33a01123eaa74
+
 
 @end
 
@@ -42,14 +38,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-<<<<<<< HEAD
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"address"];
-=======
+
     //获取当前登陆的用户信息
     self.user = [JMSGUser myInfo];
     
@@ -112,19 +108,15 @@
     self.tableView.sd_layout.topSpaceToView(tab, 0).leftEqualToView(self.view).rightEqualToView(self.view).bottomEqualToView(self.view );
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"address"];
     
-    //设置tableview的右侧索引
->>>>>>> c8b8a691d3fc3af6c328df5942b33a01123eaa74
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-<<<<<<< HEAD
+
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
-=======
-}
 
 //更新通讯录页面
 - (void)updateFriendsList{
@@ -218,6 +210,7 @@
     
 }
 #pragma mark tableview右侧索引
+#pragma mark tableview右侧索引
 //索引标题
 -(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView{
     if (tableView.tag == 2) {
@@ -240,20 +233,11 @@
     }else{
         return self.sectionArray.count ;//self.indexArray.count
     }
-   
+    
 }
->>>>>>> c8b8a691d3fc3af6c328df5942b33a01123eaa74
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//#warning Incomplete implementation, return the number of sections
-//    return 0;
-//}
-
+//每组多少行
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-<<<<<<< HEAD
-#warning Incomplete implementation, return the number of rows
-    return 20;
-=======
     if (tableView.tag == 1) {
         return 1;
     }else{
@@ -270,29 +254,9 @@
         return self.indexArray[section];
     }
     
->>>>>>> c8b8a691d3fc3af6c328df5942b33a01123eaa74
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-<<<<<<< HEAD
-    static NSString* reuseID = @"address";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseID forIndexPath:indexPath];
-    
-    if(!cell){
-        cell = [[UITableViewCell alloc]init];
-    }
-    
-    return cell;
-}
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-=======
     
     if (tableView.tag == 1) {
         UITableViewCell *cell = [[UITableViewCell alloc]init];
@@ -345,48 +309,12 @@
         [self.navigationController pushViewController:Vc animated:YES];
         NSLog(@"%ld---%ld",indexPath.section,indexPath.row);
     }
-   
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
->>>>>>> c8b8a691d3fc3af6c328df5942b33a01123eaa74
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
 
-<<<<<<< HEAD
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-=======
 #pragma mark 监听方法
 - (void)rightButtonWay{
     AddFriendsVc *Vc = [[AddFriendsVc alloc]init];
@@ -423,9 +351,7 @@
     [self.FriendsVc.tab reloadData];
     
     
->>>>>>> c8b8a691d3fc3af6c328df5942b33a01123eaa74
 }
-*/
 
 @end
 
