@@ -7,7 +7,7 @@
 //
 
 #import "AddFriendsVc.h"
-
+#import "AddressViewController.h"
 @interface AddFriendsVc ()<UITextFieldDelegate>
 //添加好友用户名
 @property (nonatomic,strong) UITextField *nameTextField;
@@ -22,8 +22,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    //获取当前登陆的用户信息
+    self.user = [JMSGUser myInfo];
     
     //添加好友用户名
     self.nameTextField = [[UITextField alloc]init];
@@ -76,13 +79,34 @@
     NSLog(@"reson:%@",resonStr);
     
     [JMSGFriendManager sendInvitationRequestWithUsername:nameStr appKey: @"0a974aa68871f642444ae38b" reason:resonStr completionHandler:^(id resultObject, NSError *error) {
-        NSLog(@"%@",error);
+        if (error != nil) {
+            UIAlertController *AlertController = [UIAlertController alertControllerWithTitle:@"你已经添加过该好友" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *agreeAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+            [AlertController addAction:agreeAction];
+            [self.navigationController presentViewController:AlertController animated:YES completion:nil];
+        }else{
+            //本地储存历史添加请求
+            NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+            NSString *filePath = [path stringByAppendingPathComponent:[NSString  stringWithFormat:@"%@userModelArray.plist",nameStr]];
+            NSData *data = [NSData dataWithContentsOfFile:filePath];
+            NSMutableArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            if (array == nil) {
+                array = [NSMutableArray arrayWithCapacity:0];
+            }
+            [array addObject:self.user];
+            
+            NSData *data1 = [NSKeyedArchiver archivedDataWithRootObject:array];
+            [data1 writeToFile:filePath atomically:YES];
+            //发送完好友请求后返回通讯录页面
+            AddressViewController *Vc = self.navigationController.viewControllers[0];
+            [self.navigationController popToViewController:Vc animated:YES];
+        }
+        
     }];
     
+    
+    
+    
 }
-
-//- (void)textFieldDidEndEditing:(UITextField *)textField{
-//    self.nameStr = textField.text;
-//}
 
 @end

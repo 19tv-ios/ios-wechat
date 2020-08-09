@@ -9,6 +9,7 @@
 #import "SettingVc.h"
 #import "SDAutoLayout.h"
 #import "RemarkVc.h"
+#import "AddressViewController.h"
 @interface SettingVc ()<UITableViewDelegate,UITableViewDataSource>
 
 @end
@@ -17,6 +18,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationItem.title = @"资料设置";
+    
     UITableView *tab = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 9, 0) style:UITableViewStyleGrouped];
     tab.tableFooterView = [[UIView alloc]init];
     tab.sectionFooterHeight = 5;
@@ -89,6 +93,10 @@
         UIAlertAction *agreeAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [JMSGFriendManager removeFriendWithUsername:self.user.username appKey:@"0a974aa68871f642444ae38b" completionHandler:^(id resultObject, NSError *error) {
                         if (error == nil) {NSLog(@"删除好友成功");}
+                
+                AddressViewController *Vc  = self.navigationController.viewControllers[0];
+                [Vc updateFriendsList];
+                [self.navigationController popToViewController:Vc animated:YES];
                     }];
         }];
         UIAlertAction *disagreeAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:nil];

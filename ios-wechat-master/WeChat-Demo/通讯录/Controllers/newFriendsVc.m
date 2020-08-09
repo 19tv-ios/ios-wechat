@@ -11,6 +11,7 @@
 #import "SDAutoLayout.h"
 #import "DetailVc.h"
 #import "Zhbutton.h"
+#import "AddressViewController.h"
 @interface newFriendsVc ()<JMessageDelegate,UITableViewDataSource,UITableViewDelegate>
 //新的朋友数组
 @property (nonatomic,strong) NSMutableDictionary *usernameDict;
@@ -44,21 +45,14 @@
     
 }
 #pragma mark 监听
-//- (void)onReceiveFriendNotificationEvent:(JMSGFriendNotificationEvent *)event{
-//    NSLog(@"eventID:%@",event.eventID);
-//    NSLog(@"reson:%@",event.getReason);
-//    NSLog(@"username:%@",event.getFromUsername);
-//    [self.userModelArray addObject:event.getFromUser];
-//    [self.tab reloadData];
-//
-//}
-
 - (void)agreeBtn:(Zhbutton *)btn{
 //    NSString *str = [NSString stringWithFormat:@"%ld",btn.tag];
     NSString *UserName = btn.user.username;
-    NSLog(@"fuckkkk%@",UserName);
     [JMSGFriendManager acceptInvitationWithUsername:UserName appKey:@"0a974aa68871f642444ae38b" completionHandler:^(id resultObject, NSError *error) {
         NSLog(@"error:%@",error);
+        AddressViewController *Vc = self.navigationController.viewControllers[0];
+        [Vc updateFriendsList];
+        [self.navigationController popToViewController:Vc animated:YES];
     }];
 }
 # pragma mark datasource

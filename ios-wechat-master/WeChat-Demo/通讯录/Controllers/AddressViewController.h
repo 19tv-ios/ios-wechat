@@ -11,7 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AddressViewController : UIViewController
-
+//uitableview
+@property (nonatomic,strong) UITableView *tableView;
+- (void)updateFriendsList;//更新通讯录页面
 @end
 
 NS_ASSUME_NONNULL_END

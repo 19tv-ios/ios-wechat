@@ -10,6 +10,7 @@
 #import "SDAutoLayout.h"
 #import "RemarkVc.h"
 #import "SettingVc.h"
+#import "MoreMessageVc.h"
 @interface DetailVc ()<UITableViewDataSource,UITableViewDelegate>
 
 @end
@@ -29,12 +30,15 @@
     
     //头像
     UIImageView *headView = [[UIImageView alloc]init];
-    headView.backgroundColor = [UIColor blueColor];
+//    headView.backgroundColor = [UIColor blueColor];
     __block UIImage *thumImage = [[UIImage alloc]init];
     [self.user thumbAvatarData:^(NSData *data, NSString *objectId, NSError *error) {
         thumImage = [UIImage imageWithData:data];
+        headView.image = thumImage;
     }];
-    headView.image = thumImage;
+    if (headView.image == nil) {
+        headView.image = [UIImage imageNamed:@"微信"];
+    }
     [self.view addSubview:headView];
     headView.sd_layout.topSpaceToView(self.view, 110).leftSpaceToView(self.view, 30).widthIs(85).heightIs(85);
     
@@ -75,8 +79,7 @@
     
     //地区
     UILabel *region = [[UILabel alloc]init];
-//    region.backgroundColor = [UIColor orangeColor];
-    region.text = @"叙利亚";//self.user.region
+    region.text = self.user.region;//
     region.font = [UIFont systemFontOfSize:15];
     region.textColor = [UIColor grayColor];
     [self.view addSubview:region];
@@ -114,18 +117,21 @@
             RemarkVc *Vc = [[RemarkVc alloc]init];
             Vc.user = self.user;
             [self.navigationController pushViewController:Vc animated:YES];
-        }else{
+        }else{//朋友权限
             
         }
     }else if(indexPath.section == 1) {
-        if (indexPath.row == 0) {
+        if (indexPath.row == 0) {//朋友圈
            
-        }else{
+        }else{//更多信息
+            MoreMessageVc *Vc = [[MoreMessageVc alloc]init];
+            Vc.user = self.user;
+            [self.navigationController pushViewController:Vc animated:YES];
         }
     }else{
-        if (indexPath.row == 0) {
+        if (indexPath.row == 0) {//发消息
            
-        }else{
+        }else{//音视频通话
            
         }
     }

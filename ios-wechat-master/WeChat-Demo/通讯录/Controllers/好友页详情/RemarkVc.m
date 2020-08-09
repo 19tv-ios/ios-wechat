@@ -19,6 +19,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationItem.title = @"设置备注和标签";
+    
     UITableView *tab = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 0, 0) style:UITableViewStyleGrouped];
 //    tab.tableFooterView = [[UIView alloc]init];
     tab.sectionFooterHeight = 5;

@@ -22,12 +22,13 @@
 @property (nonatomic,strong) NSMutableArray *rowArray;
 //#数组(包括字母、数字)
 @property (nonatomic,strong) NSMutableArray *specialArray;
-//新的朋友的数组模型
+//新的朋友请求的数组模型
 @property (nonatomic,strong) NSMutableArray *userModelArray;
 //新的朋友Vc
 @property (nonatomic,strong) newFriendsVc *FriendsVc;
-//uitableview
-@property (nonatomic,strong) UITableView *tableView;
+//当前登陆用户
+@property (nonatomic,strong) JMSGUser *user;
+
 
 @end
 
@@ -36,19 +37,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //获取当前登陆的用户信息
+    self.user = [JMSGUser myInfo];
+    
     //导航条右侧按钮
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightButton setImage:[UIImage imageNamed:@"添加好友"] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(rightButtonWay) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
-//    //导航条左侧按钮
-//    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [leftButton setImage:[UIImage imageNamed:@"新的朋友"] forState:UIControlStateNormal];
-//    [leftButton setTitle:@"新的朋友" forState:UIControlStateNormal];
-//    [leftButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    [leftButton addTarget:self action:@selector(leftButtonWay) forControlEvents:UIControlEventTouchUpInside];
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftButton];
-    
+
     //新的朋友数组
     if (self.userModelArray == nil) {
         self.userModelArray = [NSMutableArray arrayWithCapacity:0];
@@ -67,17 +64,17 @@
         self.indexArray = [NSMutableArray arrayWithCapacity:0];
     }
     
-    //    获取好友列表
-    [JMSGFriendManager getFriendList:^(id resultObject, NSError *error) {
-        NSArray *array = resultObject;
-        for (int i=0; i<array.count; i++) {
-            JMSGUser *user = array[i];
-            [self.userArray addObject:user];
-        }
-        //好友列表排序
-        [self FriendsSort];
-    }];
-    
+//    //    获取好友列表
+//    [JMSGFriendManager getFriendList:^(id resultObject, NSError *error) {
+//        NSArray *array = resultObject;
+//        for (int i=0; i<array.count; i++) {
+//            JMSGUser *user = array[i];
+//            [self.userArray addObject:user];
+//        }
+//        //好友列表排序
+//        [self FriendsSort];
+//    }];
+    [self updateFriendsList];
     
     //添加监听代理
     [JMessage addDelegate:self withConversation:nil];
@@ -107,6 +104,25 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+//更新通讯录页面
+- (void)updateFriendsList{
+    //    获取好友列表
+    [JMSGFriendManager getFriendList:^(id resultObject, NSError *error) {
+        NSArray *array = resultObject;
+        self.userArray = [NSMutableArray arrayWithCapacity:0];
+        for (int i=0; i<array.count; i++) {
+            JMSGUser *user = array[i];
+            [self.userArray addObject:user];
+        }
+        
+        //重置数组
+        self.indexArray = [NSMutableArray arrayWithCapacity:0];
+        self.sectionArray = [NSMutableArray arrayWithCapacity:0];
+        //好友列表排序
+        [self FriendsSort];
+    }];
 }
 
 // 按首字母分组排序数组
@@ -163,9 +179,9 @@
     }
     
     
-    
-    NSLog(@"section的数量:%ld",self.sectionArray.count);
-    NSLog(@"表格头的数量:%ld",self.indexArray.count);
+//    
+//    NSLog(@"section的数量:%ld",self.sectionArray.count);
+//    NSLog(@"表格头的数量:%ld",self.indexArray.count);
     [self.tableView reloadData];
 }
 
@@ -264,10 +280,10 @@
         self.FriendsVc.hidesBottomBarWhenPushed = YES;
         
         NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-        NSString *filePath = [path stringByAppendingPathComponent:@"userModelArray.plist"];
+        NSString *filePath = [path stringByAppendingPathComponent:[NSString  stringWithFormat:@"%@userModelArray.plist",self.user.username]];
         NSData *data = [NSData dataWithContentsOfFile:filePath];
         self.userModelArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        NSLog(@"11%@",self.userModelArray);
+        NSLog(@"%@",self.userModelArray);
         self.FriendsVc.userModelArray = self.userModelArray;
         [self.navigationController pushViewController:self.FriendsVc animated:YES];
         NSLog(@"新的朋友页面");
@@ -281,7 +297,7 @@
         NSLog(@"%ld---%ld",indexPath.section,indexPath.row);
     }
    
-  
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 }
 
@@ -293,19 +309,20 @@
     [self.navigationController pushViewController:Vc animated:YES];
     
 }
-- (void)leftButtonWay{
-    self.FriendsVc = [[newFriendsVc alloc]init];
-    self.FriendsVc.hidesBottomBarWhenPushed = YES;
-    
-    NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSString *filePath = [path stringByAppendingPathComponent:@"userModelArray.plist"];
-    NSData *data = [NSData dataWithContentsOfFile:filePath];
-    self.userModelArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    
-    self.FriendsVc.userModelArray = self.userModelArray;
-    [self.navigationController pushViewController:self.FriendsVc animated:YES];
-    NSLog(@"新的朋友页面");
-}
+//- (void)leftButtonWay{
+//    self.FriendsVc = [[newFriendsVc alloc]init];
+//    self.FriendsVc.hidesBottomBarWhenPushed = YES;
+//
+//    NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+//    NSString *filePath = [path stringByAppendingPathComponent:[NSString  stringWithFormat:@"%@userModelArray.plist",self.user.username]];
+//
+//    NSData *data = [NSData dataWithContentsOfFile:filePath];
+//    self.userModelArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+//
+//    self.FriendsVc.userModelArray = self.userModelArray;
+//    [self.navigationController pushViewController:self.FriendsVc animated:YES];
+//    NSLog(@"新的朋友页面");
+//}
 - (void)onReceiveFriendNotificationEvent:(JMSGFriendNotificationEvent *)event{
     NSLog(@"reson:%@",event.getReason);
     NSLog(@"username:%@",event.getFromUsername);
@@ -313,7 +330,7 @@
     
     //本地储存历史添加请求
     NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSString *filePath = [path stringByAppendingPathComponent:@"userModelArray.plist"];
+    NSString *filePath = [path stringByAppendingPathComponent:[NSString  stringWithFormat:@"%@userModelArray.plist",self.user.username]];
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.userModelArray];
     [data writeToFile:filePath atomically:YES];
     

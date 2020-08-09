@@ -31,6 +31,7 @@
 		8CF6B0FD6D9C7547EDE797E2 /* libPods-WeChat-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD9065A6A368963FDD894F1 /* libPods-WeChat-Demo.a */; };
 		E239E98F24DE94BB00E003F2 /* RemarkVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E239E98E24DE94BB00E003F2 /* RemarkVc.m */; };
 		E239E99424DEDB2B00E003F2 /* SettingVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E239E99324DEDB2B00E003F2 /* SettingVc.m */; };
+		E270657C24DFA3A600B98381 /* MoreMessageVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E270657B24DFA3A600B98381 /* MoreMessageVc.m */; };
 		E2EBF10724DDAD7B00A8F174 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2EBF10624DDAD7B00A8F174 /* AddressViewController.m */; };
 		E2FB996F24DC10E000F48633 /* DetailVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FB996924DC10E000F48633 /* DetailVc.m */; };
 		E2FB997024DC10E000F48633 /* newFriendsVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FB996C24DC10E000F48633 /* newFriendsVc.m */; };
@@ -147,6 +148,8 @@
 		E239E98E24DE94BB00E003F2 /* RemarkVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemarkVc.m; sourceTree = "<group>"; };
 		E239E99224DEDB2B00E003F2 /* SettingVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingVc.h; sourceTree = "<group>"; };
 		E239E99324DEDB2B00E003F2 /* SettingVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingVc.m; sourceTree = "<group>"; };
+		E270657A24DFA3A600B98381 /* MoreMessageVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreMessageVc.h; sourceTree = "<group>"; };
+		E270657B24DFA3A600B98381 /* MoreMessageVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreMessageVc.m; sourceTree = "<group>"; };
 		E2EBEFF424DCED2900A8F174 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pods.xcodeproj; sourceTree = "<group>"; };
 		E2EBEFF924DCED2900A8F174 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E2EBEFFB24DCED2900A8F174 /* pinyin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
@@ -474,6 +477,8 @@
 				E239E98E24DE94BB00E003F2 /* RemarkVc.m */,
 				E239E99224DEDB2B00E003F2 /* SettingVc.h */,
 				E239E99324DEDB2B00E003F2 /* SettingVc.m */,
+				E270657A24DFA3A600B98381 /* MoreMessageVc.h */,
+				E270657B24DFA3A600B98381 /* MoreMessageVc.m */,
 			);
 			path = "好友页详情";
 			sourceTree = "<group>";
@@ -1272,6 +1277,7 @@
 				E239E98F24DE94BB00E003F2 /* RemarkVc.m in Sources */,
 				2212FF2524DBF0040086724D /* GetMsg.m in Sources */,
 				E2FB997124DC10E000F48633 /* AddFriendsVc.m in Sources */,
+				E270657C24DFA3A600B98381 /* MoreMessageVc.m in Sources */,
 				E2FB997524DC171200F48633 /* Zhbutton.m in Sources */,
 				22B47F2924D908BA0078122F /* ViewController.m in Sources */,
 				22B47F5824D908E60078122F /* TabBarController.m in Sources */,

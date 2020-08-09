@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 //数组模型
 @property (nonatomic,strong) NSMutableArray *userModelArray;
 @property (nonatomic,strong) UITableView *tab;
+//当前登陆用户
 @end
 
 NS_ASSUME_NONNULL_END
