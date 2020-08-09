@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Root.h"
 @interface MyViewController : UIViewController
-
+@property(nonatomic,weak)id<Root>delegate;
 @end

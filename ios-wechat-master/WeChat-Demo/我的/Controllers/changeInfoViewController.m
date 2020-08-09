@@ -17,6 +17,8 @@
 
 //用来判断修改的是不是签名框
 extern NSInteger infoindex;
+//用来判断修改的是不是密码
+extern NSInteger passwordindex;
 
 @implementation changeInfoViewController
 
@@ -56,9 +58,14 @@ extern NSInteger infoindex;
         //通知传修改的内容
         NSNumber *index = [NSNumber numberWithInteger:infoindex];
         int intindex = [index intValue];
+        NSNumber *passindex = [NSNumber numberWithInteger:passwordindex];
+        int intpassindex = [passindex intValue];
+        NSStringEncoding enc =   CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+        NSData *data = [_infoTextField.text dataUsingEncoding:enc];
+        NSInteger dataLen = data.length;
         //字节限制
         if (intindex) {
-            if (_infoTextField.text.length>120) {
+            if (dataLen>120) {
                 NSString *string = @"签名框的最大字节数为120.请重新输入";
                 [self showAlert:string];
             }else {
@@ -71,17 +78,28 @@ extern NSInteger infoindex;
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }else {
-            if (_infoTextField.text.length>15) {
-                NSString *string = @"呢称的最大字节数为15.请重新输入";
+            if (dataLen>15) {
+                NSString *string = @"最大字节数为15.请重新输入";
                 [self showAlert:string];
             }else {
-                NSDictionary *dict = @{
-                                       @"infoTextFieldText":_infoTextField.text,
-                                       @"infoindex":index
-                                       };
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"infoChange" object:nil userInfo:dict];
-                infoindex = 0;
-                [self.navigationController popViewControllerAnimated:YES];
+                if (intpassindex) {
+                    
+                    NSDictionary *dict = @{
+                                           @"infoTextFieldText":_infoTextField.text,
+                                           @"infoindex":passindex
+                                           };
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"infoChange" object:nil userInfo:dict];
+                    passwordindex = 0;
+                    [self.navigationController popViewControllerAnimated:YES];
+                }else {
+                    NSDictionary *dict = @{
+                                           @"infoTextFieldText":_infoTextField.text,
+                                           @"infoindex":index
+                                           };
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"infoChange" object:nil userInfo:dict];
+                    infoindex = 0;
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
             }
         }
     }

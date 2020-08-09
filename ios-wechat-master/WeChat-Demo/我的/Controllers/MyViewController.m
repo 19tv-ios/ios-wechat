@@ -12,8 +12,10 @@
 #import "SexPickerTool.h"
 #import "DatePickerTool.h"
 #import "changeInfoViewController.h"
+#import "GFAddressPicker.h"
+#import "SignViewController.h"
 
-@interface MyViewController()<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+@interface MyViewController()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,GFAddressPickerDelegate>
 //详细信息UIView
 @property (nonatomic, strong) UIView *cardView;
 //头像呢称UIView
@@ -34,16 +36,27 @@
 @property (nonatomic, strong) UIButton *genderSelectButton;
 //性别填写框
 @property (nonatomic, strong) UILabel *fillGenderLabel;
+//区域
+@property (nonatomic, strong) UILabel *regionLabel;
+//区域按钮
+@property (nonatomic, strong) UIButton *regionButton;
+//区域填写框
+@property (nonatomic, strong) UILabel *fillRegionLabel;
+//区域选择器
+@property (nonatomic, strong) GFAddressPicker *pickerView;
 //签名
 @property (nonatomic, strong) UILabel *autographLabel;
 //签名输入框
-@property (nonatomic, strong) UILabel *fillAutographLabel;
+@property (nonatomic, strong) UITextView *fillAutographLabel;
 //签名跳转按钮
 @property (nonatomic, strong) UIButton *autographLabelSelectButton;
 //分割线1
 @property (nonatomic, strong) UIView *dividingLine1;
 //分割线2
 @property (nonatomic, strong) UIView *dividingLine2;
+//分割线3
+@property (nonatomic, strong) UIView *dividingLine3;
+
 //修改密码的button
 @property (nonatomic, strong) UIButton *changePasswordButton;
 //退出登录的button
@@ -52,6 +65,10 @@
 @end
 
 NSInteger infoindex;
+
+NSInteger passwordindex;
+
+extern NSString *infopassword;
 
 @implementation MyViewController
 
@@ -96,6 +113,15 @@ NSInteger infoindex;
     //初始化性别填写框
     [self seuUpFillGenderLabel];
     
+    //初始化区域框
+    [self setUpRegionLabel];
+    
+    //初始化区域选择按钮
+    [self setUpRegionButton];
+    
+    //初始化区域填写框
+    [self setUpFillRegionLabel];
+    
     //初始化签名标签
     [self setUpAutographLabel];
     
@@ -107,6 +133,7 @@ NSInteger infoindex;
     
     //初始化分割线
     [self setUpDividingLine];
+    
     
     //监听修改内容通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(infoChange:) name:@"infoChange" object:nil];
@@ -122,7 +149,7 @@ NSInteger infoindex;
     CGFloat left = (self.view.frame.size.width - 280)/2 + 30;
     _cardView.sd_layout
     .widthIs(280)
-    .heightIs(350)
+    .heightIs(300)
     .topSpaceToView(self.view, top)
     .leftSpaceToView(self.view, left);
 }
@@ -141,6 +168,8 @@ NSInteger infoindex;
     .topSpaceToView(self.view, top)
     .leftSpaceToView(self.view, left);
 }
+
+//修改密码
 #pragma mark - 初始化修改密码按钮
 - (void)setUpchangePasswordButton {
     _changePasswordButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -158,6 +187,14 @@ NSInteger infoindex;
     .widthIs(width/2)
     .heightIs(41);
 }
+#pragma mark - 点击修改密码按钮
+- (void)clickchangePasswordButton {
+    passwordindex = 2;
+    changeInfoViewController *changeInfoVc = [[changeInfoViewController alloc] init];
+    [self.navigationController pushViewController:changeInfoVc animated:YES];
+}
+
+//退出登录
 #pragma mark - 初始化退出登录按钮
 - (void)setUpSignOutButton {
     _signOutButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -175,18 +212,36 @@ NSInteger infoindex;
     .widthIs(width/2)
     .heightIs(41);
 }
-#pragma mark - 点击修改密码按钮
-- (void)clickchangePasswordButton {
-    
-}
 #pragma mark - 点击退出登录按钮
 - (void)clickSignOutButton {
-    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确定退出登录?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"no" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [JMSGUser logout:^(id resultObject, NSError *error) {
+            if (error) {
+                
+            }else {
+                [self.delegate changeToSignVC];
+            }
+        }];
+    }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
+
+//头像
 #pragma mark - 初始化头像
 - (void)setUpIconImageView {
     self.iconImageView =[[UIImageView alloc] init];
-    self.iconImageView.image = [UIImage imageNamed:@"用户"];
+    JMSGUser *user = [JMSGUser myInfo];
+    [user thumbAvatarData:^(NSData *data, NSString *objectId, NSError *error) {
+        if (data) {
+            self.iconImageView.image = [UIImage imageWithData:data];
+        } else {
+            self.iconImageView.image = [UIImage imageNamed:@"用户"];
+        }
+    }];
     self.iconImageView.layer.cornerRadius = 30;
     self.iconImageView.layer.masksToBounds = YES;
     [self.iconView addSubview:self.iconImageView];
@@ -200,14 +255,41 @@ NSInteger infoindex;
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeIcon)];
     [_iconImageView addGestureRecognizer:singleTap];
 }
+#pragma mark - 点击修改头像
+- (void)changeIcon {
+    //拿到获取相册的权限
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]){
+        UIImagePickerController *pic = [[UIImagePickerController alloc] init];
+        pic.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        pic.delegate = self;
+        [self presentViewController:pic animated:YES completion:nil];
+    }
+}
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    //拿到图片会就销毁之前的控制器
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    //info中就是包含你在相册里面选择的图片
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+    JMSGUserInfo *uesrInfo = [[JMSGUserInfo alloc] init];
+    uesrInfo.avatarData =  imageData;
+    [JMSGUser updateMyAvatarWithData:imageData avatarFormat:@"jpeg" completionHandler:^(id resultObject, NSError *error) {
+        NSLog(@"%@",resultObject);
+    }];
+    
+    _iconImageView.image = image;
+}
+
+//呢称
 #pragma mark - 初始化呢称标签
 - (void)setUpNameLabel {
     _nameLabel = [[UILabel alloc] init];
     //获取当前登录用户呢称
     JMSGUser *user = [JMSGUser myInfo];
-    JMSGUserInfo *userInfo = [[JMSGUserInfo alloc] init];
-    if (userInfo.nickname) {
-        _nameLabel.text = userInfo.nickname;
+    
+    if (user.nickname) {
+        _nameLabel.text = user.nickname;
     }else {
         _nameLabel.text = user.username;
     }
@@ -224,6 +306,24 @@ NSInteger infoindex;
     _nameLabel.userInteractionEnabled = YES; // 可以理解为设置label可被点击
 
 }
+#pragma mark - 点击呢称框
+- (void)nameLabelClick {
+    changeInfoViewController *changeInfoVc = [[changeInfoViewController alloc] init];
+    [self.navigationController pushViewController:changeInfoVc animated:YES];
+}
+
+//签名
+#pragma mark - 初始化签名标签
+- (void)setUpAutographLabel {
+    _autographLabel = [[UILabel alloc] init];
+    _autographLabel.text = @"签名:";
+    [_cardView addSubview:_autographLabel];
+    _autographLabel.sd_layout
+    .leftSpaceToView(self.cardView, 10)
+    .widthIs(50)
+    .heightIs(40)
+    .topSpaceToView(_regionLabel, 10);
+}
 #pragma mark - 初始化签名跳转按钮
 - (void)setUpAutographLabelSelectButton {
     _autographLabelSelectButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -231,7 +331,7 @@ NSInteger infoindex;
     [_autographLabelSelectButton addTarget:self action:@selector(clickautographLabelSelectButton) forControlEvents:UIControlEventTouchUpInside];
     [self.cardView addSubview:_autographLabelSelectButton];
     _autographLabelSelectButton.sd_layout
-    .topSpaceToView(self.genderLabel, 43)
+    .topSpaceToView(self.regionLabel, 15)
     .rightSpaceToView(self.cardView, 20)
     .widthIs(30)
     .heightIs(30);
@@ -240,12 +340,18 @@ NSInteger infoindex;
 }
 #pragma mark - 初始化签名输入框
 - (void)setUpFillAutographLabel {
-    _fillAutographLabel = [[UILabel alloc] init];
+    _fillAutographLabel = [[UITextView alloc] init];
+    _fillAutographLabel.font = [UIFont systemFontOfSize:15];
+    //获取当前登录用户信息
+    JMSGUser *user = [JMSGUser myInfo];
+    if (user.signature) {
+        _fillAutographLabel.text = user.signature;
+    }
+     _fillAutographLabel.backgroundColor = [UIColor colorWithRed:241/255.0 green:173/255.0 blue:133/255.0 alpha:1.0];
     [_cardView addSubview:_fillAutographLabel];
-    _fillAutographLabel.numberOfLines = 0;
     _fillAutographLabel.sd_layout
     .rightSpaceToView(_autographLabelSelectButton,10)
-    .topSpaceToView(_fillGenderLabel, 30)
+    .topSpaceToView(_regionLabel, 10)
     .widthIs(155)
     .heightIs(150);
 }
@@ -256,44 +362,257 @@ NSInteger infoindex;
     changeInfoViewController *changeInfoVc = [[changeInfoViewController alloc] init];
     [self.navigationController pushViewController:changeInfoVc animated:YES];
 }
-#pragma mark - 点击呢称框
-- (void)nameLabelClick {
-    changeInfoViewController *changeInfoVc = [[changeInfoViewController alloc] init];
-    [self.navigationController pushViewController:changeInfoVc animated:YES];
-}
+
+//生日
 #pragma mark - 初始化生日标签
 - (void)setUpBirthdayLabel {
     _birthdayLabel = [[UILabel alloc] init];
     _birthdayLabel.text = @"生日:";
     [_cardView addSubview:_birthdayLabel];
     _birthdayLabel.sd_layout
-    .leftSpaceToView(self.cardView, 20)
+    .leftSpaceToView(self.cardView, 10)
     .widthIs(50)
-    .heightIs(60)
+    .heightIs(40)
     .topSpaceToView(_cardView, 10);
 }
+#pragma mark - 初始化点击生日选择按钮方法
+- (void)clickBirthdaySelectButton {
+    DatePickerTool *datePicker = [[DatePickerTool alloc] init];
+    __block DatePickerTool *blockPick = datePicker;
+    datePicker.callBlock = ^(NSString *pickDate) {
+        if (pickDate) {
+            self->_fillBirthdayLabel.text = pickDate;
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init]; // 创建一个时间格式化对象
+            [dateFormatter setDateFormat:@"yyyy-MM-dd"]; // 设定时间的格式
+            NSDate *tempDate = [dateFormatter dateFromString:pickDate]; // 将字符串转换为时间对象
+            NSString *timeStr = [NSString stringWithFormat:@"%ld", (long)[tempDate timeIntervalSince1970]]; // 字符串转成时间戳,精确到毫秒*1000
+            NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+            f.numberStyle = NSNumberFormatterDecimalStyle;
+            NSNumber *myNumber = [f numberFromString:timeStr];
+            JMSGUserInfo *userInfo = [[JMSGUserInfo alloc] init];
+            userInfo.birthday = myNumber;
+            [JMSGUser updateMyInfoWithUserInfo:userInfo completionHandler:^(id resultObject, NSError *error) {
+                NSLog(@"%@",resultObject);
+                NSLog(@"%@",error);
+            }];
+        }
+        [blockPick removeFromSuperview];
+    };
+    [self.cardView addSubview:datePicker];
+    datePicker.sd_layout
+    .leftEqualToView(self.cardView)
+    .rightEqualToView(self.cardView)
+    .topEqualToView(self.dividingLine1)
+    .heightIs(200);
+    
+}
+#pragma mark - 初始化生日选择按钮
+- (void)setUpBirthdaySelectButton {
+    _birthdaySelectButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_birthdaySelectButton setImage:[UIImage imageNamed:@"右箭头"] forState:UIControlStateNormal];
+    [_birthdaySelectButton addTarget:self action:@selector(clickBirthdaySelectButton) forControlEvents:UIControlEventTouchUpInside];
+    [self.cardView addSubview:_birthdaySelectButton];
+    _birthdaySelectButton.sd_layout
+    .topSpaceToView(self.cardView, 15)
+    .rightSpaceToView(self.cardView, 20)
+    .widthIs(30)
+    .heightIs(30);
+}
+#pragma mark - 初始化生日填写框
+- (void)setUpFillBirthdayLabel {
+    _fillBirthdayLabel = [[UILabel alloc] init];
+    //获取当前登录用户信息
+    JMSGUser *user = [JMSGUser myInfo];
+    if (user.birthday) {
+        _fillBirthdayLabel.text = user.birthday;
+    }
+    [_cardView addSubview:_fillBirthdayLabel];
+    _fillBirthdayLabel.sd_layout
+    .rightSpaceToView(_birthdaySelectButton, 10)
+    .widthIs(100)
+    .heightIs(40)
+    .topSpaceToView(_cardView, 10);
+}
+
+//性别
 #pragma mark - 初始化性别标签
 - (void)setUpGenderLabel {
     _genderLabel = [[UILabel alloc] init];
     _genderLabel.text = @"性别:";
     [_cardView addSubview:_genderLabel];
     _genderLabel.sd_layout
-    .leftSpaceToView(self.cardView, 20)
+    .leftSpaceToView(self.cardView, 10)
     .widthIs(50)
-    .heightIs(60)
-    .topSpaceToView(_birthdayLabel, 30);
+    .heightIs(40)
+    .topSpaceToView(_birthdayLabel, 5);
 }
-#pragma mark - 初始化签名标签
-- (void)setUpAutographLabel {
-    _autographLabel = [[UILabel alloc] init];
-    _autographLabel.text = @"签名:";
-    [_cardView addSubview:_autographLabel];
-    _autographLabel.sd_layout
-    .leftSpaceToView(self.cardView, 20)
+#pragma mark - 初始化性别选择按钮
+- (void)setUpGenderSelectButton {
+    _genderSelectButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_genderSelectButton setImage:[UIImage imageNamed:@"右箭头"] forState:UIControlStateNormal];
+    [_genderSelectButton addTarget:self action:@selector(clickgenderSelectButton) forControlEvents:UIControlEventTouchUpInside];
+    [self.cardView addSubview:_genderSelectButton];
+    _genderSelectButton.sd_layout
+    .topSpaceToView(self.birthdayLabel, 10)
+    .rightSpaceToView(self.cardView, 20)
+    .widthIs(30)
+    .heightIs(30);
+}
+#pragma mark - 初始化性别填写框
+- (void)seuUpFillGenderLabel {
+    _fillGenderLabel = [[UILabel alloc] init];
+    JMSGUser *user = [JMSGUser myInfo];
+    if (user.gender == kJMSGUserGenderUnknown) {
+        
+    }else {
+        if (user.gender == kJMSGUserGenderMale) {
+            _fillGenderLabel.text = @"男";
+        }else {
+            _fillGenderLabel.text = @"女";
+        }
+    }
+    [_cardView addSubview:_fillGenderLabel];
+    _fillGenderLabel.sd_layout
+    .rightSpaceToView(_genderSelectButton, 10)
     .widthIs(50)
-    .heightIs(60)
-    .topSpaceToView(_genderLabel, 30);
+    .heightIs(40)
+    .topSpaceToView(_birthdayLabel, 5);
 }
+#pragma mark - 初始化点击性别选择按钮方法
+- (void)clickgenderSelectButton {
+    SexPickerTool *sexPick = [[SexPickerTool alloc] init];
+    __block SexPickerTool *blockPicker = sexPick;
+    sexPick.callBlock = ^(NSString *pickDate) {
+        if (pickDate) {
+             self->_fillGenderLabel.text= pickDate;
+            JMSGUserInfo *userInfo = [[JMSGUserInfo alloc] init];
+            NSString *str1 = @"男";
+            if ([pickDate isEqualToString:str1]) {
+                userInfo.gender = kJMSGUserGenderMale;
+            }else {
+                userInfo.gender =  kJMSGUserGenderFemale;
+            }
+            [JMSGUser updateMyInfoWithUserInfo:userInfo completionHandler:^(id resultObject, NSError *error) {
+                NSLog(@"%@",resultObject);
+                NSLog(@"%@",error);
+            }];
+        }
+        [blockPicker removeFromSuperview];
+    };
+    [self.cardView addSubview:sexPick];
+    blockPicker.sd_layout
+    .leftEqualToView(self.cardView)
+    .rightEqualToView(self.cardView)
+    .topEqualToView(self.dividingLine2)
+    .heightIs(125);
+    
+}
+
+//通知
+#pragma mark - 通知调用的方法
+- (void)infoChange:(NSNotification *)notification {
+    NSDictionary *dict = notification.userInfo;
+    NSNumber *index = dict[@"infoindex"];
+    int intindex = [index intValue];
+    if (intindex == 1) {
+        _fillAutographLabel.text = dict[@"infoTextFieldText"];
+        JMSGUserInfo *uesrInfo = [[JMSGUserInfo alloc] init];
+        uesrInfo.signature = _fillAutographLabel.text;
+        [JMSGUser updateMyInfoWithUserInfo:uesrInfo completionHandler:^(id resultObject, NSError *error) {
+            NSLog(@"%@",resultObject);
+        }];
+        
+    }else {
+        if (intindex == 2) {
+            NSString *newPassWord = dict[@"infoTextFieldText"];
+            [JMSGUser updateMyPasswordWithNewPassword:newPassWord oldPassword:infopassword completionHandler:^(id resultObject, NSError *error) {
+                //通知传值.更新登录页面的账号和密码
+                NSDictionary *dict = @{
+                                       @"password":newPassWord
+                                       };
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"changePassword" object:nil userInfo:dict];
+                [self.delegate changeToSignVC];
+            }];
+        }else {
+            _nameLabel.text = dict[@"infoTextFieldText"];
+            JMSGUserInfo *uesrInfo = [[JMSGUserInfo alloc] init];
+            uesrInfo.nickname = _nameLabel.text;
+            [JMSGUser updateMyInfoWithUserInfo:uesrInfo completionHandler:^(id resultObject, NSError *error) {
+                NSLog(@"%@",resultObject);
+            }];
+        }
+    }
+}
+
+//区域
+#pragma mark - 初始化区域框
+- (void)setUpRegionLabel {
+    _regionLabel = [[UILabel alloc] init];
+    _regionLabel.text = @"区域:";
+    [_cardView addSubview:_regionLabel];
+    _regionLabel.sd_layout
+    .leftSpaceToView(self.cardView, 10)
+    .widthIs(50)
+    .heightIs(40)
+    .topSpaceToView(_genderLabel, 5);
+}
+#pragma mark - 初始化区域选择按钮
+- (void)setUpRegionButton {
+    _regionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_regionButton setImage:[UIImage imageNamed:@"右箭头"] forState:UIControlStateNormal];
+    [_regionButton addTarget:self action:@selector(clickRegionButton) forControlEvents:UIControlEventTouchUpInside];
+    [self.cardView addSubview:_regionButton];
+    _regionButton.sd_layout
+    .topSpaceToView(self.fillGenderLabel, 10)
+    .rightSpaceToView(self.cardView, 20)
+    .widthIs(30)
+    .heightIs(30);
+}
+#pragma mark - 点击区域选择按钮
+- (void)clickRegionButton {
+    self.pickerView = [[GFAddressPicker alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    [self.pickerView updateAddressAtProvince:@"广东省" city:@"广州市" town:@"番禺区"];
+    self.pickerView.delegate = self;
+    self.pickerView.font = [UIFont boldSystemFontOfSize:18];
+    [self.view addSubview:self.pickerView];
+}
+- (void)GFAddressPickerCancleAction
+{
+    [self.pickerView removeFromSuperview];
+}
+- (void)GFAddressPickerWithProvince:(NSString *)province
+                               city:(NSString *)city area:(NSString *)area
+{
+    [self.pickerView removeFromSuperview];
+    
+    _fillRegionLabel.text = [NSString stringWithFormat:@"%@  %@  %@",province,city,area];
+    _fillRegionLabel.font = [UIFont systemFontOfSize:14];
+    JMSGUserInfo *uesrInfo = [[JMSGUserInfo alloc] init];
+    uesrInfo.region = _fillRegionLabel.text;
+    [JMSGUser updateMyInfoWithUserInfo:uesrInfo completionHandler:^(id resultObject, NSError *error) {
+        NSLog(@"%@",resultObject);
+    }];
+    
+    
+    NSLog(@"%@  %@  %@",province,city,area);
+}
+#pragma mark - 区域填写框
+- (void)setUpFillRegionLabel {
+    _fillRegionLabel = [[UILabel alloc] init];
+    JMSGUser *user = [JMSGUser myInfo];
+    if (user.region) {
+        _fillRegionLabel.text = user.region;
+    }
+    _fillRegionLabel.font = [UIFont systemFontOfSize:14];
+    [_cardView addSubview:_fillRegionLabel];
+    _fillRegionLabel.sd_layout
+    .rightSpaceToView(_regionButton, 10)
+    .widthIs(150)
+    .heightIs(40)
+    .topSpaceToView(_genderLabel, 5);
+}
+
+//分割线
 #pragma mark - 初始化分割线
 - (void)setUpDividingLine {
     _dividingLine1 = [[UIView alloc] init];
@@ -313,117 +632,17 @@ NSInteger infoindex;
     .heightIs(2)
     .topSpaceToView(self.genderLabel,5)
     .leftSpaceToView(self.cardView, 0);
-}
-#pragma mark - 初始化点击性别选择按钮
-- (void)setUpGenderSelectButton {
-    _genderSelectButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_genderSelectButton setImage:[UIImage imageNamed:@"右箭头"] forState:UIControlStateNormal];
-    [_genderSelectButton addTarget:self action:@selector(clickgenderSelectButton) forControlEvents:UIControlEventTouchUpInside];
-    [self.cardView addSubview:_genderSelectButton];
-    _genderSelectButton.sd_layout
-    .topSpaceToView(self.cardView, 25)
-    .rightSpaceToView(self.cardView, 20)
-    .widthIs(30)
-    .heightIs(30);
-}
-#pragma mark - 初始化性别填写框
-- (void)seuUpFillGenderLabel {
-    _fillGenderLabel = [[UILabel alloc] init];
-    [_cardView addSubview:_fillGenderLabel];
-    _fillGenderLabel.sd_layout
-    .rightSpaceToView(_genderSelectButton, 10)
-    .widthIs(50)
-    .heightIs(60)
-    .topSpaceToView(_birthdayLabel, 30);
-}
-#pragma mark - 初始化点击性别选择按钮方法
-- (void)clickBirthdaySelectButton {
-    SexPickerTool *sexPick = [[SexPickerTool alloc] init];
-    __block SexPickerTool *blockPicker = sexPick;
-    sexPick.callBlock = ^(NSString *pickDate) {
-        self->_fillGenderLabel.text= pickDate;
-        if (pickDate) {
-        }
-        [blockPicker removeFromSuperview];
-    };
-    [self.cardView addSubview:sexPick];
-    blockPicker.sd_layout
-    .leftEqualToView(self.cardView)
-    .rightEqualToView(self.cardView)
-    .topEqualToView(self.dividingLine2)
-    .heightIs(125);
-}
-#pragma mark - 初始化生日选择按钮
-- (void)setUpBirthdaySelectButton {
-    _birthdaySelectButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_birthdaySelectButton setImage:[UIImage imageNamed:@"右箭头"] forState:UIControlStateNormal];
-    [_birthdaySelectButton addTarget:self action:@selector(clickBirthdaySelectButton) forControlEvents:UIControlEventTouchUpInside];
-    [self.cardView addSubview:_birthdaySelectButton];
-    _birthdaySelectButton.sd_layout
-    .topSpaceToView(self.birthdayLabel, 45)
-    .rightSpaceToView(self.cardView, 20)
-    .widthIs(30)
-    .heightIs(30);
-}
-#pragma mark - 初始化生日填写框
-- (void)setUpFillBirthdayLabel {
-    _fillBirthdayLabel = [[UILabel alloc] init];
-    [_cardView addSubview:_fillBirthdayLabel];
-    _fillBirthdayLabel.sd_layout
-    .rightSpaceToView(_birthdaySelectButton, 10)
-    .widthIs(100)
-    .heightIs(60)
-    .topSpaceToView(_cardView, 10);
-}
-#pragma mark - 初始化点击生日选择按钮方法
-- (void)clickgenderSelectButton {
-    DatePickerTool *datePicker = [[DatePickerTool alloc] init];
-    __block DatePickerTool *blockPick = datePicker;
-    datePicker.callBlock = ^(NSString *pickDate) {
-        self->_fillBirthdayLabel.text = pickDate;
-        if (pickDate) {
-        }
-        [blockPick removeFromSuperview];
-    };
-    [self.cardView addSubview:datePicker];
-    datePicker.sd_layout
-    .leftEqualToView(self.cardView)
-    .rightEqualToView(self.cardView)
-    .topEqualToView(self.dividingLine1)
-    .heightIs(200);
     
-}
-#pragma mark - 通知调用的方法
-- (void)infoChange:(NSNotification *)notification {
-    NSDictionary *dict = notification.userInfo;
-    NSNumber *index = dict[@"infoindex"];
-    int intindex = [index intValue];
-    if (intindex) {
-        _fillAutographLabel.text = dict[@"infoTextFieldText"];
-    }else {
-        _nameLabel.text = dict[@"infoTextFieldText"];
-    }
-}
-#pragma mark - 点击修改头像
-- (void)changeIcon {
-    //拿到获取相册的权限
-    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]){
-        UIImagePickerController *pic = [[UIImagePickerController alloc] init];
-        pic.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-        pic.delegate = self;
-        [self presentViewController:pic animated:YES completion:nil];
-    }
+    _dividingLine3 = [[UIView alloc] init];
+    _dividingLine3.backgroundColor = [UIColor whiteColor];
+    [self.cardView addSubview:_dividingLine3];
+    _dividingLine3.sd_layout
+    .widthIs(280)
+    .heightIs(2)
+    .topSpaceToView(self.regionLabel,5)
+    .leftSpaceToView(self.cardView, 0);
 }
 
-//点击相片后会跑这个方法
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
-{
-    //拿到图片会就销毁之前的控制器
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    //info中就是包含你在相册里面选择的图片
-    UIImage *image = info[UIImagePickerControllerOriginalImage];
-    _iconImageView.image = image;
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     

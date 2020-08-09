@@ -12,4 +12,5 @@
 
 -(void)changeRootVC;
 
+-(void)changeToSignVC;
 @end

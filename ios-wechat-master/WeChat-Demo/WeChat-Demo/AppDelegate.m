@@ -10,6 +10,7 @@
 #import <JMessage/JMessage.h>
 #import "Root.h"
 #import <UserNotifications/UserNotifications.h>
+
 #define appkey @"0a974aa68871f642444ae38b"
 @interface AppDelegate ()<Root>
 
@@ -42,8 +43,11 @@
     app.statusBarHidden = NO;
     
     _tabBarController = [[TabBarController alloc] init];
+    
     _signViewController = [[SignViewController alloc] init];
     _signViewController.delegate = self;
+    
+    _tabBarController.myView.delegate = self;
     
     self.window.rootViewController = _signViewController;
     [self.window makeKeyAndVisible];
@@ -57,6 +61,9 @@
 }
 -(void)changeRootVC{
     self.window.rootViewController = _tabBarController;
+}
+-(void)changeToSignVC {
+    self.window.rootViewController = _signViewController;
 }
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
