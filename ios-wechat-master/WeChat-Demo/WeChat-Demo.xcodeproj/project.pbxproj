@@ -31,6 +31,10 @@
 		52028E6C24E127CD00EF6C9B /* SexPickerTool.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52028E6724E127CC00EF6C9B /* SexPickerTool.xib */; };
 		52028E6D24E127CD00EF6C9B /* DatePickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 52028E6924E127CD00EF6C9B /* DatePickerTool.m */; };
 		52028E6E24E127CD00EF6C9B /* DatePickerTool.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52028E6A24E127CD00EF6C9B /* DatePickerTool.xib */; };
+		52028E7924E1340600EF6C9B /* MoreMessageVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 52028E7424E1340500EF6C9B /* MoreMessageVc.m */; };
+		52028E7A24E1340600EF6C9B /* SettingVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 52028E7624E1340600EF6C9B /* SettingVc.m */; };
+		52028E7B24E1340600EF6C9B /* RemarkVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 52028E7724E1340600EF6C9B /* RemarkVc.m */; };
+		52028E7C24E1340600EF6C9B /* DetailVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 52028E7824E1340600EF6C9B /* DetailVc.m */; };
 		5220FF5224DD4B2500D51FDE /* changeInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5220FF5124DD4B2500D51FDE /* changeInfoViewController.m */; };
 		5239903F24D9AA2F00310576 /* SignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239903E24D9AA2F00310576 /* SignViewController.m */; };
 		5260742B24DCF72F00A91759 /* newFriendsVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 5260742A24DCF72F00A91759 /* newFriendsVc.m */; };
@@ -38,10 +42,6 @@
 		5260743424DCF73B00A91759 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5260742F24DCF73A00A91759 /* AddressViewController.m */; };
 		528A773224DE84890094F398 /* GFAddressPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 528A773024DE84890094F398 /* GFAddressPicker.m */; };
 		528A773324DE84890094F398 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 528A773124DE84890094F398 /* Address.plist */; };
-		52EED49924DFD55400A3EB9F /* MoreMessageVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EED49424DFD55400A3EB9F /* MoreMessageVc.m */; };
-		52EED49A24DFD55400A3EB9F /* SettingVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EED49624DFD55400A3EB9F /* SettingVc.m */; };
-		52EED49B24DFD55400A3EB9F /* RemarkVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EED49724DFD55400A3EB9F /* RemarkVc.m */; };
-		52EED49C24DFD55400A3EB9F /* DetailVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EED49824DFD55400A3EB9F /* DetailVc.m */; };
 		52EED49F24DFD57400A3EB9F /* Zhbutton.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EED49D24DFD57400A3EB9F /* Zhbutton.m */; };
 		8CF6B0FD6D9C7547EDE797E2 /* libPods-WeChat-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD9065A6A368963FDD894F1 /* libPods-WeChat-Demo.a */; };
 /* End PBXBuildFile section */
@@ -110,6 +110,14 @@
 		52028E6824E127CC00EF6C9B /* DatePickerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerTool.h; sourceTree = "<group>"; };
 		52028E6924E127CD00EF6C9B /* DatePickerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerTool.m; sourceTree = "<group>"; };
 		52028E6A24E127CD00EF6C9B /* DatePickerTool.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatePickerTool.xib; sourceTree = "<group>"; };
+		52028E7124E1340500EF6C9B /* MoreMessageVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoreMessageVc.h; path = "通讯录/Controllers/好友页详情/MoreMessageVc.h"; sourceTree = SOURCE_ROOT; };
+		52028E7224E1340500EF6C9B /* RemarkVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RemarkVc.h; path = "通讯录/Controllers/好友页详情/RemarkVc.h"; sourceTree = SOURCE_ROOT; };
+		52028E7324E1340500EF6C9B /* SettingVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingVc.h; path = "通讯录/Controllers/好友页详情/SettingVc.h"; sourceTree = SOURCE_ROOT; };
+		52028E7424E1340500EF6C9B /* MoreMessageVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoreMessageVc.m; path = "通讯录/Controllers/好友页详情/MoreMessageVc.m"; sourceTree = SOURCE_ROOT; };
+		52028E7524E1340500EF6C9B /* DetailVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailVc.h; path = "通讯录/Controllers/好友页详情/DetailVc.h"; sourceTree = SOURCE_ROOT; };
+		52028E7624E1340600EF6C9B /* SettingVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingVc.m; path = "通讯录/Controllers/好友页详情/SettingVc.m"; sourceTree = SOURCE_ROOT; };
+		52028E7724E1340600EF6C9B /* RemarkVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RemarkVc.m; path = "通讯录/Controllers/好友页详情/RemarkVc.m"; sourceTree = SOURCE_ROOT; };
+		52028E7824E1340600EF6C9B /* DetailVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailVc.m; path = "通讯录/Controllers/好友页详情/DetailVc.m"; sourceTree = SOURCE_ROOT; };
 		5220FF5024DD4B2500D51FDE /* changeInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = changeInfoViewController.h; sourceTree = "<group>"; };
 		5220FF5124DD4B2500D51FDE /* changeInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = changeInfoViewController.m; sourceTree = "<group>"; };
 		5239903D24D9AA2F00310576 /* SignViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignViewController.h; sourceTree = "<group>"; };
@@ -125,14 +133,6 @@
 		528A772F24DE84890094F398 /* GFAddressPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAddressPicker.h; sourceTree = "<group>"; };
 		528A773024DE84890094F398 /* GFAddressPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFAddressPicker.m; sourceTree = "<group>"; };
 		528A773124DE84890094F398 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
-		52EED49124DFD55400A3EB9F /* MoreMessageVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoreMessageVc.h; path = "通讯录/Controllers/好友页详情/MoreMessageVc.h"; sourceTree = SOURCE_ROOT; };
-		52EED49224DFD55400A3EB9F /* RemarkVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RemarkVc.h; path = "通讯录/Controllers/好友页详情/RemarkVc.h"; sourceTree = SOURCE_ROOT; };
-		52EED49324DFD55400A3EB9F /* SettingVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingVc.h; path = "通讯录/Controllers/好友页详情/SettingVc.h"; sourceTree = SOURCE_ROOT; };
-		52EED49424DFD55400A3EB9F /* MoreMessageVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoreMessageVc.m; path = "通讯录/Controllers/好友页详情/MoreMessageVc.m"; sourceTree = SOURCE_ROOT; };
-		52EED49524DFD55400A3EB9F /* DetailVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailVc.h; path = "通讯录/Controllers/好友页详情/DetailVc.h"; sourceTree = SOURCE_ROOT; };
-		52EED49624DFD55400A3EB9F /* SettingVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingVc.m; path = "通讯录/Controllers/好友页详情/SettingVc.m"; sourceTree = SOURCE_ROOT; };
-		52EED49724DFD55400A3EB9F /* RemarkVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RemarkVc.m; path = "通讯录/Controllers/好友页详情/RemarkVc.m"; sourceTree = SOURCE_ROOT; };
-		52EED49824DFD55400A3EB9F /* DetailVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailVc.m; path = "通讯录/Controllers/好友页详情/DetailVc.m"; sourceTree = SOURCE_ROOT; };
 		52EED49D24DFD57400A3EB9F /* Zhbutton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Zhbutton.m; path = "通讯录/class/Zhbutton.m"; sourceTree = SOURCE_ROOT; };
 		52EED49E24DFD57400A3EB9F /* Zhbutton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Zhbutton.h; path = "通讯录/class/Zhbutton.h"; sourceTree = SOURCE_ROOT; };
 		69AFE9673C9041676E05E05A /* Pods-WeChat-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChat-Demo.debug.xcconfig"; path = "Target Support Files/Pods-WeChat-Demo/Pods-WeChat-Demo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -250,6 +250,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		52028E7024E133EA00EF6C9B /* 好友页详情 */ = {
+			isa = PBXGroup;
+			children = (
+				52028E7524E1340500EF6C9B /* DetailVc.h */,
+				52028E7824E1340600EF6C9B /* DetailVc.m */,
+				52028E7124E1340500EF6C9B /* MoreMessageVc.h */,
+				52028E7424E1340500EF6C9B /* MoreMessageVc.m */,
+				52028E7224E1340500EF6C9B /* RemarkVc.h */,
+				52028E7724E1340600EF6C9B /* RemarkVc.m */,
+				52028E7324E1340500EF6C9B /* SettingVc.h */,
+				52028E7624E1340600EF6C9B /* SettingVc.m */,
+			);
+			name = "好友页详情";
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		5220FF3F24DD323100D51FDE /* Region.GenderAndBirthdayTool */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,7 +285,7 @@
 		5224308024DCF20E00B76C2A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				52EED49024DFD52500A3EB9F /* 好友页详情 */,
+				52028E7024E133EA00EF6C9B /* 好友页详情 */,
 				5260743024DCF73A00A91759 /* AddFriendsVc.h */,
 				5260742E24DCF73A00A91759 /* AddFriendsVc.m */,
 				5260743224DCF73B00A91759 /* AddressViewController.h */,
@@ -297,22 +313,6 @@
 				5239904224D9B70E00310576 /* registerViewController.m */,
 			);
 			path = "注册";
-			sourceTree = "<group>";
-		};
-		52EED49024DFD52500A3EB9F /* 好友页详情 */ = {
-			isa = PBXGroup;
-			children = (
-				52EED49524DFD55400A3EB9F /* DetailVc.h */,
-				52EED49824DFD55400A3EB9F /* DetailVc.m */,
-				52EED49124DFD55400A3EB9F /* MoreMessageVc.h */,
-				52EED49424DFD55400A3EB9F /* MoreMessageVc.m */,
-				52EED49224DFD55400A3EB9F /* RemarkVc.h */,
-				52EED49724DFD55400A3EB9F /* RemarkVc.m */,
-				52EED49324DFD55400A3EB9F /* SettingVc.h */,
-				52EED49624DFD55400A3EB9F /* SettingVc.m */,
-			);
-			name = "好友页详情";
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		5427B83A2CA0E213EDEC272D /* Frameworks */ = {
@@ -587,30 +587,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				2212FF3B24DC0C090086724D /* registerViewController.m in Sources */,
+				52028E7C24E1340600EF6C9B /* DetailVc.m in Sources */,
 				22B47F8324DA9B820078122F /* ChatViewCell.m in Sources */,
 				5260742B24DCF72F00A91759 /* newFriendsVc.m in Sources */,
 				22B47F8224DA9B820078122F /* MeCell.m in Sources */,
 				22B47F8824DA9D570078122F /* ChatViewController.m in Sources */,
 				2212FF1F24DB9F710086724D /* GetConversation.m in Sources */,
-				52EED49A24DFD55400A3EB9F /* SettingVc.m in Sources */,
+				52028E7924E1340600EF6C9B /* MoreMessageVc.m in Sources */,
 				5220FF5224DD4B2500D51FDE /* changeInfoViewController.m in Sources */,
 				5260743324DCF73B00A91759 /* AddFriendsVc.m in Sources */,
 				52028E6D24E127CD00EF6C9B /* DatePickerTool.m in Sources */,
 				2212FF2524DBF0040086724D /* GetMsg.m in Sources */,
 				22B47F2924D908BA0078122F /* ViewController.m in Sources */,
-				52EED49924DFD55400A3EB9F /* MoreMessageVc.m in Sources */,
 				22B47F5824D908E60078122F /* TabBarController.m in Sources */,
+				52028E7A24E1340600EF6C9B /* SettingVc.m in Sources */,
 				22B47F3424D908BB0078122F /* main.m in Sources */,
 				5260743424DCF73B00A91759 /* AddressViewController.m in Sources */,
-				52EED49C24DFD55400A3EB9F /* DetailVc.m in Sources */,
 				52028E6B24E127CD00EF6C9B /* SexPickerTool.m in Sources */,
-				52EED49B24DFD55400A3EB9F /* RemarkVc.m in Sources */,
 				22B47F2624D908BA0078122F /* AppDelegate.m in Sources */,
 				22B47F6224D90C8E0078122F /* MyViewController.m in Sources */,
 				5239903F24D9AA2F00310576 /* SignViewController.m in Sources */,
 				52EED49F24DFD57400A3EB9F /* Zhbutton.m in Sources */,
 				22B47F8924DA9D570078122F /* ChatController.m in Sources */,
 				22B47F8124DA9B820078122F /* YouCell.m in Sources */,
+				52028E7B24E1340600EF6C9B /* RemarkVc.m in Sources */,
 				528A773224DE84890094F398 /* GFAddressPicker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
