@@ -66,10 +66,6 @@
     
     return self.userModelArray.count;//array.count self.userModelArray.count
 }
-//表格头
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-//    return @"A";
-//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
    
@@ -94,8 +90,7 @@
     
     [agreeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     agreeBtn.backgroundColor = [UIColor colorWithRed:120.0f/255.0f green:194.0f/255.0f blue:109.0f/255.0f alpha:1];
-//    agreeBtn.tag = indexPath.row;
-//    [self.usernameDict setObject:user.username forKey:[NSString stringWithFormat:@"%ld",agreeBtn.tag]];
+ 
     agreeBtn.user = user;
     [agreeBtn addTarget:self action:@selector(agreeBtn:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:agreeBtn];
@@ -112,6 +107,8 @@
     Vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:Vc animated:YES];
     NSLog(@"%ld---%ld",indexPath.section,indexPath.row);
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
 }
 

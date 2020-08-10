@@ -26,6 +26,9 @@
 @property (nonatomic,strong) NSMutableArray *userModelArray;
 //新的朋友Vc
 @property (nonatomic,strong) newFriendsVc *FriendsVc;
+//新的朋友tableview
+@property (nonatomic,strong) UITableView *tab;
+
 //当前登陆用户
 @property (nonatomic,strong) JMSGUser *user;
 
@@ -38,12 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+   
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"address"];
 
     //获取当前登陆的用户信息
@@ -73,16 +71,7 @@
         self.indexArray = [NSMutableArray arrayWithCapacity:0];
     }
     
-//    //    获取好友列表
-//    [JMSGFriendManager getFriendList:^(id resultObject, NSError *error) {
-//        NSArray *array = resultObject;
-//        for (int i=0; i<array.count; i++) {
-//            JMSGUser *user = array[i];
-//            [self.userArray addObject:user];
-//        }
-//        //好友列表排序
-//        [self FriendsSort];
-//    }];
+ 
     [self updateFriendsList];
     
     //添加监听代理
@@ -90,12 +79,12 @@
     
     
     //新的朋友tableview
-    UITableView *tab = [[UITableView alloc]init];
-    tab.tag = 1;
-    tab.delegate = self;
-    tab.dataSource = self;
-    [self.view addSubview:tab];
-    tab.sd_layout.topSpaceToView(self.view, 50).leftEqualToView(self.view).rightEqualToView(self.view).heightIs(80);
+    self.tab = [[UITableView alloc]init];
+    self.tab.tag = 1;
+    self.tab.delegate = self;
+    self.tab.dataSource = self;
+    [self.view addSubview:self.tab];
+    self.tab.sd_layout.topSpaceToView(self.view, 50).leftEqualToView(self.view).rightEqualToView(self.view).heightIs(80);
     
     
     //展示好友的uitableview
@@ -105,16 +94,24 @@
     self.tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc]init];
     [self.view addSubview:self.tableView];
-    self.tableView.sd_layout.topSpaceToView(tab, 0).leftEqualToView(self.view).rightEqualToView(self.view).bottomEqualToView(self.view );
+    self.tableView.sd_layout.topSpaceToView(self.tab, 0).leftEqualToView(self.view).rightEqualToView(self.view).bottomEqualToView(self.view );
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"address"];
     
 
+    //本地好友请求
+    NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSString *filePath = [path stringByAppendingPathComponent:[NSString  stringWithFormat:@"%@userModelArray.plist",self.user.username]];
+    NSData *data = [NSData dataWithContentsOfFile:filePath];
+    self.userModelArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    //未读好友请求
+    if (_userModelArray != 0) {
+        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu",self.userModelArray.count];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-
-    // Dispose of any resources that can be recreated.
+ 
 }
 
 
@@ -197,7 +194,7 @@
     [self.tableView reloadData];
 }
 
-- (NSString *)nameChangePinyin:(NSString *)nickname{//没懂
+- (NSString *)nameChangePinyin:(NSString *)nickname{//汉字转拼音
     
     if (nickname == nil) {
         return nil;
@@ -209,7 +206,6 @@
     }
     
 }
-#pragma mark tableview右侧索引
 #pragma mark tableview右侧索引
 //索引标题
 -(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView{
@@ -262,16 +258,37 @@
         UITableViewCell *cell = [[UITableViewCell alloc]init];
         cell.imageView.image = [UIImage imageNamed:@"新的朋友"];
         cell.textLabel.text = @"新的朋友";
+       
+        if (self.userModelArray.count != 0) {
+            UILabel *countLabel = [[UILabel alloc]init];
+            countLabel.text = [NSString stringWithFormat:@"%ld",self.userModelArray.count];
+            countLabel.textColor = [UIColor whiteColor];
+            countLabel.textAlignment = NSTextAlignmentCenter ;
+            countLabel.frame = CGRectMake(0, 0, 20, 20);
+            countLabel.layer.masksToBounds = YES;
+            countLabel.layer.cornerRadius = 10;
+            
+            UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(300, 13, 20, 20)];
+            backgroundView.backgroundColor = [UIColor redColor];
+            backgroundView.layer.masksToBounds = YES;
+            backgroundView.layer.cornerRadius = 10;
+            [backgroundView addSubview:countLabel];
+            [cell.contentView addSubview:backgroundView];
+        }
+
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     }else{
         static NSString* reuseID = @"address";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseID forIndexPath:indexPath];
         
-        if(!cell){
-            cell = [[UITableViewCell alloc]init];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseID];
+        }else{
+            while ([cell.contentView.subviews lastObject] !=nil) {
+                [(UIView *)[cell.contentView.subviews lastObject] removeFromSuperview];
+            }
         }
-        
-        
         NSArray *rowArray = self.sectionArray[indexPath.section];
         JMSGUser *user = rowArray[indexPath.row];
         cell.imageView.image = [UIImage imageNamed:@"微信"];
@@ -292,11 +309,10 @@
         self.FriendsVc = [[newFriendsVc alloc]init];
         self.FriendsVc.hidesBottomBarWhenPushed = YES;
         
-        NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-        NSString *filePath = [path stringByAppendingPathComponent:[NSString  stringWithFormat:@"%@userModelArray.plist",self.user.username]];
-        NSData *data = [NSData dataWithContentsOfFile:filePath];
-        self.userModelArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        NSLog(@"%@",self.userModelArray);
+//        NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+//        NSString *filePath = [path stringByAppendingPathComponent:[NSString  stringWithFormat:@"%@userModelArray.plist",self.user.username]];
+//        NSData *data = [NSData dataWithContentsOfFile:filePath];
+//        self.userModelArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
         self.FriendsVc.userModelArray = self.userModelArray;
         [self.navigationController pushViewController:self.FriendsVc animated:YES];
         NSLog(@"新的朋友页面");
@@ -304,7 +320,6 @@
         DetailVc *Vc = [[DetailVc alloc]init];
         NSArray *rowArray =  self.sectionArray[indexPath.section];
         Vc.user = rowArray[indexPath.row];
-        NSLog(@"%@",Vc.user.username);
         Vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:Vc animated:YES];
         NSLog(@"%ld---%ld",indexPath.section,indexPath.row);
@@ -322,20 +337,7 @@
     [self.navigationController pushViewController:Vc animated:YES];
     
 }
-//- (void)leftButtonWay{
-//    self.FriendsVc = [[newFriendsVc alloc]init];
-//    self.FriendsVc.hidesBottomBarWhenPushed = YES;
-//
-//    NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-//    NSString *filePath = [path stringByAppendingPathComponent:[NSString  stringWithFormat:@"%@userModelArray.plist",self.user.username]];
-//
-//    NSData *data = [NSData dataWithContentsOfFile:filePath];
-//    self.userModelArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-//
-//    self.FriendsVc.userModelArray = self.userModelArray;
-//    [self.navigationController pushViewController:self.FriendsVc animated:YES];
-//    NSLog(@"新的朋友页面");
-//}
+
 - (void)onReceiveFriendNotificationEvent:(JMSGFriendNotificationEvent *)event{
     NSLog(@"reson:%@",event.getReason);
     NSLog(@"username:%@",event.getFromUsername);
@@ -346,6 +348,13 @@
     NSString *filePath = [path stringByAppendingPathComponent:[NSString  stringWithFormat:@"%@userModelArray.plist",self.user.username]];
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.userModelArray];
     [data writeToFile:filePath atomically:YES];
+    
+    if (self.userModelArray.count != 0) {
+        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu",self.userModelArray.count];
+    }
+    
+    //刷新第一行第一个（新的朋友cell）
+    [self.tab reloadData];
     
     //刷新新的朋友Vc
     [self.FriendsVc.tab reloadData];

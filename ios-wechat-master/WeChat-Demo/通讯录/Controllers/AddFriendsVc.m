@@ -31,34 +31,47 @@
     //添加好友用户名
     self.nameTextField = [[UITextField alloc]init];
     self.nameTextField.placeholder = @"用户名";
+    self.nameTextField.layer.masksToBounds =YES;
+    self.nameTextField.layer.cornerRadius = 7;
+    NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    self.nameTextField.attributedPlaceholder = [NSAttributedString.alloc initWithString:@"用户名"
+                                                                               attributes:@{NSParagraphStyleAttributeName:paragraphStyle}];//占位符水平居中
     self.nameTextField.layer.borderWidth = 1.0f;
     self.nameTextField.layer.borderColor = [UIColor grayColor].CGColor;
     self.nameTextField.delegate =  self;
     [self.view addSubview:self.nameTextField];
-    self.nameTextField.sd_layout.topSpaceToView(self.view, 135).leftSpaceToView(self.view, 95).widthIs(185).heightIs(40);
+    self.nameTextField.sd_layout.topSpaceToView(self.view, 135).leftSpaceToView(self.view, 125).widthIs(185).heightIs(40);
     
     UILabel *nameLabel = [[UILabel alloc]init];
     nameLabel.text = @"用户名";
     [self.view addSubview:nameLabel];
-    nameLabel.sd_layout.topSpaceToView(self.view, 135).leftSpaceToView(self.view, 10).widthIs(85).heightIs(40);
+    nameLabel.sd_layout.topSpaceToView(self.view, 135).leftSpaceToView(self.view, 30).widthIs(85).heightIs(40);
     
     
     //添加原因
     self.reasonTextField = [[UITextField alloc]init];
-    self.reasonTextField.placeholder = @"添加原因";
+//    self.reasonTextField.placeholder = @"添加原因";
+//    self.reasonTextField.placeholder
+    self.reasonTextField.layer.masksToBounds = YES;
+    self.reasonTextField.layer.cornerRadius = 7;
+    self.reasonTextField.attributedPlaceholder = [NSAttributedString.alloc initWithString:@"添加原因"
+                                                                         attributes:@{NSParagraphStyleAttributeName:paragraphStyle}];//占位符水平居中
     self.reasonTextField.layer.borderWidth = 1.0f;
     self.reasonTextField.layer.borderColor = [UIColor grayColor].CGColor;
     [self.view addSubview:self.reasonTextField];
-    self.reasonTextField.sd_layout.topSpaceToView(self.nameTextField, 40).leftSpaceToView( self.view, 95).widthIs(185).heightIs(200);
+    self.reasonTextField.sd_layout.topSpaceToView(self.nameTextField, 40).leftSpaceToView( self.view, 125).widthIs(185).heightIs(200);
     
     UILabel *reasonLabel = [[UILabel alloc]init];
     reasonLabel.text = @"添加原因";
     [self.view addSubview:reasonLabel];
-    reasonLabel.sd_layout.topSpaceToView(self.nameTextField, 120).leftSpaceToView(self.view, 5).widthIs(90).heightIs(40);
+    reasonLabel.sd_layout.topSpaceToView(self.nameTextField, 120).leftSpaceToView(self.view, 25).widthIs(90).heightIs(40);
     
     //添加按钮
     self.addBtn = [[UIButton alloc]init];
     [self.addBtn setTitle:@"添加到通讯录" forState:UIControlStateNormal];
+    self.addBtn.layer.masksToBounds = YES;
+    self.addBtn.layer.cornerRadius = 7;
     self.addBtn.layer.borderWidth = 1.0f;
     self.addBtn.layer.borderColor = [UIColor grayColor].CGColor;
     
