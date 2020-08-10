@@ -25,9 +25,10 @@
 @property (nonatomic, strong) UIButton *signIntButton;
 //注册按钮
 @property (nonatomic, strong) UIButton *registerButton;
+@property (nonatomic, copy) NSString *username;
+@property (nonatomic, copy) NSString *password;
 
 @end
-
 NSString *infopassword;
 
 @implementation SignViewController
@@ -53,12 +54,7 @@ NSString *infopassword;
     
     //初始化注册按钮
     [self setUpRegisterButton];
-    
-    //监听注册账号成功的通知
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(register:) name:@"register" object:nil];
-    
-    //监听更改密码成功的通知
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changePassword:) name:@"changePassword" object:nil];
+
     
 }
 #pragma mark - 初始化图标
@@ -80,7 +76,11 @@ NSString *infopassword;
 #pragma mark - 初始化账号输入框
 - (void)setUpAccoutField {
     _accountField = [[UITextField alloc] init];
-    _accountField.placeholder = @"Username";
+     _accountField.placeholder = @"Username";
+    if (_username) {
+        _accountField.text = _username;
+        _username = nil;
+    }
     _accountField.layer.borderWidth=1.0f;
     _accountField.layer.cornerRadius=5.0;
     _accountField.clearButtonMode=UITextFieldViewModeWhileEditing;
@@ -98,6 +98,10 @@ NSString *infopassword;
 - (void)setUpPasswordField {
     _passwordField = [[UITextField alloc] init];
     _passwordField.placeholder = @"Password";
+    if (_password) {
+        _passwordField.text = _password;
+        _password = nil;
+    }
     _passwordField.layer.borderWidth=1.0f;
     _passwordField.layer.cornerRadius=5.0;
     _passwordField.clearButtonMode=UITextFieldViewModeWhileEditing;
@@ -153,7 +157,8 @@ NSString *infopassword;
         if (uesr.uid) {
             NSLog(@"登陆成功");
             infopassword = passWord;
-            [self.delegate changeRootVC];
+            TabBarController *tabBarController = [[TabBarController alloc] init];
+            [self presentViewController:tabBarController animated:YES completion:nil];
         }else{
             //提示信息有误
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"账户信息有误.请重新输入" message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -165,7 +170,9 @@ NSString *infopassword;
 }
 #pragma mark - 点击注册按钮
 - (void)clickRegisterButton {
-    [self.delegate changeTpRegisterVC];
+    //[self.delegate changeTpRegisterVC];
+    registerViewController *a = [[registerViewController alloc] init];
+    [self presentViewController:a animated:YES completion:nil];
 }
 #pragma mark- 注册成功
 - (void)register:(NSNotification *)notification {
@@ -173,10 +180,11 @@ NSString *infopassword;
     _accountField.text = dict[@"accoutField"];
     _passwordField.text = dict[@"passwordField"];
 }
-#pragma mark -更改密码成功
-- (void)changePassword:(NSNotification *)notification {
-    NSDictionary *dict = notification.userInfo;
-    _passwordField.text = dict[@"password"];
+-(instancetype)initWithInfo:(NSDictionary *)dict {
+    self = [super init];
+    self.username = dict[@"username"];
+    self.password = dict[@"password"];
+    return self;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

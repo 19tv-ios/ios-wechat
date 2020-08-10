@@ -221,7 +221,8 @@ extern NSString *infopassword;
             if (error) {
                 
             }else {
-                [self.delegate changeToSignVC];
+                SignViewController *signViewController = [[SignViewController alloc] init];
+                [self presentViewController:signViewController animated:YES completion:nil];
             }
         }];
     }];
@@ -526,12 +527,14 @@ extern NSString *infopassword;
         if (intindex == 2) {
             NSString *newPassWord = dict[@"infoTextFieldText"];
             [JMSGUser updateMyPasswordWithNewPassword:newPassWord oldPassword:infopassword completionHandler:^(id resultObject, NSError *error) {
-                //通知传值.更新登录页面的账号和密码
+                NSLog(@"%@",resultObject);
+                JMSGUser *user = [JMSGUser myInfo];
                 NSDictionary *dict = @{
+                                       @"username":user.username,
                                        @"password":newPassWord
                                        };
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"changePassword" object:nil userInfo:dict];
-                [self.delegate changeToSignVC];
+                SignViewController *signViewController = [[SignViewController alloc] initWithInfo:dict];
+                [self presentViewController:signViewController animated:YES completion:nil];
             }];
         }else {
             _nameLabel.text = dict[@"infoTextFieldText"];
