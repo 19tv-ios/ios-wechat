@@ -24,7 +24,7 @@
 - (NSMutableArray *)dataSource
 {
     if (_dataSource == nil) {
-        _dataSource = [NSMutableArray arrayWithObjects:@"男",@"女",@"人妖", nil];
+        _dataSource = [NSMutableArray arrayWithObjects:@"男",@"女", nil];
     }
     return _dataSource;
 }

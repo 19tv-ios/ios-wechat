@@ -139,15 +139,13 @@
     [JMSGUser registerWithUsername:username password:password completionHandler:^(id resultObject, NSError *error) {
         if (self->_passwordField.text.length&&self->_accountField.text.length) {
             if (resultObject) {
-                SignViewController *signViewController = [[SignViewController alloc] init];
-                [self presentViewController:signViewController animated:YES completion:^{
-                    //通知传值.更新登录页面的账号和密码
-                    NSDictionary *dict = @{
-                                           @"accoutField":self->_accountField.text,
-                                           @"passwordField":self->_passwordField.text
-                                           };
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"register" object:nil userInfo:dict];
-                }];
+                //通知传值.更新登录页面的账号和密码
+                NSDictionary *dict = @{
+                                       @"accoutField":self->_accountField.text,
+                                       @"passwordField":self->_passwordField.text
+                                       };
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"register" object:nil userInfo:dict];
+                [self.delegate changeToSignVC];
             }else {
                 if ([self accoutIsOK]) {
                     //提示信息有误
@@ -176,8 +174,7 @@
 }
 #pragma mark - 点击返回按钮
 - (void)clickBackButton {
-    SignViewController *signVc = [[SignViewController alloc] init];
-    [self presentViewController:signVc animated:YES completion:nil];
+    [self.delegate changeToSignVC];
 }
 #pragma mark - 判断账号信息
 - (BOOL)accoutIsOK {
@@ -189,8 +186,9 @@
         if (isdigit(firstStr)||isalpha(firstStr)) {
             //判断是否包含不支持的字符
             NSError *error;
+            //@"[_.-。@]|^[A-Za-z0-9]+$"
             NSRegularExpression *regex = [NSRegularExpression
-                                          regularExpressionWithPattern:@"[_.-。@]|^[A-Za-z0-9]+$"
+                                          regularExpressionWithPattern:@"[_.-。@]|[A-Za-z]|[0-9]"
                                           options:0
                                           error:&error];
             NSTextCheckingResult *match = [regex firstMatchInString:account

@@ -165,8 +165,7 @@ NSString *infopassword;
 }
 #pragma mark - 点击注册按钮
 - (void)clickRegisterButton {
-    registerViewController *registerVc = [[registerViewController alloc] init];
-    [self presentViewController:registerVc animated:YES completion:nil];
+    [self.delegate changeTpRegisterVC];
 }
 #pragma mark- 注册成功
 - (void)register:(NSNotification *)notification {

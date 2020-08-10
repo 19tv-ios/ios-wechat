@@ -27,10 +27,10 @@
 		22B47F8824DA9D570078122F /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F8424DA9D560078122F /* ChatViewController.m */; };
 		22B47F8924DA9D570078122F /* ChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F8624DA9D560078122F /* ChatController.m */; };
 		22B47F8C24DAB4B30078122F /* Image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22B47F8B24DAB4B30078122F /* Image.xcassets */; };
-		5220FF4424DD325C00D51FDE /* SexPickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5220FF4224DD325C00D51FDE /* SexPickerTool.m */; };
-		5220FF4924DD327000D51FDE /* DatePickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5220FF4624DD327000D51FDE /* DatePickerTool.m */; };
-		5220FF4A24DD327000D51FDE /* DatePickerTool.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5220FF4724DD327000D51FDE /* DatePickerTool.xib */; };
-		5220FF4F24DD41B800D51FDE /* SexPickerTool.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5220FF4E24DD41B800D51FDE /* SexPickerTool.xib */; };
+		52028E6B24E127CD00EF6C9B /* SexPickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 52028E6524E127CC00EF6C9B /* SexPickerTool.m */; };
+		52028E6C24E127CD00EF6C9B /* SexPickerTool.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52028E6724E127CC00EF6C9B /* SexPickerTool.xib */; };
+		52028E6D24E127CD00EF6C9B /* DatePickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 52028E6924E127CD00EF6C9B /* DatePickerTool.m */; };
+		52028E6E24E127CD00EF6C9B /* DatePickerTool.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52028E6A24E127CD00EF6C9B /* DatePickerTool.xib */; };
 		5220FF5224DD4B2500D51FDE /* changeInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5220FF5124DD4B2500D51FDE /* changeInfoViewController.m */; };
 		5239903F24D9AA2F00310576 /* SignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239903E24D9AA2F00310576 /* SignViewController.m */; };
 		5260742B24DCF72F00A91759 /* newFriendsVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 5260742A24DCF72F00A91759 /* newFriendsVc.m */; };
@@ -90,8 +90,6 @@
 		22B47F4A24D908BB0078122F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22B47F5624D908E60078122F /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		22B47F5724D908E60078122F /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
-		22B47F5B24D909240078122F /* ChatViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
-		22B47F5E24D909850078122F /* AddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
 		22B47F6024D90C8E0078122F /* MyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		22B47F6124D90C8E0078122F /* MyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		22B47F7A24DA9AFB0078122F /* Root.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Root.h; sourceTree = "<group>"; };
@@ -106,12 +104,12 @@
 		22B47F8624DA9D560078122F /* ChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatController.m; sourceTree = "<group>"; };
 		22B47F8724DA9D560078122F /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		22B47F8B24DAB4B30078122F /* Image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Image.xcassets; sourceTree = "<group>"; };
-		5220FF4124DD325C00D51FDE /* SexPickerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SexPickerTool.h; path = ../../../../../Desktop/PickerView/PickerView/SexPickerTool.h; sourceTree = "<group>"; };
-		5220FF4224DD325C00D51FDE /* SexPickerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SexPickerTool.m; path = ../../../../../Desktop/PickerView/PickerView/SexPickerTool.m; sourceTree = "<group>"; };
-		5220FF4524DD326F00D51FDE /* DatePickerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DatePickerTool.h; path = ../../../../../Desktop/PickerView/PickerView/DatePickerTool.h; sourceTree = "<group>"; };
-		5220FF4624DD327000D51FDE /* DatePickerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DatePickerTool.m; path = ../../../../../Desktop/PickerView/PickerView/DatePickerTool.m; sourceTree = "<group>"; };
-		5220FF4724DD327000D51FDE /* DatePickerTool.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DatePickerTool.xib; path = ../../../../../Desktop/PickerView/PickerView/DatePickerTool.xib; sourceTree = "<group>"; };
-		5220FF4E24DD41B800D51FDE /* SexPickerTool.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SexPickerTool.xib; path = "../../../../../Desktop/PickerView的副本/PickerView/SexPickerTool.xib"; sourceTree = "<group>"; };
+		52028E6524E127CC00EF6C9B /* SexPickerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SexPickerTool.m; sourceTree = "<group>"; };
+		52028E6624E127CC00EF6C9B /* SexPickerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SexPickerTool.h; sourceTree = "<group>"; };
+		52028E6724E127CC00EF6C9B /* SexPickerTool.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SexPickerTool.xib; sourceTree = "<group>"; };
+		52028E6824E127CC00EF6C9B /* DatePickerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerTool.h; sourceTree = "<group>"; };
+		52028E6924E127CD00EF6C9B /* DatePickerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerTool.m; sourceTree = "<group>"; };
+		52028E6A24E127CD00EF6C9B /* DatePickerTool.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatePickerTool.xib; sourceTree = "<group>"; };
 		5220FF5024DD4B2500D51FDE /* changeInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = changeInfoViewController.h; sourceTree = "<group>"; };
 		5220FF5124DD4B2500D51FDE /* changeInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = changeInfoViewController.m; sourceTree = "<group>"; };
 		5239903D24D9AA2F00310576 /* SignViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignViewController.h; sourceTree = "<group>"; };
@@ -167,15 +165,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2212FF2824DC03050086724D /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				22B47F5E24D909850078122F /* AddressViewController.m */,
-				22B47F5B24D909240078122F /* ChatViewController.m */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		22B47F1824D908BA0078122F = {
 			isa = PBXGroup;
 			children = (
@@ -191,7 +180,6 @@
 				22B47F2224D908BA0078122F /* Products */,
 				F26CF57130128CBBFE537F99 /* Pods */,
 				5427B83A2CA0E213EDEC272D /* Frameworks */,
-				2212FF2824DC03050086724D /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -265,15 +253,15 @@
 		5220FF3F24DD323100D51FDE /* Region.GenderAndBirthdayTool */ = {
 			isa = PBXGroup;
 			children = (
+				52028E6824E127CC00EF6C9B /* DatePickerTool.h */,
+				52028E6924E127CD00EF6C9B /* DatePickerTool.m */,
+				52028E6A24E127CD00EF6C9B /* DatePickerTool.xib */,
+				52028E6624E127CC00EF6C9B /* SexPickerTool.h */,
+				52028E6524E127CC00EF6C9B /* SexPickerTool.m */,
+				52028E6724E127CC00EF6C9B /* SexPickerTool.xib */,
 				528A773124DE84890094F398 /* Address.plist */,
 				528A772F24DE84890094F398 /* GFAddressPicker.h */,
 				528A773024DE84890094F398 /* GFAddressPicker.m */,
-				5220FF4124DD325C00D51FDE /* SexPickerTool.h */,
-				5220FF4224DD325C00D51FDE /* SexPickerTool.m */,
-				5220FF4E24DD41B800D51FDE /* SexPickerTool.xib */,
-				5220FF4524DD326F00D51FDE /* DatePickerTool.h */,
-				5220FF4624DD327000D51FDE /* DatePickerTool.m */,
-				5220FF4724DD327000D51FDE /* DatePickerTool.xib */,
 			);
 			path = Region.GenderAndBirthdayTool;
 			sourceTree = "<group>";
@@ -549,9 +537,9 @@
 				22B47F8C24DAB4B30078122F /* Image.xcassets in Resources */,
 				22B47F2E24D908BB0078122F /* Assets.xcassets in Resources */,
 				2212FF2224DBAB250086724D /* Chat.plist in Resources */,
-				5220FF4A24DD327000D51FDE /* DatePickerTool.xib in Resources */,
 				528A773324DE84890094F398 /* Address.plist in Resources */,
-				5220FF4F24DD41B800D51FDE /* SexPickerTool.xib in Resources */,
+				52028E6E24E127CD00EF6C9B /* DatePickerTool.xib in Resources */,
+				52028E6C24E127CD00EF6C9B /* SexPickerTool.xib in Resources */,
 				22B47F2C24D908BA0078122F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -605,9 +593,9 @@
 				22B47F8824DA9D570078122F /* ChatViewController.m in Sources */,
 				2212FF1F24DB9F710086724D /* GetConversation.m in Sources */,
 				52EED49A24DFD55400A3EB9F /* SettingVc.m in Sources */,
-				5220FF4424DD325C00D51FDE /* SexPickerTool.m in Sources */,
 				5220FF5224DD4B2500D51FDE /* changeInfoViewController.m in Sources */,
 				5260743324DCF73B00A91759 /* AddFriendsVc.m in Sources */,
+				52028E6D24E127CD00EF6C9B /* DatePickerTool.m in Sources */,
 				2212FF2524DBF0040086724D /* GetMsg.m in Sources */,
 				22B47F2924D908BA0078122F /* ViewController.m in Sources */,
 				52EED49924DFD55400A3EB9F /* MoreMessageVc.m in Sources */,
@@ -615,12 +603,12 @@
 				22B47F3424D908BB0078122F /* main.m in Sources */,
 				5260743424DCF73B00A91759 /* AddressViewController.m in Sources */,
 				52EED49C24DFD55400A3EB9F /* DetailVc.m in Sources */,
+				52028E6B24E127CD00EF6C9B /* SexPickerTool.m in Sources */,
 				52EED49B24DFD55400A3EB9F /* RemarkVc.m in Sources */,
 				22B47F2624D908BA0078122F /* AppDelegate.m in Sources */,
 				22B47F6224D90C8E0078122F /* MyViewController.m in Sources */,
 				5239903F24D9AA2F00310576 /* SignViewController.m in Sources */,
 				52EED49F24DFD57400A3EB9F /* Zhbutton.m in Sources */,
-				5220FF4924DD327000D51FDE /* DatePickerTool.m in Sources */,
 				22B47F8924DA9D570078122F /* ChatController.m in Sources */,
 				22B47F8124DA9B820078122F /* YouCell.m in Sources */,
 				528A773224DE84890094F398 /* GFAddressPicker.m in Sources */,

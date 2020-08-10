@@ -13,4 +13,6 @@
 -(void)changeRootVC;
 
 -(void)changeToSignVC;
+
+-(void)changeTpRegisterVC;
 @end
