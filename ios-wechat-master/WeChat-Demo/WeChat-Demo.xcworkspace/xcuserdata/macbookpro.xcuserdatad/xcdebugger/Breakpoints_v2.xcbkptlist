@@ -31,7 +31,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "177"
             endingLineNumber = "177"
-            landmarkName = "-accoutIsOK"
+            landmarkName = "-clickBackButton"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -47,7 +47,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "179"
             endingLineNumber = "179"
-            landmarkName = "-accoutIsOK"
+            landmarkName = "-clickBackButton"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x6211;&#x7684;/Controllers/MyViewController.m"
-            timestampString = "618749171.55756"
+            timestampString = "618766539.141566"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "363"
-            endingLineNumber = "363"
+            startingLineNumber = "369"
+            endingLineNumber = "369"
             landmarkName = "-clickautographLabelSelectButton"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x6211;&#x7684;/Controllers/MyViewController.m"
-            timestampString = "618749171.557608"
+            timestampString = "618766539.141639"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
             landmarkName = "-setUpNameLabel"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x6211;&#x7684;/Controllers/MyViewController.m"
-            timestampString = "618749171.55765"
+            timestampString = "618766539.141691"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "396"
-            endingLineNumber = "396"
+            startingLineNumber = "413"
+            endingLineNumber = "413"
             landmarkName = "-clickBirthdaySelectButton"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x6211;&#x7684;/Controllers/MyViewController.m"
-            timestampString = "618749171.557691"
+            timestampString = "618766539.141735"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "397"
-            endingLineNumber = "397"
+            startingLineNumber = "414"
+            endingLineNumber = "414"
             landmarkName = "-clickBirthdaySelectButton"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x6211;&#x7684;/Controllers/MyViewController.m"
-            timestampString = "618749171.557731"
+            timestampString = "618766539.141782"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "395"
-            endingLineNumber = "395"
+            startingLineNumber = "412"
+            endingLineNumber = "412"
             landmarkName = "-clickBirthdaySelectButton"
             landmarkType = "7">
             <Locations>
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x6211;&#x7684;/Controllers/MyViewController.m"
-            timestampString = "618749171.55777"
+            timestampString = "618766539.141825"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "399"
-            endingLineNumber = "399"
+            startingLineNumber = "416"
+            endingLineNumber = "416"
             landmarkName = "-clickBirthdaySelectButton"
             landmarkType = "7">
          </BreakpointContent>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x6211;&#x7684;/Controllers/MyViewController.m"
-            timestampString = "618749171.557808"
+            timestampString = "618766539.141868"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "394"
-            endingLineNumber = "394"
+            startingLineNumber = "411"
+            endingLineNumber = "411"
             landmarkName = "-clickBirthdaySelectButton"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x6211;&#x7684;/Controllers/MyViewController.m"
-            timestampString = "618749171.557851"
+            timestampString = "618766539.141912"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "392"
-            endingLineNumber = "392"
+            startingLineNumber = "409"
+            endingLineNumber = "409"
             landmarkName = "-clickBirthdaySelectButton"
             landmarkType = "7">
          </BreakpointContent>
@@ -250,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x6211;&#x7684;/Controllers/MyViewController.m"
-            timestampString = "618749171.5578901"
+            timestampString = "618766539.141955"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "398"
-            endingLineNumber = "398"
+            startingLineNumber = "415"
+            endingLineNumber = "415"
             landmarkName = "-clickBirthdaySelectButton"
             landmarkType = "7">
          </BreakpointContent>
@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x6211;&#x7684;/Controllers/MyViewController.m"
-            timestampString = "618749171.557928"
+            timestampString = "618766539.1419981"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
             landmarkName = "-setUpIconImageView"
             landmarkType = "7">
          </BreakpointContent>

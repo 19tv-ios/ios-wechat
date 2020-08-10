@@ -9,10 +9,17 @@
 #import "changeInfoViewController.h"
 #import "SDAutoLayout.h"
 
-@interface changeInfoViewController ()
+
+@interface changeInfoViewController ()<UITextFieldDelegate>
 
 //初始化输入框
 @property (nonatomic, strong) UITextField *infoTextField;
+
+//初始化字符限制label
+@property (nonatomic, strong) UILabel *strictLabel;
+
+@property (assign,nonatomic) NSInteger maxLength;
+
 @end
 
 //用来判断修改的是不是签名框
@@ -31,11 +38,15 @@ extern NSInteger passwordindex;
     
     //初始化输入框
     [self setUpInfoTextField];
+    
+    //初始化字符限制label
+    [self setUpStrictLabel];
 }
 
 #pragma mark - 初始化信息输入框
 - (void)setUpInfoTextField {
     _infoTextField = [[UITextField alloc] init];
+     _infoTextField.delegate = self;
     _infoTextField.placeholder = @"Info";
     _infoTextField.layer.borderWidth=1.0f;
     _infoTextField.layer.cornerRadius=5.0;
@@ -111,7 +122,42 @@ extern NSInteger passwordindex;
     [alertController addAction:cancelAction];
     [self presentViewController:alertController animated:YES completion:nil];
 }
+#pragma mark - 字符限制框
+- (void)setUpStrictLabel {
+    _strictLabel = [[UILabel alloc] init];
+    _maxLength = 10;
+    _strictLabel.text = [NSString stringWithFormat:@"0/%ld",(long)_maxLength];
+    _strictLabel.textColor = [UIColor blackColor];
+    [_infoTextField addSubview:_strictLabel];
+    _strictLabel.sd_layout
+    .topSpaceToView(_infoTextField, 5)
+    .rightSpaceToView(_infoTextField, 5)
+    .widthIs(50)
+    .heightIs(30);
+    
+}
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSInteger tlength = string.length;
+    if (range.location+tlength >self.maxLength) {
+        return NO;
+    }
+    NSString * str = [_infoTextField.text stringByReplacingCharactersInRange:range withString:string];
+    if (range.length == 1 && string.length == 0) {
+        NSString * length = [NSString stringWithFormat:@"%ld/%ld",str.length,self.maxLength];
+        _strictLabel.text = length;
+        return YES;
+    }
+    else if (_strictLabel.text.length >= self.maxLength) {
+        _strictLabel.text = [textField.text substringToIndex:self.maxLength];
+        NSString * length = [NSString stringWithFormat:@"%ld/%ld",self.maxLength,self.maxLength];
+        _strictLabel.text = length;
+        return NO;
+    }
+    NSString * length = [NSString stringWithFormat:@"%ld/%ld",str.length,self.maxLength];
+    self.strictLabel.text = length;
+    return YES;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
