@@ -12,7 +12,7 @@
 #import "YouCell.h"
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
 #define ScreenWeight [UIScreen mainScreen].bounds.size.width
-@interface ChatController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+@interface ChatController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,JMessageDelegate>
 
 @end
 
@@ -22,7 +22,7 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
-    _tableview = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWeight, ScreenHeight-83) style:UITableViewStylePlain];
     _tableview.delegate = self;
     _tableview.dataSource = self;
     //去除tableview的横线
@@ -36,6 +36,7 @@
     UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(popKeyboard)];
     [self.view addGestureRecognizer:tapRecognizer];
     
+    [JMessage addDelegate:self withConversation:_conModel];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,27 +49,38 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     _model = [_msgArray objectAtIndex:indexPath.row];
-    JMSGTextContent* textContent = (JMSGTextContent*)_model.content;
-    NSString* text = textContent.text;
-    NSLog(@"%@",text);
-    if(_model.isReceived == YES){
-        dispatch_group_t group = dispatch_group_create();
-        dispatch_group_enter(group);
-        [_model.fromUser thumbAvatarData:^(NSData *data, NSString *objectId, NSError *error) {
-            self->_iconData = data;
-            dispatch_group_leave(group);
-        }];// 头像
-        dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        });
-        YouCell* youCell = [[YouCell alloc]initWithText:text andIcon:_iconData];
-        _cellHeight = youCell.labelHeight + 30;
-        return youCell;
-    }else{
-        MeCell* meCell = [[MeCell alloc]initWithText:text];
-        _cellHeight = meCell.labelHeight + 30;
+    if(_model.contentType == 1){
+        JMSGTextContent* textContent = (JMSGTextContent*)_model.content;
+        NSString* text = textContent.text;
+        if(_model.isReceived == YES){
+            dispatch_group_t group = dispatch_group_create();
+            dispatch_group_enter(group);
+            [_model.fromUser thumbAvatarData:^(NSData *data, NSString *objectId, NSError *error) {
+                self->_iconData = data;
+                dispatch_group_leave(group);
+            }];// 头像
+            dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+            });
+            YouCell* youCell = [[YouCell alloc]initWithText:text andIcon:_iconData];
+            _cellHeight = youCell.labelHeight + 30;
+            return youCell;
+        }else{
+            MeCell* meCell = [[MeCell alloc]initWithText:text];
+            _cellHeight = meCell.labelHeight + 30;
+            return meCell;
+        }
+    }else if(_model.contentType == 2){
+        JMSGImageContent* content = (JMSGImageContent*)_model.content;
+        if(_model.isReceived){
+            
+        }
+        
+        MeCell* meCell = [[MeCell alloc]initWithImage:content];
+        _cellHeight = 210;
         return meCell;
+    }else{
+        return [[UITableViewCell alloc]init];
     }
 //    meCell.wordLabel.text = text;
 }
@@ -95,15 +107,6 @@
     _textView.delegate = self;
     [_textView updateLayout];
     
-//    _sendBtn = [[UIButton alloc]init];
-//    _sendBtn = UIButton.new;
-//    [self.bottomView addSubview:_sendBtn];
-//    _sendBtn.sd_layout.leftSpaceToView(_textView, 15).topEqualToView(_textView).heightIs(30).widthIs(70);
-//    _sendBtn.backgroundColor = [UIColor grayColor];
-//    _sendBtn.layer.borderWidth = 1;
-//    _sendBtn.layer.borderColor = [UIColor grayColor].CGColor;
-//    _sendBtn.layer.cornerRadius = 10;
-//    [_sendBtn setTitle:@"发送" forState:UIControlStateNormal];
     _emojiBtn = [[UIButton alloc]init];
     _emojiBtn = UIButton.new;
     [self.bottomView addSubview:_emojiBtn];
@@ -112,18 +115,109 @@
     [_emojiBtn updateLayout];
     
     _plusBtn = [[UIButton alloc]init];
-    _emojiBtn = UIButton.new;
+    _plusBtn = UIButton.new;
     [self.bottomView addSubview:_plusBtn];
     _plusBtn.sd_layout.leftSpaceToView(_textView, 45).topEqualToView(_textView).heightIs(30).widthIs(35);
     [_plusBtn setImage:[UIImage imageNamed:@"加号"] forState:UIControlStateNormal];
+    [_plusBtn addTarget:self action:@selector(cilckPlus) forControlEvents:UIControlEventTouchUpInside];
 }
 #pragma mark 重写初始化方法
 -(instancetype)initWithMsg:(NSMutableArray*)msg{
     self = [super init];
     _msgArray = [[NSMutableArray alloc]init];
     _msgArray = msg;
-    NSLog(@"%@ --- ",_msgArray);
+    //NSLog(@"%@ --- ",_msgArray);
     return self;
+}
+-(void)cilckPlus{
+    _picker = [[UIImagePickerController alloc] init];
+    _picker.delegate = self;
+    _picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:_picker animated:YES completion:nil];
+}
+
+#pragma mark uiimagepicker协议
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    UIImage* myImage = info[UIImagePickerControllerOriginalImage];
+    NSData* imageData = UIImagePNGRepresentation(myImage);
+    JMSGImageContent* imageContent = [[JMSGImageContent alloc]initWithImageData:imageData];
+    _freshMsg = [JMSGMessage createSingleMessageWithContent:imageContent username:_otherSide];
+    //[JMSGMessage sendMessage:_freshMsg];
+    [_conModel sendMessage:_freshMsg];
+    //NSLog(@"%@ --- image %@ --- name ",_freshMsg,_otherSide);
+    [_picker dismissViewControllerAnimated:YES completion:nil];
+}
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [_picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark textFiled delegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    //return [self cellHeightForIndexPath:indexPath cellContentViewWidth:self.tableview.contentSize.width tableView:_tableview];
+    return _cellHeight;
+}
+//弹出键盘视图上移动画
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    [UIView beginAnimations:@"弹出键盘" context:nil];
+    [UIView setAnimationDuration:0.42];
+    //使用当前正在运行的状态开始下一段动画
+    [UIView setAnimationBeginsFromCurrentState: YES];
+    if(_msgArray.count>6){
+        self.view.frame = CGRectMake(0, -230, self.view.frame.size.width, self.view.frame.size.height);
+        _bottomView.frame = CGRectMake(0, ScreenHeight-170, ScreenWeight, 83);
+    }else{
+        _bottomView.frame = CGRectMake(0, ScreenHeight-390, ScreenWeight, 83);
+    }
+    [UIView commitAnimations];
+    
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    [UIView beginAnimations:@"收回键盘" context:nil];
+    [UIView setAnimationDuration:0.42];
+    //使用当前正在运行的状态开始下一段动画
+    [UIView setAnimationBeginsFromCurrentState: YES];
+    if(_msgArray.count>6){
+        self.view.frame = [UIScreen mainScreen].bounds;
+        _bottomView.frame = CGRectMake(0, ScreenHeight-83, ScreenWeight, 83);
+    }else{
+        _bottomView.frame = CGRectMake(0, ScreenHeight-83, ScreenWeight, 83);
+    }
+    [UIView commitAnimations];
+}
+#pragma mark 键盘发送键
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    JMSGTextContent* textContent = [[JMSGTextContent alloc]initWithText:_textView.text];
+    _freshMsg = [JMSGMessage createSingleMessageWithContent:textContent username:_otherSide];
+    [_conModel sendMessage:_freshMsg];
+    //[JMSGMessage sendMessage:_freshMsg];
+    [_msgArray addObject:_freshMsg];
+    [_tableview reloadData];
+    _textView.text = @"";
+    _lastmsg = _freshMsg;
+    //NSLog(@"%@ --- send",_freshMsg);
+    [_textView resignFirstResponder];
+    return YES;
+}
+#pragma mark tableview delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self.tableview becomeFirstResponder];
+    [_textView resignFirstResponder];
+}
+-(void)popKeyboard{
+    [_textView resignFirstResponder];
+}
+//展示最下方的cell
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self.tableview scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
+#pragma mark jmessage delegate
+
+- (void)onReceiveMessage:(JMSGMessage *)message
+                   error:(NSError *)error {
+    if(error == nil){
+        [_msgArray addObject:message];
+        [_tableview reloadData];
+    }
 }
 #pragma mark 获取对话信息
 //-(void)getAllMsg{
@@ -140,66 +234,5 @@
 //    _msgArray = array;
 //    NSLog(@"%@ --- ",_msgArray);
 //}
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-#pragma mark textFiled delegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    //return [self cellHeightForIndexPath:indexPath cellContentViewWidth:self.tableview.contentSize.width tableView:_tableview];
-    return _cellHeight;
-}
-//弹出键盘视图上移动画
-- (void)textFieldDidBeginEditing:(UITextField *)textField{
-    [UIView beginAnimations:@"弹出键盘" context:nil];
-    [UIView setAnimationDuration:0.42];
-    //使用当前正在运行的状态开始下一段动画
-    [UIView setAnimationBeginsFromCurrentState: YES];
-    if(_msgArray.count>6){
-        self.view.frame = CGRectMake(0, -230, self.view.frame.size.width, self.view.frame.size.height);
-        _bottomView.frame = CGRectMake(0, ScreenHeight-180, ScreenWeight, 83);
-    }else{
-        _bottomView.frame = CGRectMake(0, ScreenHeight-390, ScreenWeight, 83);
-    }
-    [UIView commitAnimations];
-    
-}
-- (void)textFieldDidEndEditing:(UITextField *)textField{
-    [UIView beginAnimations:@"收回键盘" context:nil];
-    [UIView setAnimationDuration:0.42];
-    //使用当前正在运行的状态开始下一段动画
-    [UIView setAnimationBeginsFromCurrentState: YES];
-    if(_msgArray.count>7){
-        self.view.frame = [UIScreen mainScreen].bounds;
-        _bottomView.frame = CGRectMake(0, ScreenHeight-83, ScreenWeight, 83);
-    }else{
-        _bottomView.frame = CGRectMake(0, ScreenHeight-83, ScreenWeight, 83);
-    }
-    [UIView commitAnimations];
-}
-#pragma mark 键盘发送键
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    JMSGTextContent* textContent = [[JMSGTextContent alloc]initWithText:_textView.text];
-    _freshMsg = [JMSGMessage createSingleMessageWithContent:textContent username:_otherSide];
-    [JMSGMessage sendMessage:_freshMsg];
-    [_msgArray addObject:_freshMsg];
-    [_tableview reloadData];
-    _textView.text = @"";
-    NSLog(@"发送");
-    [_textView resignFirstResponder];
-    return YES;
-}
-#pragma mark tableview delegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self.tableview becomeFirstResponder];
-    [_textView resignFirstResponder];
-}
--(void)popKeyboard{
-    [_textView resignFirstResponder];
-}
 @end

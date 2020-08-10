@@ -75,7 +75,7 @@
 //    self.textLabel.text = @"TinoWu";
 //    self.detailTextLabel.text = @"哈哈哈哈哈";
     _model = model;
-    NSLog(@"%@",_model.title);
+    //NSLog(@"%@",_model.title);
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     [self initSubviews];
     return self;

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <JMessage/JMessage.h>
-@interface ChatController : UIViewController
+@interface ChatController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property(nonatomic,strong)UITableView* tableview;
 
@@ -32,7 +32,15 @@
 
 @property(nonatomic,strong)JMSGMessage* freshMsg;
 
+@property(nonatomic,strong)JMSGConversation* conModel;
+
 @property(nonatomic)CGFloat cellHeight;
+
+@property(nonatomic,strong)UIImagePickerController* picker;
+
+@property(nonatomic,strong)NSData* picData;
+
+@property(nonatomic,strong)JMSGMessage* lastmsg;
 -(instancetype)initWithMsg:(NSMutableArray*)msg;
 //-(void)getAllMsg;
 @end
