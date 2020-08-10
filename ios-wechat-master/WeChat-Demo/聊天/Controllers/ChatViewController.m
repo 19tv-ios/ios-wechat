@@ -53,9 +53,23 @@
     //self.navigationController.navigationBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 170);
     //[self.navigationController.navigationBar addSubview:_search.searchBar];
     self.navigationItem.searchController = _search;
-    
+    [self setupBackBtn];
 }
-
+#pragma mark back button
+-(void)setupBackBtn{
+    UIBarButtonItem* back = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+    self.navigationItem.backBarButtonItem = back;
+}
+-(void)back{
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_enter(group);
+    [self getConversationModel];
+    dispatch_group_leave(group);
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        [self.tableview reloadData];
+        [self.navigationController popViewControllerAnimated:YES];
+    });
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -67,18 +81,19 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString* reuseID = @"chat";
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    //ChatViewCell* cell = [tableView dequeueReusableCellWithIdentifier:reuseID];
+    //ChatViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
     _model = [[JMSGConversation alloc]init];
     _model = [_conversationArray objectAtIndex:indexPath.row];
     if(!cell){
         cell = [[ChatViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseID andModel:_model];
     }
+//    cell.wordLabel.text = _model.latestMessageContentText;
     UIImage* image = [UIImage imageNamed:@"微信"];
     cell.imageView.image = image;
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 75;
+    return 80;
 }
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController{
     
@@ -103,6 +118,8 @@
         self->_chatController = [[ChatController alloc]initWithMsg:self->_certainMsg];
         self->_chatController.hidesBottomBarWhenPushed = YES;
         self->_chatController.title = con.title;
+        self->_chatController.otherSide = con.title;
+        self->_chatController.conModel = con;
         [self.navigationController pushViewController:self->_chatController animated:YES];
         [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
     });

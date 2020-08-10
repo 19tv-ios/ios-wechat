@@ -21,6 +21,11 @@
 @property(nonatomic)CGFloat labelHeight;
 
 @property(nonatomic,strong)NSData* icon;
--(instancetype)initWithText:(NSString*)text andIcon:(NSData*)data;
 
+@property(nonatomic,strong)NSData* imageData;
+
+@property(nonatomic,strong)JMSGImageContent* picContent;
+@property(nonatomic,strong)UIImageView* picView;
+-(instancetype)initWithText:(NSString*)text andIcon:(NSData*)data;
+-(instancetype)initWithImage:(JMSGImageContent*)content;
 @end
