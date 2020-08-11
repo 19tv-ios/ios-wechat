@@ -25,6 +25,8 @@
 @property (nonatomic, strong) UIButton *signIntButton;
 //注册按钮
 @property (nonatomic, strong) UIButton *registerButton;
+//自动登录选项
+
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *password;
 
