@@ -26,6 +26,11 @@
 //注册按钮
 @property (nonatomic, strong) UIButton *registerButton;
 //自动登录选项
+@property (nonatomic, strong) UILabel *autoSignInLabel;
+@property (nonatomic, strong) UIButton *btnSelect;
+//记住密码
+@property (nonatomic, strong) UILabel *inPasswordLabel;
+@property (nonatomic, strong) UIButton *inPasswordBtn;
 
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *password;
@@ -34,8 +39,6 @@
 NSString *infopassword;
 
 @implementation SignViewController
-
-
 
 #pragma mark - viewDidLoad
 - (void)viewDidLoad {
@@ -50,6 +53,9 @@ NSString *infopassword;
     
     //初始化密码输入框
     [self setUpPasswordField];
+    
+    //初始化自动登录
+    [self setUpAutoSignInLabel];
     
     //初始化登录按钮
     [self setUpSignInButton];
@@ -104,6 +110,7 @@ NSString *infopassword;
         _passwordField.text = _password;
         _password = nil;
     }
+    _passwordField.secureTextEntry = YES;
     _passwordField.layer.borderWidth=1.0f;
     _passwordField.layer.cornerRadius=5.0;
     _passwordField.clearButtonMode=UITextFieldViewModeWhileEditing;
@@ -117,6 +124,56 @@ NSString *infopassword;
     .rightSpaceToView(self.view, 38)
     .heightIs(42);
 }
+#pragma mark - 初始化自动登录.修改密码
+- (void)setUpAutoSignInLabel {
+    _btnSelect = [UIButton buttonWithType:UIButtonTypeCustom];
+    _btnSelect.layer.cornerRadius = 3.0;
+    _btnSelect.layer.borderWidth = 1;
+    _btnSelect.layer.borderColor = [UIColor grayColor].CGColor;
+    [_btnSelect setImage:[UIImage imageNamed:@"打勾"] forState:UIControlStateSelected];
+    _btnSelect.tag = 1;
+    [_btnSelect addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_btnSelect];
+    _btnSelect.sd_layout
+    .topSpaceToView(_passwordField, 15)
+    .heightIs(20)
+    .leftEqualToView(self.passwordField)
+    .widthIs(20);
+    
+    _autoSignInLabel = [[UILabel alloc] init];
+    _autoSignInLabel.text = @"自动登录";
+    _autoSignInLabel.textColor = [UIColor grayColor];
+    [self.view addSubview:_autoSignInLabel];
+    _autoSignInLabel.sd_layout
+    .topSpaceToView(_passwordField, 12)
+    .leftSpaceToView(_btnSelect,3)
+    .widthIs(80)
+    .heightIs(25);
+    
+    _inPasswordBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _inPasswordBtn.layer.cornerRadius = 3.0;
+    _inPasswordBtn.layer.borderWidth = 1;
+    _inPasswordBtn.layer.borderColor = [UIColor grayColor].CGColor;
+    [_inPasswordBtn setImage:[UIImage imageNamed:@"打勾"] forState:UIControlStateSelected];
+    _inPasswordBtn.tag = 2;
+    [_inPasswordBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_inPasswordBtn];
+    _inPasswordBtn.sd_layout
+    .topSpaceToView(_btnSelect, 15)
+    .heightIs(20)
+    .leftEqualToView(_btnSelect)
+    .widthIs(20);
+    
+    _inPasswordLabel = [[UILabel alloc] init];
+    _inPasswordLabel.text = @"记住密码";
+    _inPasswordLabel.textColor = [UIColor grayColor];
+    [self.view addSubview:_inPasswordLabel];
+    _inPasswordLabel.sd_layout
+    .topSpaceToView(_autoSignInLabel, 12)
+    .leftSpaceToView(_inPasswordBtn,3)
+    .widthIs(80)
+    .heightIs(25);
+}
 #pragma mark - 初始化登录按钮
 - (void)setUpSignInButton {
     _signIntButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -129,7 +186,7 @@ NSString *infopassword;
     [self.view addSubview:_signIntButton];
     CGFloat width = self.view.frame.size.width - 38 - 38 - 55;
     _signIntButton.sd_layout
-    .topSpaceToView(self.passwordField, 30)
+    .topSpaceToView(_inPasswordBtn, 20)
     .leftSpaceToView(self.view, 38)
     .widthIs(width/2)
     .heightIs(41);
@@ -145,7 +202,7 @@ NSString *infopassword;
     [_registerButton addTarget:self action:@selector(clickRegisterButton) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_registerButton];
     _registerButton.sd_layout
-    .topSpaceToView(self.passwordField, 30)
+    .topSpaceToView(_inPasswordBtn, 20)
     .leftSpaceToView(self.signIntButton, 55)
     .rightEqualToView(self.passwordField)
     .heightIs(41);
@@ -188,6 +245,23 @@ NSString *infopassword;
     self.password = dict[@"password"];
     return self;
 }
+#pragma mark 点击按钮
+- (void)btnClick:(UIButton *)button {
+    if (button.tag == 1) {
+        //自动登录
+        button.selected = !button.selected;
+        if (button.selected) {
+            
+        }
+    }else {
+        //修改密码
+        button.selected = !button.selected;
+        if (button.selected) {
+            
+        }
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

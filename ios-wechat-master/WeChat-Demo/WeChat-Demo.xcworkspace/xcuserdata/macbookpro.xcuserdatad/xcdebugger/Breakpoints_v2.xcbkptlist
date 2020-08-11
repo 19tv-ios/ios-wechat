@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x767b;&#x5f55;/SignViewController.m"
-            timestampString = "618750439.914735"
+            timestampString = "618827601.196189"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "-viewDidLoad"
             landmarkType = "7">
          </BreakpointContent>
@@ -340,11 +340,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x767b;&#x5f55;/SignViewController.m"
-            timestampString = "618750439.91519"
+            timestampString = "618827601.19993"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "-viewDidLoad"
             landmarkType = "7">
          </BreakpointContent>
@@ -356,11 +356,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x767b;&#x5f55;/SignViewController.m"
-            timestampString = "618750439.915382"
+            timestampString = "618827601.200177"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
             landmarkName = "-initWithInfo:"
             landmarkType = "7">
          </BreakpointContent>
@@ -372,11 +372,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x767b;&#x5f55;/SignViewController.m"
-            timestampString = "618750439.915594"
+            timestampString = "618827601.200405"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
+            startingLineNumber = "245"
+            endingLineNumber = "245"
             landmarkName = "-initWithInfo:"
             landmarkType = "7">
          </BreakpointContent>
