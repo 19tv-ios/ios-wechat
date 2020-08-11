@@ -269,10 +269,10 @@
 		5224308024DCF20E00B76C2A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				E204E26624E135B600CA2B44 /* AddFriendsVc.h */,
-				E204E26A24E135B700CA2B44 /* AddFriendsVc.m */,
 				E204E26724E135B600CA2B44 /* AddressViewController.h */,
 				E204E26824E135B600CA2B44 /* AddressViewController.m */,
+				E204E26624E135B600CA2B44 /* AddFriendsVc.h */,
+				E204E26A24E135B700CA2B44 /* AddFriendsVc.m */,
 				E204E26924E135B700CA2B44 /* newFriendsVc.h */,
 				5260742A24DCF72F00A91759 /* newFriendsVc.m */,
 				E204E25B24E1359000CA2B44 /* DetailVc.h */,
@@ -314,11 +314,11 @@
 			isa = PBXGroup;
 			children = (
 				E204E25C24E1359000CA2B44 /* MoreMessageVc.h */,
+				E204E26124E1359000CA2B44 /* MoreMessageVc.m */,
 				E204E25D24E1359000CA2B44 /* SettingVc.h */,
+				E204E26024E1359000CA2B44 /* SettingVc.m */,
 				E204E25E24E1359000CA2B44 /* RemarkVc.h */,
 				E204E25A24E1359000CA2B44 /* RemarkVc.m */,
-				E204E26024E1359000CA2B44 /* SettingVc.m */,
-				E204E26124E1359000CA2B44 /* MoreMessageVc.m */,
 			);
 			path = "好友页详情";
 			sourceTree = "<group>";

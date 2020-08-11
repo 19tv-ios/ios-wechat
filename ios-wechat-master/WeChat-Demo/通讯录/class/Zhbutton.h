@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Zhbutton : UIButton
 @property (nonatomic,strong) JMSGUser *user;
+@property (nonatomic,assign) NSInteger row;
 @end
 
 NS_ASSUME_NONNULL_END

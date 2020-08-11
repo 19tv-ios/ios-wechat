@@ -11,8 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AddressViewController : UIViewController
-//uitableview
+//uitableview通讯录好友
 @property (nonatomic,strong) UITableView *tableView;
+//新的朋友请求的数组模型
+@property (nonatomic,strong) NSMutableArray *userModelArray;
 - (void)updateFriendsList;//更新通讯录页面
 @end
 

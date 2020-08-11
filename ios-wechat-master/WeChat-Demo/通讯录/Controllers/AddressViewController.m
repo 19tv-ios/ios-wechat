@@ -11,6 +11,7 @@
 #import "DetailVc.h"
 #import "AddFriendsVc.h"
 #import "newFriendsVc.h"
+#import "RemarkVc.h"
 @interface AddressViewController ()<JMessageDelegate,UITableViewDataSource,UITableViewDelegate>
 //朋友数组
 @property (nonatomic,strong) NSMutableArray *userArray;
@@ -22,8 +23,6 @@
 @property (nonatomic,strong) NSMutableArray *rowArray;
 //#数组(包括字母、数字)
 @property (nonatomic,strong) NSMutableArray *specialArray;
-//新的朋友请求的数组模型
-@property (nonatomic,strong) NSMutableArray *userModelArray;
 //新的朋友Vc
 @property (nonatomic,strong) newFriendsVc *FriendsVc;
 //新的朋友tableview
@@ -71,7 +70,7 @@
         self.indexArray = [NSMutableArray arrayWithCapacity:0];
     }
     
- 
+    //更新通讯录列表
     [self updateFriendsList];
     
     //添加监听代理
@@ -100,11 +99,13 @@
 
     //本地好友请求
     NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSLog(@"path:%@",path);
     NSString *filePath = [path stringByAppendingPathComponent:[NSString  stringWithFormat:@"%@userModelArray.plist",self.user.username]];
     NSData *data = [NSData dataWithContentsOfFile:filePath];
     self.userModelArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     //未读好友请求
-    if (_userModelArray != 0) {
+    self.tabBarItem.badgeValue = nil;
+    if (_userModelArray.count != 0) {
         self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu",self.userModelArray.count];
     }
 }
@@ -132,6 +133,13 @@
         //好友列表排序
         [self FriendsSort];
     }];
+
+    //更新未读数
+    [self.tab reloadData];
+    self.tabBarItem.badgeValue = nil;
+    if (_userModelArray.count != 0) {
+        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu",self.userModelArray.count];
+    }
 }
 
 // 按首字母分组排序数组
@@ -143,12 +151,17 @@
         self.rowArray = [NSMutableArray arrayWithCapacity:0];
         for (NSInteger j = 0;j<self.userArray.count; j++) {
             JMSGUser *user = self.userArray[j];
-            NSString *pinyin = [self nameChangePinyin:user.nickname];
-            NSString *firstChar = [pinyin substringToIndex:1];
-            NSString *str = [NSString stringWithFormat:@"%c",c];//字符转字符串
-            if ([firstChar isEqualToString:str]) {//判断第一个字发音是否是当前字母，是的话加入rowArray
-                [self.rowArray addObject:user];
+            int a = [user.nickname characterAtIndex:i];
+            if( a > 0x4e00 && a < 0x9fff){//判断字符串第一个是否是中文
+                NSString *pinyin = [self nameChangePinyin:user.nickname];
+                NSString *firstChar = [pinyin substringToIndex:1];
+                NSString *str = [NSString stringWithFormat:@"%c",c];//字符转字符串
+                if ([firstChar isEqualToString:str]) {//判断第一个字发音是否是当前字母，是的话加入rowArray
+                    [self.rowArray addObject:user];
+                }
             }
+            
+           
         }
         if (self.rowArray.count != 0) {
             [self.sectionArray addObject:self.rowArray];
@@ -158,11 +171,13 @@
     }
     
     //特殊昵称排序
+    self.specialArray = [NSMutableArray arrayWithCapacity:0];
+    
     for (NSInteger i = 0; i<self.userArray.count; i++) {
         JMSGUser *user = self.userArray[i];
         if (user.nickname == nil) {//判断有无昵称，如果没有用username代替
             unichar first = [user.username characterAtIndex:0];
-            if (isdigit(first)||isalpha(first)) {//如果首个字符数字或者字母
+            if (isdigit(first)||isalpha(first)) {//如果首个字符是数字或者字母
                 if (self.specialArray == nil) {
                     self.specialArray = [NSMutableArray arrayWithCapacity:0];
                 }
@@ -177,20 +192,15 @@
                 [self.specialArray addObject:user];
             }
         }
-        
-        
     }
+    
     if (self.specialArray.count != 0) {
         //如果有内容再加入索引
         [self.indexArray addObject:[NSString stringWithFormat:@"#"]];
         //如果有内容，最后再来添加#特殊数组
         [self.sectionArray addObject:self.specialArray];
     }
-    
-    
-//    
-//    NSLog(@"section的数量:%ld",self.sectionArray.count);
-//    NSLog(@"表格头的数量:%ld",self.indexArray.count);
+ 
     [self.tableView reloadData];
 }
 
@@ -291,13 +301,25 @@
         }
         NSArray *rowArray = self.sectionArray[indexPath.section];
         JMSGUser *user = rowArray[indexPath.row];
-        cell.imageView.image = [UIImage imageNamed:@"微信"];
+        if (cell.imageView.image == nil) {
+            [user thumbAvatarData:^(NSData *data, NSString *objectId, NSError *error) {
+                if (data == nil) {
+                    cell.imageView.image = [UIImage imageNamed:@"微信"];
+                }else{
+                    cell.imageView.image  = [UIImage imageWithData:data];
+                }
+                //刷新该行
+                [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+            }];
+        }
+       
         cell.textLabel.text = [NSString stringWithFormat:@"%@",user.nickname];
         
-        
+        //设置cell为编辑效果
+        cell.editingAccessoryType = UITableViewCellAccessoryDetailButton;
+
         return cell;
     }
-    
     
 }
 
@@ -308,11 +330,6 @@
     if (tableView.tag == 1) {
         self.FriendsVc = [[newFriendsVc alloc]init];
         self.FriendsVc.hidesBottomBarWhenPushed = YES;
-        
-//        NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-//        NSString *filePath = [path stringByAppendingPathComponent:[NSString  stringWithFormat:@"%@userModelArray.plist",self.user.username]];
-//        NSData *data = [NSData dataWithContentsOfFile:filePath];
-//        self.userModelArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
         self.FriendsVc.userModelArray = self.userModelArray;
         [self.navigationController pushViewController:self.FriendsVc animated:YES];
         NSLog(@"新的朋友页面");
@@ -339,8 +356,8 @@
 }
 
 - (void)onReceiveFriendNotificationEvent:(JMSGFriendNotificationEvent *)event{
-    NSLog(@"reson:%@",event.getReason);
-    NSLog(@"username:%@",event.getFromUsername);
+//    NSLog(@"reson:%@",event.getReason);
+//    NSLog(@"username:%@",event.getFromUsername);
     [self.userModelArray addObject:event.getFromUser];
     
     //本地储存历史添加请求
@@ -361,6 +378,38 @@
     
     
 }
+#pragma mark - tableView右滑
 
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView.tag == 1) {
+        UISwipeActionsConfiguration *config = [[UISwipeActionsConfiguration alloc]init];
+        return config;
+    }else{
+        UIContextualAction *RemarkAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"备注" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+            RemarkVc *Vc = [[RemarkVc alloc]init];
+            Vc.user = self.user;
+            [self.navigationController pushViewController:Vc animated:YES];
+        }];
+        RemarkAction.backgroundColor = [UIColor grayColor];
+        UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"删除" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+            UIAlertController *AlertController = [UIAlertController alertControllerWithTitle:@"确定删除该好友吗？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *agreeAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [JMSGFriendManager removeFriendWithUsername:self.user.username appKey:@"0a974aa68871f642444ae38b" completionHandler:^(id resultObject, NSError *error) {
+                    if (error == nil) {NSLog(@"删除好友成功");}
+                    [self updateFriendsList];
+                }];
+            }];
+            UIAlertAction *disagreeAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:nil];
+            [AlertController addAction:agreeAction];
+            [AlertController addAction:disagreeAction];
+            [self presentViewController:AlertController animated:YES completion:nil];
+        }];
+        deleteAction.backgroundColor = [UIColor redColor];
+        UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteAction,RemarkAction]];
+        config.performsFirstActionWithFullSwipe = NO;
+        return config;
+    }
+   
+}
 @end
 
