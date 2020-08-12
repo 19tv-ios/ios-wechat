@@ -96,6 +96,7 @@
     NSLog(@"name:%@",nameStr);
     NSLog(@"reson:%@",resonStr);
     
+    //发送好友请求
     [JMSGFriendManager sendInvitationRequestWithUsername:nameStr appKey: @"0a974aa68871f642444ae38b" reason:resonStr completionHandler:^(id resultObject, NSError *error) {
         if (error != nil) {
             UIAlertController *AlertController = [UIAlertController alertControllerWithTitle:@"你已经添加过该好友" message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -107,13 +108,13 @@
             NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
             NSString *filePath = [path stringByAppendingPathComponent:[NSString  stringWithFormat:@"%@userModelArray.plist",nameStr]];
             NSData *data = [NSData dataWithContentsOfFile:filePath];
-            NSMutableArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-            if (array == nil) {
-                array = [NSMutableArray arrayWithCapacity:0];
+            NSMutableArray *userModelArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            if (userModelArray == nil) {
+                userModelArray = [NSMutableArray arrayWithCapacity:0];
             }
-            [array addObject:self.user];
-            
-            NSData *data1 = [NSKeyedArchiver archivedDataWithRootObject:array];
+            [userModelArray addObject:self.user];
+
+            NSData *data1 = [NSKeyedArchiver archivedDataWithRootObject:userModelArray];
             [data1 writeToFile:filePath atomically:YES];
             //发送完好友请求后返回通讯录页面
             AddressViewController *Vc = self.navigationController.viewControllers[0];

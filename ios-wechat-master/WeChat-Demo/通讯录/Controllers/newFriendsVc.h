@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <JMessage/JMessage.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSMutableArray *userModelArray;
 @property (nonatomic,strong) UITableView *tab;
 //当前登陆用户
+@property (nonatomic,strong) JMSGUser *user;
 @end
 
 NS_ASSUME_NONNULL_END

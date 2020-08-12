@@ -22,6 +22,16 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
+    
+    //同步滑动
+    UIScrollView *scrView = [[UIScrollView alloc]init];
+    scrView.contentSize = CGSizeMake(self.view.width, [UIScreen mainScreen].bounds.size.height-120);
+    scrView.showsVerticalScrollIndicator = NO;
+    scrView.showsHorizontalScrollIndicator = NO;
+    [self.view addSubview:scrView];
+    scrView.sd_layout.topEqualToView(self.view).leftEqualToView(self.view).rightEqualToView(self.view).bottomEqualToView(self.view);
+    
+    
     //导航条右按钮
     UIButton *rightBtn = [[UIButton alloc]init];
     [rightBtn setImage:[UIImage imageNamed:@"更多"] forState:UIControlStateNormal];
@@ -30,17 +40,15 @@
     
     //头像
     UIImageView *headView = [[UIImageView alloc]init];
-//    headView.backgroundColor = [UIColor blueColor];
-    __block UIImage *thumImage = [[UIImage alloc]init];
     [self.user thumbAvatarData:^(NSData *data, NSString *objectId, NSError *error) {
-        thumImage = [UIImage imageWithData:data];
-        headView.image = thumImage;
+        headView.image = [UIImage imageWithData:data];
+        if (headView.image == nil) {
+            headView.image = [UIImage imageNamed:@"未知头像"];
+        }
     }];
-    if (headView.image == nil) {
-        headView.image = [UIImage imageNamed:@"微信"];
-    }
-    [self.view addSubview:headView];
-    headView.sd_layout.topSpaceToView(self.view, 110).leftSpaceToView(self.view, 30).widthIs(85).heightIs(85);
+   
+    [scrView addSubview:headView];
+    headView.sd_layout.topSpaceToView(scrView, 20).leftSpaceToView(scrView, 30).widthIs(85).heightIs(85);
     
     //昵称
     UILabel *nickName = [[UILabel alloc]init];
@@ -49,10 +57,9 @@
     }else{
         nickName.text = self.user.nickname;
     }
-//    nickName.backgroundColor = [UIColor yellowColor];
     nickName.font = [UIFont systemFontOfSize:25];
-    [self.view addSubview:nickName];
-    nickName.sd_layout.topSpaceToView(self.view, 110).leftSpaceToView(headView, 25).heightIs(35).maxWidthIs(300);
+    [scrView addSubview:nickName];
+    nickName.sd_layout.topSpaceToView(scrView, 20).leftSpaceToView(headView, 25).heightIs(35).maxWidthIs(300);
     [nickName setSingleLineAutoResizeWithMaxWidth:300];
     
     //性别
@@ -65,15 +72,15 @@
     }else{
         gender.image = [UIImage imageNamed:@"性别女"];
     }
-    [self.view addSubview:gender];
-    gender.sd_layout.topSpaceToView(self.view, 115).leftSpaceToView(nickName, 10).heightIs(25).widthIs(25);
+    [scrView addSubview:gender];
+    gender.sd_layout.topSpaceToView(scrView, 25).leftSpaceToView(nickName, 10).heightIs(25).widthIs(25);
     
     //微信号（uid）
     UILabel *uid = [[UILabel alloc]init];
     uid.text = [NSString stringWithFormat:@"微信号:%lld",self.user.uid];
     uid.font = [UIFont systemFontOfSize:15];
     uid.textColor = [UIColor grayColor];
-    [self.view addSubview:uid];
+    [scrView addSubview:uid];
     uid.sd_layout.topSpaceToView(nickName, 3).leftSpaceToView(headView, 25).heightIs(20).maxWidthIs(300);
     [uid setSingleLineAutoResizeWithMaxWidth:300];
     
@@ -82,7 +89,7 @@
     region.text = self.user.region;//
     region.font = [UIFont systemFontOfSize:15];
     region.textColor = [UIColor grayColor];
-    [self.view addSubview:region];
+    [scrView addSubview:region];
     region.sd_layout.topSpaceToView(uid, 3).leftSpaceToView(headView, 25).heightIs(20).maxWidthIs(300);
     [region setSingleLineAutoResizeWithMaxWidth:300];
     
@@ -91,11 +98,12 @@
     tab.dataSource = self;
     tab.tableFooterView = [[UIView alloc]init];
     tab.delegate = self;
-    [self.view addSubview:tab];
+    [scrView addSubview:tab];
     tab.sd_layout.topSpaceToView(headView, 25).leftEqualToView(self.view).rightEqualToView(self.view).bottomEqualToView(self.view);
     tab.sectionHeaderHeight = 0;
     tab.sectionFooterHeight = 5;
     tab.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0.0f,0.0f,tab.bounds.size.width,0.01f)];
+    tab.scrollEnabled = NO;
     
 
 

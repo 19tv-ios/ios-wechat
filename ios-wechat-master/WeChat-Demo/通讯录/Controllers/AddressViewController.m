@@ -12,7 +12,7 @@
 #import "AddFriendsVc.h"
 #import "newFriendsVc.h"
 #import "RemarkVc.h"
-@interface AddressViewController ()<JMessageDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface AddressViewController ()<JMessageDelegate,UITableViewDataSource,UITableViewDelegate,UISearchControllerDelegate,UISearchResultsUpdating>
 //朋友数组
 @property (nonatomic,strong) NSMutableArray *userArray;
 //排序后的section数组
@@ -39,6 +39,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    //聊天页
+    UIScreenEdgePanGestureRecognizer *edgeGes = [[UIScreenEdgePanGestureRecognizer alloc]  initWithTarget: self  action:@selector(edgePan:)];
+    edgeGes.edges = UIRectEdgeLeft;
+    [self.view addGestureRecognizer:edgeGes];
     
    
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"address"];
@@ -70,36 +77,43 @@
         self.indexArray = [NSMutableArray arrayWithCapacity:0];
     }
     
-    //更新通讯录列表
-    [self updateFriendsList];
-    
     //添加监听代理
     [JMessage addDelegate:self withConversation:nil];
     
+    //同步滑动
+    UIScrollView *scrView = [[UIScrollView alloc]init];
+    scrView.contentSize = CGSizeMake(self.view.width, [UIScreen mainScreen].bounds.size.height-170);
+    scrView.showsVerticalScrollIndicator = NO;
+    scrView.showsHorizontalScrollIndicator = NO;
+    [self.view addSubview:scrView];
+    scrView.sd_layout.topEqualToView(self.view).leftEqualToView(self.view).rightEqualToView(self.view).bottomEqualToView(self.view);
+    
     
     //新的朋友tableview
-    self.tab = [[UITableView alloc]init];
+    self.tab = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 0, 0) style:UITableViewStylePlain];
     self.tab.tag = 1;
     self.tab.delegate = self;
     self.tab.dataSource = self;
-    [self.view addSubview:self.tab];
-    self.tab.sd_layout.topSpaceToView(self.view, 50).leftEqualToView(self.view).rightEqualToView(self.view).heightIs(80);
+    self.tab.scrollEnabled = NO;
+    [scrView addSubview:self.tab];
+    self.tab.sd_layout.topSpaceToView(scrView, 0).leftEqualToView(scrView).rightEqualToView(scrView).heightIs(80);
     
     
     //展示好友的uitableview
-    self.tableView = [[UITableView alloc]init];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 0, 0) style:UITableViewStylePlain];
     self.tableView.tag = 2;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.scrollEnabled = NO;
     self.tableView.tableFooterView = [[UIView alloc]init];
-    [self.view addSubview:self.tableView];
-    self.tableView.sd_layout.topSpaceToView(self.tab, 0).leftEqualToView(self.view).rightEqualToView(self.view).bottomEqualToView(self.view );
+    [scrView addSubview:self.tableView];
+    self.tableView.sd_layout.topSpaceToView(scrView, 44).leftEqualToView(scrView).rightEqualToView(scrView).bottomEqualToView(scrView);
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"address"];
     
 
-    //本地好友请求
+    //拿出本地好友请求
     NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSLog(@"path:%@",path);
+    NSLog(@"%@",path);
     NSString *filePath = [path stringByAppendingPathComponent:[NSString  stringWithFormat:@"%@userModelArray.plist",self.user.username]];
     NSData *data = [NSData dataWithContentsOfFile:filePath];
     self.userModelArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -108,6 +122,32 @@
     if (_userModelArray.count != 0) {
         self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu",self.userModelArray.count];
     }
+    
+    
+   //搜索框
+    UISearchController *search = [[UISearchController alloc] initWithSearchResultsController:nil];
+    search.searchResultsUpdater = self;
+    search.dimsBackgroundDuringPresentation = false;
+    search.searchBar.backgroundColor = [UIColor clearColor];
+    
+    //设置边框的内部颜色 及边框宽度 圆角
+    UIView* searchTextField = [[[search.searchBar.subviews firstObject] subviews] lastObject];
+    searchTextField.layer.borderWidth = 1;
+    searchTextField.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    searchTextField.layer.cornerRadius = 10.0f;
+    for(UIView* view in search.searchBar.subviews){
+        if ([view isKindOfClass:NSClassFromString(@"UIView")] && view.subviews.count > 0) {
+            [[view.subviews objectAtIndex:0] removeFromSuperview];
+            break;
+        }
+    }
+    search.searchBar.placeholder = @"搜索联系人";
+    [search.searchBar sizeToFit];
+    search.delegate = self;
+    self.navigationItem.searchController = search;
+    
+    //更新通讯录列表
+    [self updateFriendsList];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -255,7 +295,7 @@
 //表格头
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if (tableView.tag == 1) {
-        return nil;//[NSString stringWithFormat:@"功能"]
+        return nil; 
     }else{
         return self.indexArray[section];
     }
@@ -301,10 +341,14 @@
         }
         NSArray *rowArray = self.sectionArray[indexPath.section];
         JMSGUser *user = rowArray[indexPath.row];
+        
+        cell.imageView.sd_layout.topSpaceToView(cell.contentView, 8).heightIs(30).widthIs(30);
+        cell.imageView.layer.masksToBounds = YES;
+        cell.imageView.layer.cornerRadius = 5;
         if (cell.imageView.image == nil) {
             [user thumbAvatarData:^(NSData *data, NSString *objectId, NSError *error) {
                 if (data == nil) {
-                    cell.imageView.image = [UIImage imageNamed:@"微信"];
+                   cell.imageView.image = [UIImage imageNamed:@"未知头像"];
                 }else{
                     cell.imageView.image  = [UIImage imageWithData:data];
                 }
@@ -313,8 +357,13 @@
             }];
         }
        
-        cell.textLabel.text = [NSString stringWithFormat:@"%@",user.nickname];
+        if (user.nickname == nil) {
+            cell.textLabel.text = [NSString stringWithFormat:@"%@",user.username];
+        }else{
+            cell.textLabel.text = [NSString stringWithFormat:@"%@",user.nickname];
+        }
         
+ 
         //设置cell为编辑效果
         cell.editingAccessoryType = UITableViewCellAccessoryDetailButton;
 
@@ -323,28 +372,6 @@
     
 }
 
-
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    if (tableView.tag == 1) {
-        self.FriendsVc = [[newFriendsVc alloc]init];
-        self.FriendsVc.hidesBottomBarWhenPushed = YES;
-        self.FriendsVc.userModelArray = self.userModelArray;
-        [self.navigationController pushViewController:self.FriendsVc animated:YES];
-        NSLog(@"新的朋友页面");
-    }else{
-        DetailVc *Vc = [[DetailVc alloc]init];
-        NSArray *rowArray =  self.sectionArray[indexPath.section];
-        Vc.user = rowArray[indexPath.row];
-        Vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:Vc animated:YES];
-        NSLog(@"%ld---%ld",indexPath.section,indexPath.row);
-    }
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-}
 
 
 #pragma mark 监听方法
@@ -356,15 +383,21 @@
 }
 
 - (void)onReceiveFriendNotificationEvent:(JMSGFriendNotificationEvent *)event{
-//    NSLog(@"reson:%@",event.getReason);
-//    NSLog(@"username:%@",event.getFromUsername);
-    [self.userModelArray addObject:event.getFromUser];
+    NSLog(@"reson:%@",event.getReason);
+    NSLog(@"username:%@",event.getFromUsername);
     
-    //本地储存历史添加请求
+    //本地取出历史添加请求(先取出、再存进去)
     NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     NSString *filePath = [path stringByAppendingPathComponent:[NSString  stringWithFormat:@"%@userModelArray.plist",self.user.username]];
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.userModelArray];
-    [data writeToFile:filePath atomically:YES];
+    NSData *data = [NSData dataWithContentsOfFile:filePath];
+    self.userModelArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];//取出来
+    if (self.userModelArray == nil) {
+        self.userModelArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    [self.userModelArray addObject:event.getFromUser];
+    
+    NSData *data1 = [NSKeyedArchiver archivedDataWithRootObject:self.userModelArray];
+    [data1 writeToFile:filePath atomically:YES];//存进去
     
     if (self.userModelArray.count != 0) {
         self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu",self.userModelArray.count];
@@ -375,7 +408,36 @@
     
     //刷新新的朋友Vc
     [self.FriendsVc.tab reloadData];
+
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if (tableView.tag == 1) {
+        self.FriendsVc = [[newFriendsVc alloc]init];
+        self.FriendsVc.hidesBottomBarWhenPushed = YES;
+        self.FriendsVc.userModelArray = self.userModelArray;
+        self.FriendsVc.user = self.user;
+        [self.navigationController pushViewController:self.FriendsVc animated:YES];
+        NSLog(@"新的朋友页面");
+    }else{
+        DetailVc *Vc = [[DetailVc alloc]init];
+        NSArray *rowArray =  self.sectionArray[indexPath.section];
+        Vc.user = rowArray[indexPath.row];
+        Vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:Vc animated:YES];
+        NSLog(@"%@",Vc.user.username);
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+}
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController{
+    searchController.obscuresBackgroundDuringPresentation = YES;
+}
+-(void)edgePan:(UIPanGestureRecognizer *)recognizer{
+//    [self dismissViewControllerAnimated:YES completion:nil];
     
 }
 #pragma mark - tableView右滑
