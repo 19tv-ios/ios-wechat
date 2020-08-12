@@ -10,12 +10,14 @@
 #import <JMessage/JMessage.h>
 #import "Root.h"
 #import <UserNotifications/UserNotifications.h>
+#import "accountModel.h"
+#import <JMessage/JMessage.h>
 
 #define appkey @"0a974aa68871f642444ae38b"
 @interface AppDelegate ()<Root>
 
 @end
-
+extern NSString *infopassword;
 @implementation AppDelegate
 
 
@@ -52,19 +54,46 @@
     _registerViewController = [[registerViewController alloc] init];
     _registerViewController.delegate = self;
     
-    self.window.rootViewController = _signViewController;
-    [self.window makeKeyAndVisible];
+        //根据自动登录设置根控制器
+    NSArray *accountArray = [NSArray array];
+    NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES)[0];
+    NSString *filepath = [path stringByAppendingPathComponent:@"account.plist"];
+    accountArray = [NSArray arrayWithContentsOfFile:filepath];
+    if (accountArray.count) {
+        NSDictionary *dict = accountArray.firstObject;
+        accountModel *model = [accountModel accountdataWithdict:dict];
+        if (model.autoLogin) {
+            dispatch_group_t group = dispatch_group_create();
+            dispatch_group_enter(group);
+            [JMSGUser loginWithUsername:model.username password:model.password completionHandler:^(id resultObject, NSError *error) {
+                NSLog(@"%@",resultObject);
+                infopassword = model.password;
+                self.window.rootViewController = self->_tabBarController;
+            }];
+            dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+                NSLog(@"11");
+            });
+        }else {
+            self.window.rootViewController = _signViewController;
+        }
+    }else {
+        self.window.rootViewController = _signViewController;
+   }
     
+   // self.window.rootViewController = _signViewController;
+    [self.window makeKeyAndVisible];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *plistPath = [paths objectAtIndex:0];//获取沙盒地址
     self.tabBarController.chatView.address = [plistPath stringByAppendingPathComponent:@"Chat.plist"];
     
     return YES;
 }
-
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // Required - 注册token
     [JMessage registerDeviceToken:deviceToken];
+}
+- (void)updateUI {
+    self.window.rootViewController = _tabBarController;
 }
 -(void)changeRootVC{
     self.window.rootViewController = _tabBarController;
@@ -74,6 +103,10 @@
 }
 -(void)changeTpRegisterVC {
     self.window.rootViewController = _registerViewController;
+}
+- (void)win {
+    [self.window makeKeyAndVisible];
+
 }
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

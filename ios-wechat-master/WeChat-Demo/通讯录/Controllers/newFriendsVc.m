@@ -7,7 +7,6 @@
 //
 
 #import "newFriendsVc.h"
-#import <JMessage/JMessage.h>
 #import "SDAutoLayout.h"
 #import "DetailVc.h"
 #import "Zhbutton.h"
@@ -22,9 +21,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    //添加监听代理
-    [JMessage addDelegate:self withConversation:nil];
     
     if (self.userModelArray == nil) {
         self.userModelArray = [NSMutableArray arrayWithCapacity:0];
@@ -46,19 +42,29 @@
 }
 #pragma mark 监听
 - (void)agreeBtn:(Zhbutton *)btn{
-//    NSString *str = [NSString stringWithFormat:@"%ld",btn.tag];
+
     NSString *UserName = btn.user.username;
+    [self.userModelArray removeObjectAtIndex:btn.row];
+    //本地储存历史添加请求
+    NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSLog(@"path:%@",path);
+    NSString *filePath = [path stringByAppendingPathComponent:[NSString  stringWithFormat:@"%@userModelArray.plist",self.user.username]];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.userModelArray];
+    [data writeToFile:filePath atomically:YES];
     [JMSGFriendManager acceptInvitationWithUsername:UserName appKey:@"0a974aa68871f642444ae38b" completionHandler:^(id resultObject, NSError *error) {
         NSLog(@"error:%@",error);
         AddressViewController *Vc = self.navigationController.viewControllers[0];
+        Vc.userModelArray = self.userModelArray;//更新未读消息
         [Vc updateFriendsList];
         [self.navigationController popToViewController:Vc animated:YES];
+        
     }];
+    
 }
 # pragma mark datasource
 //多少组
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;//self.nameSectionsArray.count
+    return 1;
 }
 
 //每组多少行
@@ -80,24 +86,41 @@
     }
     
     JMSGUser *user = self.userModelArray[indexPath.row];
-    [user thumbAvatarData:^(NSData *data, NSString *objectId, NSError *error) {
-        cell.imageView.image = [UIImage imageWithData:data];
-    }];
-    cell.textLabel.text = user.username;//user.nickname
+    if (user.nickname == nil) {
+        cell.textLabel.text = user.username;
+    }else{
+        cell.textLabel.text = user.nickname;
+
+    }
     
     Zhbutton *agreeBtn = [[Zhbutton alloc]init];
     [agreeBtn setTitle:@"同意" forState:UIControlStateNormal];
     
-    [agreeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [agreeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     agreeBtn.backgroundColor = [UIColor colorWithRed:120.0f/255.0f green:194.0f/255.0f blue:109.0f/255.0f alpha:1];
- 
     agreeBtn.user = user;
+    agreeBtn.row = indexPath.row;//第几个cell的同意按钮
     [agreeBtn addTarget:self action:@selector(agreeBtn:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:agreeBtn];
-    agreeBtn.sd_layout.topEqualToView(cell.contentView).leftSpaceToView(cell.contentView, 325).widthIs(40).heightIs(45);
-    [agreeBtn sizeToFit];
+    agreeBtn.sd_layout.topEqualToView(cell.contentView).rightEqualToView(cell.contentView).widthIs(40).heightIs(45);
+    
+    cell.imageView.sd_layout.topSpaceToView(cell.contentView, 8).heightIs(30).widthIs(30);
+    cell.imageView.layer.masksToBounds = YES;
+    cell.imageView.layer.cornerRadius = 5;
+    if (cell.imageView.image == nil) {
+        [user thumbAvatarData:^(NSData *data, NSString *objectId, NSError *error) {
+            if (data == nil) {
+                cell.imageView.image = [UIImage imageNamed:@"未知头像"];
+            }else{
+                cell.imageView.image  = [UIImage imageWithData:data];
+            }
+            //刷新该行
+            [self.tab reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+        }];
+    }
     
     return cell;
+
 }
 
 

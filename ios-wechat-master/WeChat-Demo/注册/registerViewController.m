@@ -26,6 +26,7 @@
 
 @end
 
+
 @implementation registerViewController
 
 #pragma mark - viewDidLoad
@@ -134,18 +135,17 @@
 }
 #pragma mark - 点击注册按钮
 - (void)clickRegisterButton {
-    NSString *username = _accountField.text;
-    NSString *password = _passwordField.text;
-    [JMSGUser registerWithUsername:username password:password completionHandler:^(id resultObject, NSError *error) {
+    NSString *newusername = _accountField.text;
+    NSString *newpassword = _passwordField.text;
+    [JMSGUser registerWithUsername:newusername password:newpassword completionHandler:^(id resultObject, NSError *error) {
         if (self->_passwordField.text.length&&self->_accountField.text.length) {
             if (resultObject) {
-                //通知传值.更新登录页面的账号和密码
                 NSDictionary *dict = @{
-                                       @"accoutField":self->_accountField.text,
-                                       @"passwordField":self->_passwordField.text
+                                       @"username":newusername,
+                                       @"password":newpassword
                                        };
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"register" object:nil userInfo:dict];
-                [self.delegate changeToSignVC];
+                SignViewController *signViewController = [[SignViewController alloc] initWithInfo:dict];
+                [self presentViewController:signViewController animated:YES completion:nil];
             }else {
                 if ([self accoutIsOK]) {
                     //提示信息有误
@@ -174,7 +174,8 @@
 }
 #pragma mark - 点击返回按钮
 - (void)clickBackButton {
-    [self.delegate changeToSignVC];
+    SignViewController *signViewController = [[SignViewController alloc] init];
+    [self presentViewController:signViewController animated:YES completion:nil];
 }
 #pragma mark - 判断账号信息
 - (BOOL)accoutIsOK {
