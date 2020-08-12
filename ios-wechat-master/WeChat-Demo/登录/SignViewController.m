@@ -11,9 +11,10 @@
 #import "SDAutoLayout.h"
 #import <JMessage/JMessage.h>
 #import "TabBarController.h"
+#import "accountModel.h"
 
 
-@interface SignViewController ()
+@interface SignViewController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 
 //图片
 @property (nonatomic, strong) UIImageView *iconImageView;
@@ -31,6 +32,10 @@
 //记住密码
 @property (nonatomic, strong) UILabel *inPasswordLabel;
 @property (nonatomic, strong) UIButton *inPasswordBtn;
+//获取本地库里的数据
+@property (nonatomic, strong) NSArray *accountArray;
+//显示账号的tableView
+@property (nonatomic, strong) UITableView *accountTableview;
 
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *password;
@@ -39,11 +44,25 @@
 NSString *infopassword;
 
 @implementation SignViewController
-
+- (NSArray *)accountArray {
+    if (!_accountArray) {
+        _accountArray = [NSArray array];
+        NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES)[0];
+        NSString *filepath = [path stringByAppendingPathComponent:@"account.plist"];
+        _accountArray = [NSArray arrayWithContentsOfFile:filepath];
+    }
+    return _accountArray;
+}
 #pragma mark - viewDidLoad
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    
+    UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap)];
+    singleTap.delegate = self;
+    [self.view addGestureRecognizer:singleTap];
     
     //初始化图标
     [self setUpIconImageView];
@@ -62,9 +81,9 @@ NSString *infopassword;
     
     //初始化注册按钮
     [self setUpRegisterButton];
-
-    
+  
 }
+
 #pragma mark - 初始化图标
 - (void)setUpIconImageView {
     self.iconImageView =[[UIImageView alloc] init];
@@ -89,6 +108,8 @@ NSString *infopassword;
         _accountField.text = _username;
         _username = nil;
     }
+    _accountField.delegate = self;
+    _accountField.selected = NO;
     _accountField.layer.borderWidth=1.0f;
     _accountField.layer.cornerRadius=5.0;
     _accountField.clearButtonMode=UITextFieldViewModeWhileEditing;
@@ -215,7 +236,9 @@ NSString *infopassword;
         JMSGUser *uesr = resultObject;
         if (uesr.uid) {
             NSLog(@"登陆成功");
+            //传递密码（修改密码时用到）
             infopassword = passWord;
+            [self writeToPlist];
             TabBarController *tabBarController = [[TabBarController alloc] init];
             [self presentViewController:tabBarController animated:YES completion:nil];
         }else{
@@ -233,12 +256,7 @@ NSString *infopassword;
     registerViewController *a = [[registerViewController alloc] init];
     [self presentViewController:a animated:YES completion:nil];
 }
-#pragma mark- 注册成功
-- (void)register:(NSNotification *)notification {
-    NSDictionary *dict = notification.userInfo;
-    _accountField.text = dict[@"accoutField"];
-    _passwordField.text = dict[@"passwordField"];
-}
+#pragma mark - 初始化控制器
 -(instancetype)initWithInfo:(NSDictionary *)dict {
     self = [super init];
     self.username = dict[@"username"];
@@ -250,6 +268,7 @@ NSString *infopassword;
     if (button.tag == 1) {
         //自动登录
         button.selected = !button.selected;
+        _inPasswordBtn.selected = button.selected;
         if (button.selected) {
             
         }
@@ -260,6 +279,147 @@ NSString *infopassword;
             
         }
     }
+}
+#pragma mark - 把信息写进plist文件
+- (void)writeToPlist {
+    [self dataIsRepeat:_accountField.text];
+    //获取沙盒文件里面的collect.plist路径
+    NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES)[0];
+    NSString *filepath = [path stringByAppendingPathComponent:@"account.plist"];
+    NSMutableArray *dataArray = [NSMutableArray array];
+    if ([NSMutableArray arrayWithContentsOfFile:filepath]==nil) {
+        NSArray *kArr = [NSArray array];
+        BOOL ret = [kArr writeToFile:filepath atomically:YES];
+        if (ret) {
+            dataArray = [NSMutableArray arrayWithContentsOfFile:filepath];
+        }
+        else
+        {
+            NSLog(@"创建collect.plist失败了");
+        }
+        
+    }
+    else{
+        dataArray = [NSMutableArray arrayWithContentsOfFile:filepath];
+    }
+    NSDictionary *dict = [NSDictionary dictionary];
+    if (_btnSelect.selected) {
+        //自动登录
+        dict = @{
+                 @"username":_accountField.text,
+                 @"password":_passwordField.text,
+                 @"autoLogin":@YES,
+                 @"remindpassword":@YES
+                 };
+        [dataArray insertObject:dict atIndex:0];
+        [dataArray writeToFile:filepath atomically:YES];
+    }else if (_inPasswordBtn.selected) {
+        //记住密码
+        dict = @{
+                 @"username":_accountField.text,
+                 @"password":_passwordField.text,
+                 @"autoLogin":@NO,
+                 @"remindpassword":@YES
+                 };
+         [dataArray insertObject:dict atIndex:0];
+        [dataArray writeToFile:filepath atomically:YES];
+    }else {
+        //只是记住账号
+        dict = @{
+                 @"username":_accountField.text,
+                 @"autoLogin":@NO,
+                 @"remindpassword":@NO
+                 };
+        [dataArray insertObject:dict atIndex:0];
+        [dataArray writeToFile:filepath atomically:YES];
+    }
+    NSLog(@"%@",filepath);
+}
+#pragma mark - textField代理方法
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    _btnSelect.selected = NO;
+    _inPasswordBtn.selected = NO;
+    if (self.accountArray.count) {
+        //展示账号数据
+        _accountTableview = [[UITableView alloc] init];
+        _accountTableview.dataSource = self;
+        _accountTableview.delegate = self;
+        _accountTableview.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
+        [self.view addSubview:_accountTableview];
+        _accountTableview.sd_layout
+        .topSpaceToView(_accountField, 10)
+        .leftEqualToView(_accountField)
+        .rightEqualToView(_accountField)
+        .heightIs(90);
+        _accountTableview.tableFooterView = [[UIView alloc] init];
+    }
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [_accountTableview removeFromSuperview];
+}
+
+#pragma mark - 判断数据是否有重合
+- (void)dataIsRepeat:(NSString *)username {
+    NSMutableArray *array = [NSMutableArray array];
+    NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES)[0];
+    NSString *filepath = [path stringByAppendingPathComponent:@"account.plist"];
+    array = [NSMutableArray arrayWithContentsOfFile:filepath];
+    for (int i=0; i<self.accountArray.count; i++) {
+        NSDictionary *dict = self.accountArray[i];
+        if ([username isEqualToString:dict[@"username"]]) {
+            [array removeObject:dict];
+            [array writeToFile:filepath atomically:YES];
+        }
+    }
+}
+#pragma mark - tableView的代理方法
+//组数
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+//行数
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.accountArray.count;
+}
+//每行显示的内容
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellID = @"dataID";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    if(!cell){
+       cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
+    }
+   // cell.backgroundColor = [UIColor grayColor];
+    NSDictionary *dict = self.accountArray[indexPath.row];
+    accountModel *model = [accountModel accountdataWithdict:dict];
+    cell.textLabel.text = model.username;
+    return cell;
+}
+//点击cell
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *dict = self.accountArray[indexPath.row];
+    accountModel *model = [accountModel accountdataWithdict:dict];
+    _accountField.text = model.username;
+    _passwordField.text = model.password;
+    if (model.autoLogin) {
+        _btnSelect.selected = YES;
+    }
+    if (model.remindpassword) {
+        _inPasswordBtn.selected = YES;
+    }
+    [_accountTableview removeFromSuperview];
+}
+#pragma mark -点击屏幕空白处去除tableView
+- (void)handleSingleTap {
+    [_accountTableview removeFromSuperview];
+}
+#pragma mark - 解决tableView点击失效
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+        return NO;
+    }
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {

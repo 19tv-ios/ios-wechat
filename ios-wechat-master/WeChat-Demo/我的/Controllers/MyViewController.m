@@ -83,7 +83,8 @@ extern NSString *infopassword;
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    
+    JMSGUser *user = [JMSGUser myInfo];
+    NSLog(@"%@",user);
     //初始化iconView
     [self setUpIconView];
     
@@ -141,7 +142,6 @@ extern NSString *infopassword;
     
     //初始化分割线
     [self setUpDividingLine];
-    
     
     //监听修改内容通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(infoChange:) name:@"infoChange" object:nil];
@@ -645,7 +645,6 @@ extern NSString *infopassword;
     [self.pickerView removeFromSuperview];
     
     _fillRegionLabel.text = [NSString stringWithFormat:@"%@  %@  %@",province,city,area];
-    _fillRegionLabel.font = [UIFont systemFontOfSize:14];
     JMSGUserInfo *uesrInfo = [[JMSGUserInfo alloc] init];
     uesrInfo.region = _fillRegionLabel.text;
     [JMSGUser updateMyInfoWithUserInfo:uesrInfo completionHandler:^(id resultObject, NSError *error) {
@@ -662,7 +661,7 @@ extern NSString *infopassword;
     if (user.region) {
         _fillRegionLabel.text = user.region;
     }
-    _fillRegionLabel.font = [UIFont systemFontOfSize:16];
+    _fillRegionLabel.font = [UIFont systemFontOfSize:14];
     [_cardView addSubview:_fillRegionLabel];
     _fillRegionLabel.sd_layout
     .rightSpaceToView(_regionButton, 10)
