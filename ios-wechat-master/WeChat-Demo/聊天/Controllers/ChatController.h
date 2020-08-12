@@ -40,6 +40,8 @@
 
 @property(nonatomic,strong)NSData* picData;
 
+@property(nonatomic,strong)NSData* otherIcon;
+
 @property(nonatomic,strong)JMSGMessage* lastmsg;
 -(instancetype)initWithMsg:(NSMutableArray*)msg;
 //-(void)getAllMsg;

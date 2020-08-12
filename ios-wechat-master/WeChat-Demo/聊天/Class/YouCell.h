@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <JMessage/JMessage.h>
+#import "PushToDetail.h"
 @interface YouCell : UITableViewCell
 
 @property(nonatomic,strong)UIImageView* bubbleView;
@@ -25,7 +26,12 @@
 @property(nonatomic,strong)NSData* imageData;
 
 @property(nonatomic,strong)JMSGImageContent* picContent;
+
 @property(nonatomic,strong)UIImageView* picView;
+
+@property(nonatomic,strong)JMSGMessage* model;
+
+@property(nonatomic,weak)id<PushToDetail>delegate;
 -(instancetype)initWithText:(NSString*)text andIcon:(NSData*)data;
 -(instancetype)initWithImage:(JMSGImageContent*)content;
 @end

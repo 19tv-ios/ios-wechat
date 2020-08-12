@@ -9,6 +9,7 @@
 
 #import "MeCell.h"
 #import <SDAutoLayout.h>
+#import "DetailVc.h"
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
 #define ScreenWeight [UIScreen mainScreen].bounds.size.width
 @implementation MeCell
@@ -30,9 +31,9 @@
         
         _iconImage = [[UIImageView alloc] init];
         _iconImage = UIImageView.new;
-        UIImage* icon = [UIImage imageNamed:@"微信"];
+        UIImage* icon = [UIImage imageWithData:_icon];
         _iconImage.image = icon;
-        
+    
         [self.contentView sd_addSubviews:@[_picView,_iconImage] ];
         //NSLog(@"piccont");
     }else{
@@ -51,19 +52,27 @@
         
         _iconImage = [[UIImageView alloc] init];
         _iconImage = UIImageView.new;
-        UIImage* icon = [UIImage imageNamed:@"微信"];
-        _iconImage.image = icon;
+        UIImage* icon = [UIImage imageWithData:_icon];
+        if(icon){
+            _iconImage.image = icon;
+        }else{
+            _iconImage.image = [UIImage imageNamed:@"微信"];
+        }
         
         [self.contentView sd_addSubviews:@[_bubbleView,_wordLabel,_iconImage] ];
     }
-    [self layout];
-    self.selectedBackgroundView = [[UIView alloc]init];
+    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pushToDetail)];
+    _iconImage.userInteractionEnabled = YES;
+    [_iconImage addGestureRecognizer:tap];
     
+    [self layout];
+    //self.selectedBackgroundView = [[UIView alloc]init];
+    self.selectionStyle = UITableViewCellSelectionStyleDefault;
 }
 -(void)layout{
     if(_picContent){
-        _iconImage.sd_layout.rightSpaceToView(self.contentView, 10).topSpaceToView(self.contentView, 0).widthIs(50).heightIs(50);
-        _iconImage.sd_cornerRadius = [NSNumber numberWithInt:20];
+        _iconImage.sd_layout.rightSpaceToView(self.contentView, 10).topSpaceToView(self.contentView, 0).widthIs(45).heightIs(45);
+        _iconImage.sd_cornerRadius = [NSNumber numberWithInt:5];
         
         _picView.sd_layout.rightSpaceToView(_iconImage, 5).topSpaceToView(self.contentView, 5).widthIs(ScreenWeight/2 - 15).heightIs(200);
         dispatch_group_t group = dispatch_group_create();
@@ -74,11 +83,11 @@
         }];
         dispatch_group_notify(group, dispatch_get_main_queue(), ^{
             self->_picView.image = [UIImage imageWithData:self->_imageData];
-            NSLog(@"加载图片完毕");
+            //NSLog(@"加载图片完毕");
         });
     }else{
-        _iconImage.sd_layout.rightSpaceToView(self.contentView, 10).topSpaceToView(self.contentView, 0).widthIs(50).heightIs(50);
-        _iconImage.sd_cornerRadius = [NSNumber numberWithInt:20];
+        _iconImage.sd_layout.rightSpaceToView(self.contentView, 10).topSpaceToView(self.contentView, 0).widthIs(45).heightIs(45);
+        _iconImage.sd_cornerRadius = [NSNumber numberWithInt:5];
         [_iconImage updateLayout];
         
         _wordLabel.preferredMaxLayoutWidth = ScreenWeight/2 - 30;
@@ -88,7 +97,7 @@
         NSDictionary* textBoundParam = @{NSFontAttributeName : [UIFont systemFontOfSize:14]};
         _labelHeight = [_wordLabel.text boundingRectWithSize:textBound options:NSStringDrawingUsesLineFragmentOrigin attributes:textBoundParam context:nil].size.height;
         
-        _bubbleView.sd_layout.rightSpaceToView(_iconImage, 0).topSpaceToView(self.contentView, 5).widthIs(ScreenWeight/2 - 15).heightIs(_labelHeight + 15);
+        _bubbleView.sd_layout.rightSpaceToView(_iconImage, 5).topSpaceToView(self.contentView, 5).widthIs(ScreenWeight/2 - 15).heightIs(_labelHeight + 15);
     }
 }
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andText:(NSString*)text{
@@ -97,9 +106,10 @@
     [self initSubviews];
     return self;
 }
--(instancetype)initWithText:(NSString *)text{
+-(instancetype)initWithText:(NSString *)text andIcon:(NSData *)data{
     self = [super init];
     _text = text;
+    _icon = data;
     [self initSubviews];
     return self;
 }
@@ -109,5 +119,8 @@
     [self initSubviews];
     return self;
 }
-
+-(void)pushToDetail{
+    [self.delegate pushWithUser:_model.fromUser];
+    //NSLog(@"delegate ==== ");
+}
 @end
