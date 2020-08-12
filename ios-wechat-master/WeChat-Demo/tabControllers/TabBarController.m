@@ -8,7 +8,8 @@
 
 #import "TabBarController.h"
 #import "GetConversation.h"
-
+#import <AFNetworking.h>
+#import "NoNetWork.h"
 @interface TabBarController ()
 
 @end
@@ -32,7 +33,34 @@
     _myView = [[MyViewController alloc]init];
     [self addChildViewController:_myView withTitle:@"个人中心" Image:@"个人中心1" selectedImage:@"个人中心1"];
     
-    
+    AFNetworkReachabilityManager* networkManger = [AFNetworkReachabilityManager sharedManager];
+    [networkManger startMonitoring];
+    [networkManger setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        NSString *result = @"";
+        NoNetWork* view = [[NoNetWork alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown:
+                result = @"未知网络";
+                break;
+            case AFNetworkReachabilityStatusNotReachable:
+                [view setup];
+                self->_chatView.tableview.tableHeaderView = view;
+                result = @"无网络";
+                break;
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+                result = @"WAN";
+                self->_chatView.tableview.tableHeaderView = [[UIView alloc]init];
+                break;
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+                self->_chatView.tableview.tableHeaderView = [[UIView alloc]init];
+                result = @"WIFI";
+                break;
+                
+            default:
+                break;
+        }
+        NSLog(@"%@",result);
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

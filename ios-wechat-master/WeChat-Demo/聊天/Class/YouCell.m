@@ -60,13 +60,16 @@
         [self.contentView sd_addSubviews:@[_bubbleView,_wordLabel,_iconImage] ];
         
     }
+    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pushToDetail)];
+    _iconImage.userInteractionEnabled = YES;
+    [_iconImage addGestureRecognizer:tap];
     
     [self layout];
     self.selectedBackgroundView = [[UIView alloc]init];
 }
 -(void)layout{
     if(_picContent){
-        _iconImage.sd_layout.leftSpaceToView(self.contentView, 10).topSpaceToView(self.contentView, 0).widthIs(50).heightIs(50);
+        _iconImage.sd_layout.leftSpaceToView(self.contentView, 10).topSpaceToView(self.contentView, 0).widthIs(45).heightIs(45);
         _iconImage.sd_cornerRadius = [NSNumber numberWithInt:20];
         
         _picView.sd_layout.leftSpaceToView(_iconImage, 5).topSpaceToView(self.contentView, 5).widthIs(ScreenWeight/2 - 15).heightIs(200);
@@ -78,10 +81,10 @@
         }];
         dispatch_group_notify(group, dispatch_get_main_queue(), ^{
             self->_picView.image = [UIImage imageWithData:self->_imageData];
-            NSLog(@"加载图片完毕");
+            //NSLog(@"加载图片完毕");
         });
     }else{
-        _iconImage.sd_layout.leftSpaceToView(self.contentView, 10).topSpaceToView(self.contentView, 0).widthIs(50).heightIs(50);
+        _iconImage.sd_layout.leftSpaceToView(self.contentView, 10).topSpaceToView(self.contentView, 0).widthIs(45).heightIs(45);
         _iconImage.sd_cornerRadius = [NSNumber numberWithInt:20];
         [_iconImage updateLayout];
         
@@ -93,7 +96,7 @@
         NSDictionary* textBoundParam = @{NSFontAttributeName : [UIFont systemFontOfSize:14]};
         _labelHeight = [_wordLabel.text boundingRectWithSize:textBound options:NSStringDrawingUsesLineFragmentOrigin attributes:textBoundParam context:nil].size.height;
         
-        _bubbleView.sd_layout.leftSpaceToView(_iconImage, 0).topSpaceToView(self.contentView, 5).widthIs(ScreenWeight/2 - 15).heightIs(_labelHeight + 15);
+        _bubbleView.sd_layout.leftSpaceToView(_iconImage, 5).topSpaceToView(self.contentView, 5).widthIs(ScreenWeight/2 - 15).heightIs(_labelHeight + 15);
         
     }
     
@@ -116,5 +119,8 @@
     _picContent = content;
     [self initSubviews];
     return self;
+}
+-(void)pushToDetail{
+    [self.delegate pushWithUser:_model.fromUser];
 }
 @end

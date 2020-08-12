@@ -13,6 +13,7 @@
 #import "GetConversation.h"
 #import "GetMsg.h"
 #import "GetProtocol.h"
+#import "PlusMenu.h"
 @interface ChatViewController : UIViewController<GetProtocol>
 
 @property(nonatomic,strong) UITableView* tableview;
@@ -34,5 +35,7 @@
 @property(nonatomic,strong) NSString* address;
 
 @property(nonatomic,strong) NSMutableArray* certainMsg;
+
+@property(nonatomic,strong) PlusMenu* plusMenu;
 -(void)getMsgModel;
 @end

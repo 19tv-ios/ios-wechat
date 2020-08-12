@@ -10,9 +10,11 @@
 #import <SDAutoLayout.h>
 #import "MeCell.h"
 #import "YouCell.h"
+#import "PushToDetail.h"
+#import "DetailVc.h"
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
 #define ScreenWeight [UIScreen mainScreen].bounds.size.width
-@interface ChatController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,JMessageDelegate>
+@interface ChatController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,JMessageDelegate,PushToDetail>
 
 @end
 
@@ -32,11 +34,14 @@
     
     [self setupBottomView];
     //轻点推出键盘
-    self.tableview.allowsSelection = NO;
+    
     UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(popKeyboard)];
     [self.view addGestureRecognizer:tapRecognizer];
     
     [JMessage addDelegate:self withConversation:_conModel];
+    
+    //滚动到最后一行
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,41 +49,71 @@
     // Dispose of any resources that can be recreated.
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if(self->_msgArray.count>0){
+            [self.tableview scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self->_msgArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        }
+    });
     return _msgArray.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     _model = [_msgArray objectAtIndex:indexPath.row];
+    [self.tableview useCellFrameCacheWithIndexPath:indexPath tableView:_tableview];
+    
     if(_model.contentType == 1){
         JMSGTextContent* textContent = (JMSGTextContent*)_model.content;
         NSString* text = textContent.text;
         if(_model.isReceived == YES){
-            dispatch_group_t group = dispatch_group_create();
-            dispatch_group_enter(group);
-            [_model.fromUser thumbAvatarData:^(NSData *data, NSString *objectId, NSError *error) {
-                self->_iconData = data;
-                dispatch_group_leave(group);
-            }];// 头像
-            dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-            });
-            YouCell* youCell = [[YouCell alloc]initWithText:text andIcon:_iconData];
-            _cellHeight = youCell.labelHeight + 30;
+//            dispatch_semaphore_t sem = dispatch_semaphore_create(1);
+//            [_model.fromUser thumbAvatarData:^(NSData *data, NSString *objectId, NSError *error) {
+//                self->_iconData = data;
+//                dispatch_semaphore_signal(sem);
+//            }];// 头像
+//            dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+            YouCell* youCell = [tableView dequeueReusableCellWithIdentifier:@"youcell"];
+            if(youCell == nil){
+                youCell = [[YouCell alloc]initWithText:text andIcon:_otherIcon];
+                _cellHeight = youCell.labelHeight + 30;
+                youCell.model = _model;
+                youCell.delegate = self;
+            }
             return youCell;
         }else{
-            MeCell* meCell = [[MeCell alloc]initWithText:text];
-            _cellHeight = meCell.labelHeight + 30;
+//            dispatch_semaphore_t sem = dispatch_semaphore_create(1);
+//            [_model.fromUser thumbAvatarData:^(NSData *data, NSString *objectId, NSError *error) {
+//                self->_iconData = data;
+//                dispatch_semaphore_signal(sem);
+//            }];
+//            dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+            JMSGUser* user = [JMSGUser myInfo];
+            NSData* data = [NSData dataWithContentsOfFile:[user thumbAvatarLocalPath] ];
+            MeCell* meCell = [tableView dequeueReusableCellWithIdentifier:@"mecell"];
+            if(meCell == nil){
+                meCell = [[MeCell alloc]initWithText:text andIcon:data];
+                _cellHeight = meCell.labelHeight + 30;
+                meCell.model = _model;
+                meCell.delegate = self;
+            }
             return meCell;
         }
     }else if(_model.contentType == 2){
         JMSGImageContent* content = (JMSGImageContent*)_model.content;
         if(_model.isReceived){
-            
+            YouCell* youCell = [[YouCell alloc]initWithImage:content];
+            _cellHeight = 210;
+            youCell.model = _model;
+            youCell.delegate = self;
+            return youCell;
+        }else{
+            MeCell* meCell = [[MeCell alloc]initWithImage:content];
+            _cellHeight = 210;
+            meCell.model = _model;
+            meCell.delegate = self;
+            return meCell;
         }
-        
-        MeCell* meCell = [[MeCell alloc]initWithImage:content];
-        _cellHeight = 210;
-        return meCell;
     }else{
         return [[UITableViewCell alloc]init];
     }
@@ -90,8 +125,7 @@
     _bottomView = UIView.new;
     [self.view addSubview:_bottomView];
     _bottomView.sd_layout.leftSpaceToView(self.view, 0).bottomSpaceToView(self.view, 0).widthIs(ScreenWeight).heightIs(83);
-    _bottomView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1.0];
-    
+    _bottomView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.95];;
     [_bottomView updateLayout];
     
     _textView = [[UITextField alloc]init];
@@ -99,7 +133,7 @@
     //_textView.frame = CGRectMake(50, ScreenHeight-50, 200, 40);
     _textView.backgroundColor = [UIColor whiteColor];
     [self.bottomView addSubview:_textView];
-    _textView.sd_layout.leftSpaceToView(_bottomView, 30).topSpaceToView(_bottomView, 10).widthIs(250).heightIs(30);
+    _textView.sd_layout.leftSpaceToView(_bottomView, 40).topSpaceToView(_bottomView, 10).widthIs(250).heightIs(40);
     _textView.layer.borderColor = [UIColor colorWithWhite:0.8 alpha:1.0].CGColor;
     _textView.layer.borderWidth = 1;
     _textView.layer.cornerRadius = 7;
@@ -110,15 +144,15 @@
     _emojiBtn = [[UIButton alloc]init];
     _emojiBtn = UIButton.new;
     [self.bottomView addSubview:_emojiBtn];
-    _emojiBtn.sd_layout.leftSpaceToView(_textView, 5).topEqualToView(_textView).heightIs(35).widthIs(30);
-    [_emojiBtn setImage:[UIImage imageNamed:@"笑脸"] forState:UIControlStateNormal];
+    _emojiBtn.sd_layout.leftSpaceToView(_textView, 5).topSpaceToView(_bottomView, 15).heightIs(28).widthIs(28);
+    [_emojiBtn setImage:[UIImage imageNamed:@"icon_im_face"] forState:UIControlStateNormal];
     [_emojiBtn updateLayout];
     
     _plusBtn = [[UIButton alloc]init];
     _plusBtn = UIButton.new;
     [self.bottomView addSubview:_plusBtn];
-    _plusBtn.sd_layout.leftSpaceToView(_textView, 45).topEqualToView(_textView).heightIs(30).widthIs(35);
-    [_plusBtn setImage:[UIImage imageNamed:@"加号"] forState:UIControlStateNormal];
+    _plusBtn.sd_layout.leftSpaceToView(_textView, 45).topSpaceToView(_bottomView, 15).heightIs(28).widthIs(28);
+    [_plusBtn setImage:[UIImage imageNamed:@"icon_im_more"] forState:UIControlStateNormal];
     [_plusBtn addTarget:self action:@selector(cilckPlus) forControlEvents:UIControlEventTouchUpInside];
 }
 #pragma mark 重写初始化方法
@@ -154,7 +188,7 @@
 #pragma mark textFiled delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     //return [self cellHeightForIndexPath:indexPath cellContentViewWidth:self.tableview.contentSize.width tableView:_tableview];
-    return _cellHeight;
+    return _cellHeight+10;
 }
 //弹出键盘视图上移动画
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
@@ -208,7 +242,7 @@
 }
 //展示最下方的cell
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self.tableview scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    
 }
 #pragma mark jmessage delegate
 
@@ -218,6 +252,12 @@
         [_msgArray addObject:message];
         [_tableview reloadData];
     }
+}
+-(void)pushWithUser:(JMSGUser *)user{
+    DetailVc* detail = [[DetailVc alloc]init];
+    detail.user = user;
+    [self.navigationController pushViewController:detail animated:YES];
+    //NSLog(@"push  ====  ");
 }
 #pragma mark 获取对话信息
 //-(void)getAllMsg{
