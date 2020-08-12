@@ -30,18 +30,24 @@
 @property (nonatomic, strong) UIButton *birthdaySelectButton;
 //生日填写框
 @property (nonatomic, strong) UILabel *fillBirthdayLabel;
+//生日图标
+@property (nonatomic, strong) UIImageView *birthdayImg;
 //性别
 @property (nonatomic, strong) UILabel *genderLabel;
 //点击出现选择性别按钮
 @property (nonatomic, strong) UIButton *genderSelectButton;
 //性别填写框
 @property (nonatomic, strong) UILabel *fillGenderLabel;
+//性别图标
+@property (nonatomic, strong) UIImageView *genderImg;
 //区域
 @property (nonatomic, strong) UILabel *regionLabel;
 //区域按钮
 @property (nonatomic, strong) UIButton *regionButton;
 //区域填写框
 @property (nonatomic, strong) UILabel *fillRegionLabel;
+//区域图标
+@property (nonatomic, strong) UIImageView *regionImg;
 //区域选择器
 @property (nonatomic, strong) GFAddressPicker *pickerView;
 //签名
@@ -50,6 +56,8 @@
 @property (nonatomic, strong) UITextView *fillAutographLabel;
 //签名跳转按钮
 @property (nonatomic, strong) UIButton *autographLabelSelectButton;
+//签名图标
+@property (nonatomic, strong) UIImageView *autographImg;
 //分割线1
 @property (nonatomic, strong) UIView *dividingLine1;
 //分割线2
@@ -66,7 +74,6 @@
 
 NSInteger infoindex;
 
-NSInteger passwordindex;
 
 extern NSString *infopassword;
 
@@ -75,13 +82,15 @@ extern NSString *infopassword;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithRed:0.950 green:0.950 blue:0.950 alpha:1.0];
+    self.view.backgroundColor = [UIColor whiteColor];
+    JMSGUser *user = [JMSGUser myInfo];
+    NSLog(@"%@",user);
+    //初始化iconView
+    [self setUpIconView];
     
     //初始化UIView
     [self setUpCardView];
     
-    //初始化iconView
-    [self setUpIconView];
     
     //初始化修改密码按钮
     [self setUpchangePasswordButton];
@@ -95,45 +104,44 @@ extern NSString *infopassword;
     //初始化呢称标签
     [self setUpNameLabel];
     
+    //初始化生日图标
+    [self setUpBirthdayImg];
     //初始化生日标签
     [self setUpBirthdayLabel];
-    
     //初始化生日选择按钮
     [self setUpBirthdaySelectButton];
-    
     //初始化生日填写框
     [self setUpFillBirthdayLabel];
     
+    //初始化性别图标
+    [self setUpGenderImg];
     //初始化性别标签
     [self setUpGenderLabel];
-    
     //初始化点击性别选择按钮
     [self setUpGenderSelectButton];
-    
     //初始化性别填写框
     [self seuUpFillGenderLabel];
     
+    //初始化区域图标
+    [self setUpRegionImg];
     //初始化区域框
     [self setUpRegionLabel];
-    
     //初始化区域选择按钮
     [self setUpRegionButton];
-    
     //初始化区域填写框
     [self setUpFillRegionLabel];
     
+    //初始化签名图标
+    [self setUpAutographImg];
     //初始化签名标签
     [self setUpAutographLabel];
-    
     //初始化签名跳转按钮
     [self setUpAutographLabelSelectButton];
-    
     //初始化签名输入框
     [self setUpFillAutographLabel];
     
     //初始化分割线
     [self setUpDividingLine];
-    
     
     //监听修改内容通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(infoChange:) name:@"infoChange" object:nil];
@@ -141,32 +149,30 @@ extern NSString *infopassword;
 #pragma mark - 初始化UIView
 - (void)setUpCardView {
     _cardView = [[UIView alloc] init];
-    _cardView.backgroundColor = [UIColor colorWithRed:242/255.0 green:149/255.0 blue:92/255.0 alpha:0.75];
+    _cardView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_cardView];
-    _cardView.layer.cornerRadius=20.0;
-    _cardView.layer.borderWidth = 2.f;
-    CGFloat top = (self.view.frame.size.height - 350)/2;
-    CGFloat left = (self.view.frame.size.width - 280)/2 + 30;
+    _cardView.layer.cornerRadius= 8.0;
+    _cardView.layer.borderWidth = 1.f;
+    _cardView.layer.borderColor = [UIColor grayColor].CGColor;
     _cardView.sd_layout
-    .widthIs(280)
-    .heightIs(300)
-    .topSpaceToView(self.view, top)
-    .leftSpaceToView(self.view, left);
+    .heightIs(200)
+    .topSpaceToView(self.iconView,5)
+    .leftSpaceToView(self.view,0)
+    .rightEqualToView(self.view);
 }
 #pragma mark - 初始化iconView
 - (void)setUpIconView {
     _iconView = [[UIView alloc] init];
-    _iconView.backgroundColor = [UIColor colorWithRed:184/255.0 green:205/255.0 blue:233/255.0 alpha:0.75];
+    _iconView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_iconView];
-    _iconView.layer.cornerRadius=10.0;
-    _iconView.layer.borderWidth = 2.f;
-    CGFloat top = (self.view.frame.size.height - 380)/2 - 100;
-    CGFloat left = (self.view.frame.size.width - 280)/2 - 40;
+    _iconView.layer.cornerRadius= 8.0;
+    _iconView.layer.borderWidth = 1.f;
+    _iconView.layer.borderColor = [UIColor grayColor].CGColor;
     _iconView.sd_layout
-    .widthIs(280)
-    .heightIs(80)
-    .topSpaceToView(self.view, top)
-    .leftSpaceToView(self.view, left);
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .topSpaceToView(self.navigationController.navigationBar, 10)
+    .heightIs(80);
 }
 
 //修改密码
@@ -174,22 +180,24 @@ extern NSString *infopassword;
 - (void)setUpchangePasswordButton {
     _changePasswordButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_changePasswordButton setTitle:@"修改密码" forState:UIControlStateNormal];
+    [_changePasswordButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     _changePasswordButton.titleLabel.font = [UIFont systemFontOfSize:15];
-    _changePasswordButton.layer.cornerRadius=5.0;
-    [_changePasswordButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _changePasswordButton.backgroundColor = [UIColor colorWithRed:86/255.0 green:166/255.0 blue:249/255.0 alpha:1.0];
+    _changePasswordButton.layer.cornerRadius=8.0;
+    _changePasswordButton.layer.borderWidth = 1;
+    _changePasswordButton.layer.borderColor = [UIColor grayColor].CGColor;
+    _changePasswordButton.backgroundColor = [UIColor whiteColor];
     [_changePasswordButton addTarget:self action:@selector(clickchangePasswordButton) forControlEvents:UIControlEventTouchUpInside];
+    _changePasswordButton.tag = 3;
     [self.view addSubview:_changePasswordButton];
-    CGFloat width = self.view.frame.size.width - 38 - 38 - 55;
     _changePasswordButton.sd_layout
-    .topSpaceToView(self.cardView, 30)
-    .leftSpaceToView(self.view, 18)
-    .widthIs(width/2)
+    .topSpaceToView(self.cardView, 10)
+    .leftSpaceToView(self.view, 0)
+    .rightEqualToView(self.view)
     .heightIs(41);
 }
 #pragma mark - 点击修改密码按钮
 - (void)clickchangePasswordButton {
-    passwordindex = 2;
+    infoindex = _changePasswordButton.tag;
     changeInfoViewController *changeInfoVc = [[changeInfoViewController alloc] init];
     [self.navigationController pushViewController:changeInfoVc animated:YES];
 }
@@ -200,33 +208,35 @@ extern NSString *infopassword;
     _signOutButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_signOutButton setTitle:@"退出登录" forState:UIControlStateNormal];
     _signOutButton.titleLabel.font = [UIFont systemFontOfSize:15];
-    _signOutButton.layer.cornerRadius=5.0;
-    [_signOutButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _signOutButton.backgroundColor = [UIColor colorWithRed:228/255.0 green:173/255.0 blue:178/255.0 alpha:1.0];
+    [_signOutButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    _signOutButton.layer.cornerRadius=8.0;
+    _signOutButton.layer.borderWidth = 1;
+    _signOutButton.layer.borderColor = [UIColor grayColor].CGColor;
+    _signOutButton.backgroundColor = [UIColor whiteColor];
     [_signOutButton addTarget:self action:@selector(clickSignOutButton) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_signOutButton];
-    CGFloat width = self.view.frame.size.width - 38 - 38 - 55;
     _signOutButton.sd_layout
-    .topSpaceToView(self.changePasswordButton, 13)
-    .leftSpaceToView(self.view, 18)
-    .widthIs(width/2)
+    .topSpaceToView(self.changePasswordButton, 5)
+    .leftSpaceToView(self.view, 0)
+    .rightEqualToView(self.view)
     .heightIs(41);
 }
 #pragma mark - 点击退出登录按钮
 - (void)clickSignOutButton {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确定退出登录?" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"no" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         [JMSGUser logout:^(id resultObject, NSError *error) {
             if (error) {
                 
             }else {
-                [self.delegate changeToSignVC];
+                SignViewController *signViewController = [[SignViewController alloc] init];
+                [self presentViewController:signViewController animated:YES completion:nil];
             }
         }];
     }];
-    [alertController addAction:cancelAction];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:nil];
     [alertController addAction:okAction];
+    [alertController addAction:cancelAction];
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
@@ -295,8 +305,8 @@ extern NSString *infopassword;
     }
     [_iconView addSubview:_nameLabel];
     _nameLabel.sd_layout
-    .leftSpaceToView(self.iconImageView, 20)
-    .widthIs(160)
+    .leftSpaceToView(self.iconImageView, 50)
+    .rightSpaceToView(self.iconView, 0)
     .heightIs(60)
     .topEqualToView(_iconImageView);
     //给label添加点击事件
@@ -304,22 +314,35 @@ extern NSString *infopassword;
     // 2. 将点击事件添加到label上
     [_nameLabel addGestureRecognizer:labelTapGestureRecognizer];
     _nameLabel.userInteractionEnabled = YES; // 可以理解为设置label可被点击
+    _nameLabel.tag = 1;
 
 }
 #pragma mark - 点击呢称框
 - (void)nameLabelClick {
+    infoindex = _nameLabel.tag;
     changeInfoViewController *changeInfoVc = [[changeInfoViewController alloc] init];
     [self.navigationController pushViewController:changeInfoVc animated:YES];
 }
 
 //签名
+#pragma mark - 初始化签名图标
+- (void)setUpAutographImg {
+    _autographImg = [[UIImageView alloc] init];
+    [_autographImg setImage:[UIImage imageNamed:@"签名"]];
+    [_cardView addSubview:_autographImg];
+    _autographImg.sd_layout
+    .leftSpaceToView(_cardView, 5)
+    .topSpaceToView(_regionLabel, 10)
+    .widthIs(30)
+    .heightIs(30);
+}
 #pragma mark - 初始化签名标签
 - (void)setUpAutographLabel {
     _autographLabel = [[UILabel alloc] init];
-    _autographLabel.text = @"签名:";
+    _autographLabel.text = @"签名";
     [_cardView addSubview:_autographLabel];
     _autographLabel.sd_layout
-    .leftSpaceToView(self.cardView, 10)
+    .leftSpaceToView(_autographImg, 10)
     .widthIs(50)
     .heightIs(40)
     .topSpaceToView(_regionLabel, 10);
@@ -336,7 +359,7 @@ extern NSString *infopassword;
     .widthIs(30)
     .heightIs(30);
     //根据button的tag来判断要修改的是签名框
-    _autographLabelSelectButton.tag = 1;
+    _autographLabelSelectButton.tag = 2;
 }
 #pragma mark - 初始化签名输入框
 - (void)setUpFillAutographLabel {
@@ -347,13 +370,14 @@ extern NSString *infopassword;
     if (user.signature) {
         _fillAutographLabel.text = user.signature;
     }
-     _fillAutographLabel.backgroundColor = [UIColor colorWithRed:241/255.0 green:173/255.0 blue:133/255.0 alpha:1.0];
+    _fillAutographLabel.editable = NO;
+    _fillAutographLabel.backgroundColor = [UIColor whiteColor];
     [_cardView addSubview:_fillAutographLabel];
     _fillAutographLabel.sd_layout
     .rightSpaceToView(_autographLabelSelectButton,10)
     .topSpaceToView(_regionLabel, 10)
-    .widthIs(155)
-    .heightIs(150);
+    .leftEqualToView(_fillRegionLabel)
+    .heightIs(50);
 }
 #pragma mark - 点击签名跳转按钮
 - (void)clickautographLabelSelectButton {
@@ -364,13 +388,24 @@ extern NSString *infopassword;
 }
 
 //生日
+#pragma mark - 初始化生日Img
+- (void)setUpBirthdayImg {
+    _birthdayImg = [[UIImageView alloc] init];
+    [_birthdayImg setImage:[UIImage imageNamed:@"生日"]];
+    [_cardView addSubview:_birthdayImg];
+    _birthdayImg.sd_layout
+    .leftSpaceToView(_cardView, 5)
+    .topSpaceToView(_cardView, 10)
+    .widthIs(30)
+    .heightIs(30);
+}
 #pragma mark - 初始化生日标签
 - (void)setUpBirthdayLabel {
     _birthdayLabel = [[UILabel alloc] init];
-    _birthdayLabel.text = @"生日:";
+    _birthdayLabel.text = @"生日";
     [_cardView addSubview:_birthdayLabel];
     _birthdayLabel.sd_layout
-    .leftSpaceToView(self.cardView, 10)
+    .leftSpaceToView(_birthdayImg, 10)
     .widthIs(50)
     .heightIs(40)
     .topSpaceToView(_cardView, 10);
@@ -435,13 +470,24 @@ extern NSString *infopassword;
 }
 
 //性别
+#pragma mark - 初始化性别图标
+- (void)setUpGenderImg {
+    _genderImg = [[UIImageView alloc] init];
+    [_genderImg setImage:[UIImage imageNamed:@"性别"]];
+    [_cardView addSubview:_genderImg];
+    _genderImg.sd_layout
+    .leftSpaceToView(_cardView, 5)
+    .topSpaceToView(_birthdayLabel, 10)
+    .widthIs(30)
+    .heightIs(30);
+}
 #pragma mark - 初始化性别标签
 - (void)setUpGenderLabel {
     _genderLabel = [[UILabel alloc] init];
-    _genderLabel.text = @"性别:";
+    _genderLabel.text = @"性别";
     [_cardView addSubview:_genderLabel];
     _genderLabel.sd_layout
-    .leftSpaceToView(self.cardView, 10)
+    .leftSpaceToView(_genderImg, 10)
     .widthIs(50)
     .heightIs(40)
     .topSpaceToView(_birthdayLabel, 5);
@@ -514,7 +560,7 @@ extern NSString *infopassword;
     NSDictionary *dict = notification.userInfo;
     NSNumber *index = dict[@"infoindex"];
     int intindex = [index intValue];
-    if (intindex == 1) {
+    if (intindex == 2) {
         _fillAutographLabel.text = dict[@"infoTextFieldText"];
         JMSGUserInfo *uesrInfo = [[JMSGUserInfo alloc] init];
         uesrInfo.signature = _fillAutographLabel.text;
@@ -523,15 +569,17 @@ extern NSString *infopassword;
         }];
         
     }else {
-        if (intindex == 2) {
+        if (intindex == 3) {
             NSString *newPassWord = dict[@"infoTextFieldText"];
             [JMSGUser updateMyPasswordWithNewPassword:newPassWord oldPassword:infopassword completionHandler:^(id resultObject, NSError *error) {
-                //通知传值.更新登录页面的账号和密码
+                NSLog(@"%@",resultObject);
+                JMSGUser *user = [JMSGUser myInfo];
                 NSDictionary *dict = @{
+                                       @"username":user.username,
                                        @"password":newPassWord
                                        };
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"changePassword" object:nil userInfo:dict];
-                [self.delegate changeToSignVC];
+                SignViewController *signViewController = [[SignViewController alloc] initWithInfo:dict];
+                [self presentViewController:signViewController animated:YES completion:nil];
             }];
         }else {
             _nameLabel.text = dict[@"infoTextFieldText"];
@@ -545,13 +593,24 @@ extern NSString *infopassword;
 }
 
 //区域
+#pragma mark - 初始化区域图标
+- (void)setUpRegionImg {
+    _regionImg = [[UIImageView alloc] init];
+    [_regionImg setImage:[UIImage imageNamed:@"地址"]];
+    [_cardView addSubview:_regionImg];
+    _regionImg.sd_layout
+    .leftSpaceToView(_cardView, 5)
+    .topSpaceToView(_genderLabel, 10)
+    .widthIs(30)
+    .heightIs(30);
+}
 #pragma mark - 初始化区域框
 - (void)setUpRegionLabel {
     _regionLabel = [[UILabel alloc] init];
-    _regionLabel.text = @"区域:";
+    _regionLabel.text = @"区域";
     [_cardView addSubview:_regionLabel];
     _regionLabel.sd_layout
-    .leftSpaceToView(self.cardView, 10)
+    .leftSpaceToView(_regionImg, 10)
     .widthIs(50)
     .heightIs(40)
     .topSpaceToView(_genderLabel, 5);
@@ -586,7 +645,6 @@ extern NSString *infopassword;
     [self.pickerView removeFromSuperview];
     
     _fillRegionLabel.text = [NSString stringWithFormat:@"%@  %@  %@",province,city,area];
-    _fillRegionLabel.font = [UIFont systemFontOfSize:14];
     JMSGUserInfo *uesrInfo = [[JMSGUserInfo alloc] init];
     uesrInfo.region = _fillRegionLabel.text;
     [JMSGUser updateMyInfoWithUserInfo:uesrInfo completionHandler:^(id resultObject, NSError *error) {
@@ -616,31 +674,31 @@ extern NSString *infopassword;
 #pragma mark - 初始化分割线
 - (void)setUpDividingLine {
     _dividingLine1 = [[UIView alloc] init];
-    _dividingLine1.backgroundColor = [UIColor whiteColor];
+    _dividingLine1.backgroundColor = [UIColor colorWithRed:237/255.0 green:237/255.0 blue:237/255.0 alpha:1.0];
     [self.cardView addSubview:_dividingLine1];
     _dividingLine1.sd_layout
-    .widthIs(280)
     .heightIs(2)
     .topSpaceToView(self.birthdayLabel,5)
-    .leftSpaceToView(self.cardView, 0);
+    .leftSpaceToView(self.cardView, 0)
+    .rightEqualToView(self.cardView);
     
     _dividingLine2 = [[UIView alloc] init];
-    _dividingLine2.backgroundColor = [UIColor whiteColor];
+     _dividingLine2.backgroundColor = [UIColor colorWithRed:237/255.0 green:237/255.0 blue:237/255.0 alpha:1.0];
     [self.cardView addSubview:_dividingLine2];
     _dividingLine2.sd_layout
-    .widthIs(280)
     .heightIs(2)
     .topSpaceToView(self.genderLabel,5)
-    .leftSpaceToView(self.cardView, 0);
+    .leftSpaceToView(self.cardView, 0)
+     .rightEqualToView(self.cardView);;
     
     _dividingLine3 = [[UIView alloc] init];
-    _dividingLine3.backgroundColor = [UIColor whiteColor];
+     _dividingLine3.backgroundColor = [UIColor colorWithRed:237/255.0 green:237/255.0 blue:237/255.0 alpha:1.0];
     [self.cardView addSubview:_dividingLine3];
     _dividingLine3.sd_layout
-    .widthIs(280)
     .heightIs(2)
     .topSpaceToView(self.regionLabel,5)
-    .leftSpaceToView(self.cardView, 0);
+    .leftSpaceToView(self.cardView, 0)
+     .rightEqualToView(self.cardView);;
 }
 
 - (void)didReceiveMemoryWarning {

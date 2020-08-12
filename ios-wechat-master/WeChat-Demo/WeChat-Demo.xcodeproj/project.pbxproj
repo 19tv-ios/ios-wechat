@@ -38,6 +38,7 @@
 		5260742B24DCF72F00A91759 /* newFriendsVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 5260742A24DCF72F00A91759 /* newFriendsVc.m */; };
 		528A773224DE84890094F398 /* GFAddressPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 528A773024DE84890094F398 /* GFAddressPicker.m */; };
 		528A773324DE84890094F398 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 528A773124DE84890094F398 /* Address.plist */; };
+		52BF02D724E2919B004D183F /* accountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 52BF02D624E2919B004D183F /* accountModel.m */; };
 		52EED49F24DFD57400A3EB9F /* Zhbutton.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EED49D24DFD57400A3EB9F /* Zhbutton.m */; };
 		8CF6B0FD6D9C7547EDE797E2 /* libPods-WeChat-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD9065A6A368963FDD894F1 /* libPods-WeChat-Demo.a */; };
 		E204E26224E1359000CA2B44 /* RemarkVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E204E25A24E1359000CA2B44 /* RemarkVc.m */; };
@@ -127,6 +128,8 @@
 		528A772F24DE84890094F398 /* GFAddressPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAddressPicker.h; sourceTree = "<group>"; };
 		528A773024DE84890094F398 /* GFAddressPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFAddressPicker.m; sourceTree = "<group>"; };
 		528A773124DE84890094F398 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
+		52BF02D524E2919B004D183F /* accountModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = accountModel.h; sourceTree = "<group>"; };
+		52BF02D624E2919B004D183F /* accountModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = accountModel.m; sourceTree = "<group>"; };
 		52EED49D24DFD57400A3EB9F /* Zhbutton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Zhbutton.m; path = "通讯录/class/Zhbutton.m"; sourceTree = SOURCE_ROOT; };
 		52EED49E24DFD57400A3EB9F /* Zhbutton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Zhbutton.h; path = "通讯录/class/Zhbutton.h"; sourceTree = SOURCE_ROOT; };
 		69AFE9673C9041676E05E05A /* Pods-WeChat-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChat-Demo.debug.xcconfig"; path = "Target Support Files/Pods-WeChat-Demo/Pods-WeChat-Demo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -295,6 +298,7 @@
 				5239903D24D9AA2F00310576 /* SignViewController.h */,
 				5239903E24D9AA2F00310576 /* SignViewController.m */,
 				22B47F7A24DA9AFB0078122F /* Root.h */,
+				52BF02D424E29174004D183F /* model */,
 			);
 			path = "登录";
 			sourceTree = "<group>";
@@ -306,6 +310,15 @@
 				5239904224D9B70E00310576 /* registerViewController.m */,
 			);
 			path = "注册";
+			sourceTree = "<group>";
+		};
+		52BF02D424E29174004D183F /* model */ = {
+			isa = PBXGroup;
+			children = (
+				52BF02D524E2919B004D183F /* accountModel.h */,
+				52BF02D624E2919B004D183F /* accountModel.m */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		5427B83A2CA0E213EDEC272D /* Frameworks */ = {
@@ -585,6 +598,7 @@
 				E204E26524E1359000CA2B44 /* MoreMessageVc.m in Sources */,
 				52028E6D24E127CD00EF6C9B /* DatePickerTool.m in Sources */,
 				2212FF2524DBF0040086724D /* GetMsg.m in Sources */,
+				52BF02D724E2919B004D183F /* accountModel.m in Sources */,
 				22B47F2924D908BA0078122F /* ViewController.m in Sources */,
 				E204E26B24E135B700CA2B44 /* AddressViewController.m in Sources */,
 				22B47F5824D908E60078122F /* TabBarController.m in Sources */,
