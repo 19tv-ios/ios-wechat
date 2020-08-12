@@ -8,6 +8,7 @@
 
 #import "AddFriendsVc.h"
 #import "AddressViewController.h"
+
 @interface AddFriendsVc ()<UITextFieldDelegate>
 //添加好友用户名
 @property (nonatomic,strong) UITextField *nameTextField;
@@ -23,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor whiteColor];
+     self.view.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
     
     //获取当前登陆的用户信息
     self.user = [JMSGUser myInfo];
@@ -32,57 +33,57 @@
     self.nameTextField = [[UITextField alloc]init];
     self.nameTextField.placeholder = @"用户名";
     self.nameTextField.layer.masksToBounds =YES;
-    self.nameTextField.layer.cornerRadius = 7;
+    self.nameTextField.layer.cornerRadius = 5;
+    _nameTextField.layer.borderColor=[UIColor colorWithRed:0xbf/255.0f green:0xbf/255.0f blue:0xbf/255.0f alpha:1].CGColor;
     self.nameTextField.leftView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 16, 51)];
     self.nameTextField.leftViewMode=UITextFieldViewModeAlways;
-    NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
-    paragraphStyle.alignment = NSTextAlignmentCenter;
-    self.nameTextField.attributedPlaceholder = [NSAttributedString.alloc initWithString:@"用户名"
-                                                                               attributes:@{NSParagraphStyleAttributeName:paragraphStyle}];//占位符水平居中
     self.nameTextField.layer.borderWidth = 1.0f;
-    self.nameTextField.layer.borderColor = [UIColor grayColor].CGColor;
     self.nameTextField.delegate =  self;
+    _nameTextField.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.nameTextField];
-    self.nameTextField.sd_layout.topSpaceToView(self.view, 135).leftSpaceToView(self.view, 125).widthIs(185).heightIs(40);
-    
-    UILabel *nameLabel = [[UILabel alloc]init];
-    nameLabel.text = @"用户名";
-    [self.view addSubview:nameLabel];
-    nameLabel.sd_layout.topSpaceToView(self.view, 135).leftSpaceToView(self.view, 30).widthIs(85).heightIs(40);
+    self.nameTextField.sd_layout
+    .topSpaceToView(self.navigationController.navigationBar, 0)
+    .leftSpaceToView(self.view, 0)
+    .heightIs(40)
+    .rightEqualToView(self.view);
     
     
     //添加原因
     self.reasonTextField = [[UITextField alloc]init];
-//    self.reasonTextField.placeholder = @"添加原因";
-//    self.reasonTextField.placeholder
+    self.reasonTextField.placeholder = @"添加原因";
     self.reasonTextField.layer.masksToBounds = YES;
-    self.reasonTextField.layer.cornerRadius = 7;
+    self.reasonTextField.layer.cornerRadius = 5;
     self.reasonTextField.leftView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 16, 51)];
     self.reasonTextField.leftViewMode=UITextFieldViewModeAlways;
-    self.reasonTextField.attributedPlaceholder = [NSAttributedString.alloc initWithString:@"添加原因"
-                                                                         attributes:@{NSParagraphStyleAttributeName:paragraphStyle}];//占位符水平居中
     self.reasonTextField.layer.borderWidth = 1.0f;
-    self.reasonTextField.layer.borderColor = [UIColor grayColor].CGColor;
+    _reasonTextField.layer.borderColor=[UIColor colorWithRed:0xbf/255.0f green:0xbf/255.0f blue:0xbf/255.0f alpha:1].CGColor;
+    _reasonTextField.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.reasonTextField];
-    self.reasonTextField.sd_layout.topSpaceToView(self.nameTextField, 40).leftSpaceToView( self.view, 125).widthIs(185).heightIs(200);
+    self.reasonTextField.sd_layout.
+    topSpaceToView(self.nameTextField, 18)
+    .leftSpaceToView(self.view, 0)
+    .heightIs(40)
+    .rightEqualToView(self.view);
     
-    UILabel *reasonLabel = [[UILabel alloc]init];
-    reasonLabel.text = @"添加原因";
-    [self.view addSubview:reasonLabel];
-    reasonLabel.sd_layout.topSpaceToView(self.nameTextField, 120).leftSpaceToView(self.view, 25).widthIs(90).heightIs(40);
+   
     
     //添加按钮
     self.addBtn = [[UIButton alloc]init];
     [self.addBtn setTitle:@"添加到通讯录" forState:UIControlStateNormal];
     self.addBtn.layer.masksToBounds = YES;
-    self.addBtn.layer.cornerRadius = 7;
+    self.addBtn.layer.cornerRadius = 5;
     self.addBtn.layer.borderWidth = 1.0f;
     self.addBtn.layer.borderColor = [UIColor grayColor].CGColor;
-    
-    [self.addBtn setTitleColor: [UIColor whiteColor]  forState:UIControlStateNormal];
-    self.addBtn.backgroundColor = [UIColor colorWithRed:92.0f/255.0f green:102.0f/255.0f blue:138.0f/255.0f alpha:1];
+    self.addBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    [self.addBtn setTitleColor: [UIColor colorWithRed:21/255.0 green:126/255.0 blue:251/255.0 alpha:1.0]  forState:UIControlStateNormal];
+    _addBtn.layer.borderColor=[UIColor colorWithRed:0xbf/255.0f green:0xbf/255.0f blue:0xbf/255.0f alpha:1].CGColor;
+    self.addBtn.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.addBtn];
-    self.addBtn.sd_layout.topSpaceToView(self.reasonTextField, 80).leftSpaceToView(self.view, 113).widthIs(150).heightIs(40);
+    self.addBtn.sd_layout
+    .topSpaceToView(self.reasonTextField, 15)
+    .leftSpaceToView(self.view, 0)
+    .rightEqualToView(self.view)
+    .heightIs(40);
     [self.addBtn addTarget:self action:@selector(addFriends) forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -93,38 +94,39 @@
     NSString *nameStr = self.nameTextField.text;
     NSString *resonStr = self.reasonTextField.text;
     
-    NSLog(@"name:%@",nameStr);
-    NSLog(@"reson:%@",resonStr);
-    
-    //发送好友请求
-    [JMSGFriendManager sendInvitationRequestWithUsername:nameStr appKey: @"0a974aa68871f642444ae38b" reason:resonStr completionHandler:^(id resultObject, NSError *error) {
-        if (error != nil) {
-            UIAlertController *AlertController = [UIAlertController alertControllerWithTitle:@"你已经添加过该好友" message:nil preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *agreeAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
-            [AlertController addAction:agreeAction];
-            [self.navigationController presentViewController:AlertController animated:YES completion:nil];
-        }else{
-            //本地储存历史添加请求
-            NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-            NSString *filePath = [path stringByAppendingPathComponent:[NSString  stringWithFormat:@"%@userModelArray.plist",nameStr]];
-            NSData *data = [NSData dataWithContentsOfFile:filePath];
-            NSMutableArray *userModelArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-            if (userModelArray == nil) {
-                userModelArray = [NSMutableArray arrayWithCapacity:0];
+    if (self.nameTextField.hasText) {
+        //发送好友请求
+        [JMSGFriendManager sendInvitationRequestWithUsername:nameStr appKey: @"0a974aa68871f642444ae38b" reason:resonStr completionHandler:^(id resultObject, NSError *error) {
+            if (error != nil) {
+                UIAlertController *AlertController = [UIAlertController alertControllerWithTitle:@"你已经添加过该好友" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *agreeAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+                [AlertController addAction:agreeAction];
+                [self.navigationController presentViewController:AlertController animated:YES completion:nil];
+            }else{
+                //本地储存历史添加请求
+                NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                NSString *filePath = [path stringByAppendingPathComponent:[NSString  stringWithFormat:@"%@userModelArray.plist",nameStr]];
+                NSData *data = [NSData dataWithContentsOfFile:filePath];
+                NSMutableArray *userModelArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                if (userModelArray == nil) {
+                    userModelArray = [NSMutableArray arrayWithCapacity:0];
+                }
+                [userModelArray addObject:self.user];
+                
+                NSData *data1 = [NSKeyedArchiver archivedDataWithRootObject:userModelArray];
+                [data1 writeToFile:filePath atomically:YES];
+                //发送完好友请求后返回通讯录页面
+                AddressViewController *Vc = self.navigationController.viewControllers[0];
+                [self.navigationController popToViewController:Vc animated:YES];
             }
-            [userModelArray addObject:self.user];
-
-            NSData *data1 = [NSKeyedArchiver archivedDataWithRootObject:userModelArray];
-            [data1 writeToFile:filePath atomically:YES];
-            //发送完好友请求后返回通讯录页面
-            AddressViewController *Vc = self.navigationController.viewControllers[0];
-            [self.navigationController popToViewController:Vc animated:YES];
-        }
-        
-    }];
-    
-    
-    
+            
+        }];
+    }else {
+        UIAlertController *AlertController = [UIAlertController alertControllerWithTitle:@"请填写有效信息" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *agreeAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+        [AlertController addAction:agreeAction];
+        [self.navigationController presentViewController:AlertController animated:YES completion:nil];
+    }
     
 }
 

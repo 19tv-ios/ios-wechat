@@ -19,6 +19,8 @@
 @property (nonatomic, strong) UIImageView *iconImageView;
 //账号输入行
 @property (nonatomic, strong) UITextField *accountField;
+//账号tips
+@property (nonatomic, strong) UILabel *accountTips;
 //密码输入行
 @property (nonatomic, strong) UITextField *passwordField;
 //注册按钮
@@ -44,6 +46,9 @@
     
     //初始化账号输入框
     [self setUpAccoutField];
+    
+    //初始化账号Tips
+    [self setUpAccountTips];
     
     //初始化密码输入框
     [self setUpPasswordField];
@@ -98,6 +103,20 @@
     .rightSpaceToView(self.view, 38)
     .heightIs(42);
 }
+#pragma mark - 初始化账号Tips
+- (void)setUpAccountTips {
+    _accountTips = [[UILabel alloc] init];
+    _accountTips.text = @"Username以字母或者数字开头。支持字母、数字、下划线、英文点、减号、 @。";
+    _accountTips.font = [UIFont systemFontOfSize:12];
+    _accountTips.numberOfLines = 0;
+    _accountTips.textColor = [UIColor grayColor];
+    [self.view addSubview:_accountTips];
+    _accountTips.sd_layout
+    .leftEqualToView(_accountField)
+    .topSpaceToView(_accountField, 5)
+    .rightEqualToView(_accountField)
+    .heightIs(35);
+}
 #pragma  mark - 初始化密码输入框
 - (void)setUpPasswordField {
     _passwordField = [[UITextField alloc] init];
@@ -110,7 +129,7 @@
     _passwordField.leftViewMode=UITextFieldViewModeAlways;
     [self.view addSubview:_passwordField];
     _passwordField.sd_layout
-    .topSpaceToView(self.accountField, 30)
+    .topSpaceToView(_accountTips, 5)
     .leftSpaceToView(self.view, 38)
     .rightSpaceToView(self.view, 38)
     .heightIs(42);

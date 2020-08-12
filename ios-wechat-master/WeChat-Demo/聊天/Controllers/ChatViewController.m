@@ -12,13 +12,20 @@
 @interface ChatViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating,UISearchControllerDelegate>
 
 @end
-
+CGFloat height;
 @implementation ChatViewController{
     bool hasMenu;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //获取状态栏的rect
+    CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
+    //获取导航栏的rect
+    CGRect navRect = self.navigationController.navigationBar.frame;
+    //那么导航栏+状态栏的高度
+     height = statusRect.size.height+navRect.size.height;
     
     _tableview = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     [self.view addSubview:_tableview];
