@@ -95,14 +95,18 @@
     
     Zhbutton *agreeBtn = [[Zhbutton alloc]init];
     [agreeBtn setTitle:@"同意" forState:UIControlStateNormal];
-    
-    [agreeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    agreeBtn.backgroundColor = [UIColor colorWithRed:120.0f/255.0f green:194.0f/255.0f blue:109.0f/255.0f alpha:1];
+    agreeBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+    [agreeBtn setTitleColor: [UIColor colorWithRed:21/255.0 green:126/255.0 blue:251/255.0 alpha:1.0]  forState:UIControlStateNormal];
+    agreeBtn.backgroundColor = [UIColor whiteColor];
     agreeBtn.user = user;
     agreeBtn.row = indexPath.row;//第几个cell的同意按钮
     [agreeBtn addTarget:self action:@selector(agreeBtn:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:agreeBtn];
-    agreeBtn.sd_layout.topEqualToView(cell.contentView).rightEqualToView(cell.contentView).widthIs(40).heightIs(45);
+    agreeBtn.sd_layout
+    .topEqualToView(cell.contentView)
+    .rightSpaceToView(cell.contentView, 5)
+    .widthIs(40)
+    .heightIs(45);
     
     cell.imageView.sd_layout.topSpaceToView(cell.contentView, 8).heightIs(30).widthIs(30);
     cell.imageView.layer.masksToBounds = YES;
@@ -123,16 +127,15 @@
 
 }
 
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
+    
     DetailVc *Vc = [[DetailVc alloc]init];
     Vc.hidesBottomBarWhenPushed = YES;
+    Vc.user = [_userModelArray objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:Vc animated:YES];
     NSLog(@"%ld---%ld",indexPath.section,indexPath.row);
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
+    
 }
-
 @end

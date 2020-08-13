@@ -32,11 +32,7 @@
     scrView.sd_layout.topEqualToView(self.view).leftEqualToView(self.view).rightEqualToView(self.view).bottomEqualToView(self.view);
     
     
-    //导航条右按钮
-    UIButton *rightBtn = [[UIButton alloc]init];
-    [rightBtn setImage:[UIImage imageNamed:@"更多"] forState:UIControlStateNormal];
-    [rightBtn addTarget:self action:@selector(rightBtnWay) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+    
     
     //头像
     UIImageView *headView = [[UIImageView alloc]init];
@@ -46,7 +42,7 @@
             headView.image = [UIImage imageNamed:@"未知头像"];
         }
     }];
-   
+    
     [scrView addSubview:headView];
     headView.sd_layout.topSpaceToView(scrView, 20).leftSpaceToView(scrView, 30).widthIs(85).heightIs(85);
     
@@ -94,21 +90,26 @@
     [region setSingleLineAutoResizeWithMaxWidth:300];
     
     //备注标签、朋友权限、朋友圈、更多信息、发信息 的tableview
-    UITableView *tab = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 0, 0) style:UITableViewStyleGrouped];
-    tab.dataSource = self;
-    tab.tableFooterView = [[UIView alloc]init];
-    tab.delegate = self;
-    [scrView addSubview:tab];
-    tab.sd_layout.topSpaceToView(headView, 25).leftEqualToView(self.view).rightEqualToView(self.view).bottomEqualToView(self.view);
-    tab.sectionHeaderHeight = 0;
-    tab.sectionFooterHeight = 5;
-    tab.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0.0f,0.0f,tab.bounds.size.width,0.01f)];
-    tab.scrollEnabled = NO;
+    if(_user.isFriend){
+        UITableView *tab = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 0, 0) style:UITableViewStyleGrouped];
+        tab.dataSource = self;
+        tab.tableFooterView = [[UIView alloc]init];
+        tab.delegate = self;
+        [scrView addSubview:tab];
+        tab.sd_layout.topSpaceToView(headView, 25).leftEqualToView(self.view).rightEqualToView(self.view).bottomEqualToView(self.view);
+        tab.sectionHeaderHeight = 0;
+        tab.sectionFooterHeight = 5;
+        tab.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0.0f,0.0f,tab.bounds.size.width,0.01f)];
+        tab.scrollEnabled = NO;
+        
+        //导航条右按钮
+        UIButton *rightBtn = [[UIButton alloc]init];
+        [rightBtn setImage:[UIImage imageNamed:@"更多"] forState:UIControlStateNormal];
+        [rightBtn addTarget:self action:@selector(rightBtnWay) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+    }else{}
     
-
-
 }
-
 
 #pragma mark 监听
 //右上角设置按钮

@@ -23,7 +23,6 @@
     self.navigationItem.title = @"设置备注和标签";
     
     UITableView *tab = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 0, 0) style:UITableViewStyleGrouped];
-//    tab.tableFooterView = [[UIView alloc]init];
     tab.sectionFooterHeight = 5;
     tab.dataSource = self;
     tab.delegate = self;
@@ -33,8 +32,9 @@
     //右上角完成按钮
     _rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_rightBtn setTitle:@"完成" forState:UIControlStateNormal];
-    _rightBtn.backgroundColor = [UIColor colorWithRed:226.0f/255.0f green:226.0f/255.0f blue:226.0f/255.0f alpha:1];
-    [_rightBtn setTitleColor: [UIColor colorWithRed:181.0f/255.0f green:181.0f/255.0f blue:181.0f/255.0f alpha:1] forState:UIControlStateNormal];
+    _rightBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+    [_rightBtn setTitleColor: [UIColor colorWithRed:21/255.0 green:126/255.0 blue:251/255.0 alpha:1.0]  forState:UIControlStateNormal];
+    _rightBtn.backgroundColor = [UIColor colorWithRed:246/255.0 green:246/255.0 blue:247/255.0 alpha:1.0];
     [_rightBtn addTarget:self action:@selector(rightBtnWay) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_rightBtn];
     
@@ -69,6 +69,7 @@
     if (indexPath.section == 0) {
         _textField = [[UITextField alloc]init];
         _textField.delegate = self;
+        
         if (self.user.noteName == nil) {
             _textField.placeholder = self.user.nickname;
         }else{
@@ -103,12 +104,8 @@
 - (void)rightBtnWay{
     [self.user updateNoteName:self.textField.text completionHandler:^(id resultObject, NSError *error) {
         NSLog(@"修改成功备注名为:%@",self.textField.text);
+        NSLog(@"%@",resultObject);
     }];
     [self.navigationController popViewControllerAnimated:YES];
-}
-- (void)textFieldDidBeginEditing:(UITextField *)textField{
-    _rightBtn.backgroundColor = [UIColor colorWithRed:120.0f/255.0f green:194.0f/255.0f blue:109.0f/255.0f alpha:1];
-    [self.rightBtn setTitleColor:[UIColor  whiteColor] forState:UIControlStateNormal];
-    
 }
 @end
