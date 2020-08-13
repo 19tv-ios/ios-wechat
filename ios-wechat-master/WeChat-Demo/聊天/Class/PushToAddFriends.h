@@ -12,4 +12,5 @@
 
 -(void)pushToAddFriends;
 
+-(void)pushToGroupChat;
 @end

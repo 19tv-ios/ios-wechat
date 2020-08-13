@@ -11,7 +11,8 @@
 #import "PlusMenu.h"
 #import "PushToAddFriends.h"
 #import "AddFriendsVc.h"
-@interface ChatViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating,UISearchControllerDelegate,PushToAddFriends>
+#import "GroupChat.h"
+@interface ChatViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating,PushToAddFriends,UISearchControllerDelegate,UISearchResultsUpdating,UISearchBarDelegate>
 
 @end
 CGFloat height;
@@ -40,6 +41,7 @@ CGFloat height;
     
     [self setupSearchBar];
     self.navigationItem.searchController = _search;
+
     [self setupBackBtn];
     
     _plusMenu = [[PlusMenu alloc]init];
@@ -66,6 +68,8 @@ CGFloat height;
 -(void)setupSearchBar{
     _search = [[UISearchController alloc] initWithSearchResultsController:nil];
     _search.searchResultsUpdater = self;
+    _search.delegate = self;
+    _search.searchBar.delegate = self;
     _search.dimsBackgroundDuringPresentation = false;
     _search.searchBar.backgroundColor = [UIColor clearColor];
     //设置边框的内部颜色 及边框宽度 圆角
@@ -82,7 +86,6 @@ CGFloat height;
     }
     _search.searchBar.placeholder = @"搜索";
     [_search.searchBar sizeToFit];
-    self.search.delegate = self;
 }
 #pragma mark 右上角加号
 -(void)setupPlusBtn{
@@ -196,6 +199,13 @@ CGFloat height;
     AddFriendsVc* addfriend = [[AddFriendsVc alloc]init];
     [self.navigationController pushViewController:addfriend animated:YES];
 }
+-(void)pushToGroupChat {
+    GroupChat *groupChat = [[GroupChat alloc] init];
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:groupChat animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
+}
+
 /*
 #pragma mark - Navigation
 

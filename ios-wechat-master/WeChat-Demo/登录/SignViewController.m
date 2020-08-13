@@ -59,7 +59,7 @@ NSString *infopassword;
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    
+    //UIview添加手势(点击退出账号列表)
     UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap)];
     singleTap.delegate = self;
     [self.view addGestureRecognizer:singleTap];

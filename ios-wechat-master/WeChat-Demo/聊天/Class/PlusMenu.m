@@ -57,11 +57,9 @@ extern CGFloat height;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.row == 1){
-//        AddFriendsVc* addFriends = [[AddFriendsVc alloc]init];
-//        [self presentViewController:addFriends animated:YES completion:nil];
         [self.delegate pushToAddFriends];
     }else{
-        
+        [self.delegate pushToGroupChat];
     }
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
 }

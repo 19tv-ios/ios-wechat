@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x767b;&#x5f55;/SignViewController.m"
-            timestampString = "618939975.470476"
+            timestampString = "618994568.206489"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "78"
@@ -340,7 +340,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x767b;&#x5f55;/SignViewController.m"
-            timestampString = "618939975.4708821"
+            timestampString = "618994568.207222"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "70"
@@ -356,7 +356,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x767b;&#x5f55;/SignViewController.m"
-            timestampString = "618939975.4709311"
+            timestampString = "618994568.207454"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "260"
@@ -372,7 +372,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x767b;&#x5f55;/SignViewController.m"
-            timestampString = "618939975.470969"
+            timestampString = "618994568.207703"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "261"
@@ -388,7 +388,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x767b;&#x5f55;/SignViewController.m"
-            timestampString = "618939975.471005"
+            timestampString = "618994568.207904"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "341"
@@ -404,7 +404,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x767b;&#x5f55;/SignViewController.m"
-            timestampString = "618939975.471038"
+            timestampString = "618994568.208093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "418"
@@ -420,7 +420,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x767b;&#x5f55;/SignViewController.m"
-            timestampString = "618939975.471073"
+            timestampString = "618994568.208285"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "404"
@@ -436,7 +436,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x767b;&#x5f55;/SignViewController.m"
-            timestampString = "618939975.471108"
+            timestampString = "618994568.20847"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "360"
@@ -505,6 +505,101 @@
             endingLineNumber = "102"
             landmarkName = "-changeToSignVC"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x804a;&#x5929;/Controllers/ChatController.m"
+            timestampString = "619002877.364782"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "-popKeyboard"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x804a;&#x5929;/Controllers/ChatController.m"
+            timestampString = "619002877.364846"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "&#x804a;&#x5929;/Controllers/ChatViewController.m"
+            timestampString = "619004559.386623"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "-bringMenu"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ChatViewController bringMenu]"
+                  moduleName = "WeChat-Demo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/macbookpro/ios-wechat%20%E4%B8%8B%E5%8D%8811.53.28/ios-wechat-master/WeChat-Demo/%E8%81%8A%E5%A4%A9/Controllers/ChatViewController.m"
+                  timestampString = "618996507.185136"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "96"
+                  endingLineNumber = "96"
+                  offsetFromSymbolStart = "326">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__31-[ChatViewController bringMenu]_block_invoke"
+                  moduleName = "WeChat-Demo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/macbookpro/ios-wechat%20%E4%B8%8B%E5%8D%8811.53.28/ios-wechat-master/WeChat-Demo/%E8%81%8A%E5%A4%A9/Controllers/ChatViewController.m"
+                  timestampString = "618996507.1868629"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "96"
+                  endingLineNumber = "96"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_.161"
+                  moduleName = "WeChat-Demo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/macbookpro/ios-wechat%20%E4%B8%8B%E5%8D%8811.53.28/ios-wechat-master/WeChat-Demo/%E8%81%8A%E5%A4%A9/Controllers/ChatViewController.m"
+                  timestampString = "618996507.1887341"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "96"
+                  endingLineNumber = "96"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
