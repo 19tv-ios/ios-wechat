@@ -9,6 +9,8 @@
 #import "PlusMenu.h"
 #import <SDAutoLayout.h>
 #import "AddFriendsVc.h"
+extern CGFloat height;
+
 @implementation PlusMenu
 
 -(void)viewDidLoad{
@@ -28,7 +30,11 @@
 //    [self addChildViewController:navigationCtr];
 }
 -(void)setupMenu{
-    _tableview.sd_layout.rightSpaceToView(self.view, 10).topSpaceToView(self.view, 100).widthIs(160).heightIs(100);
+    _tableview.sd_layout
+    .rightSpaceToView(self.view, 5)
+    .topSpaceToView(self.view,height+5)
+    .widthIs(160)
+    .heightIs(100);
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 2;
@@ -51,8 +57,9 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.row == 1){
-        AddFriendsVc* addFriends = [[AddFriendsVc alloc]init];
-        [self presentViewController:addFriends animated:YES completion:nil];
+//        AddFriendsVc* addFriends = [[AddFriendsVc alloc]init];
+//        [self presentViewController:addFriends animated:YES completion:nil];
+        [self.delegate pushToAddFriends];
     }else{
         
     }

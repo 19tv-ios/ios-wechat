@@ -9,12 +9,15 @@
 #import "ChatViewController.h"
 #import "ChatViewCell.h"
 #import "PlusMenu.h"
-@interface ChatViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating,UISearchControllerDelegate>
+#import "PushToAddFriends.h"
+#import "AddFriendsVc.h"
+@interface ChatViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating,UISearchControllerDelegate,PushToAddFriends>
 
 @end
 CGFloat height;
 @implementation ChatViewController{
     bool hasMenu;
+    
 }
 
 - (void)viewDidLoad {
@@ -25,7 +28,7 @@ CGFloat height;
     //获取导航栏的rect
     CGRect navRect = self.navigationController.navigationBar.frame;
     //那么导航栏+状态栏的高度
-     height = statusRect.size.height+navRect.size.height;
+    height = statusRect.size.height+navRect.size.height;
     
     _tableview = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     [self.view addSubview:_tableview];
@@ -40,6 +43,7 @@ CGFloat height;
     [self setupBackBtn];
     
     _plusMenu = [[PlusMenu alloc]init];
+    _plusMenu.delegate = self;
     hasMenu = NO;
     
     [self setupPlusBtn];
@@ -92,6 +96,7 @@ CGFloat height;
         [UIView animateWithDuration:0.5 animations:^{
             self->_plusMenu.view.alpha = 0;
             self->_plusMenu.view.alpha = 1;
+            //self->_plusMenu.view.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
             [self->_plusMenu.view setHidden:NO];
         }];
         hasMenu = YES;
@@ -186,6 +191,10 @@ CGFloat height;
 -(void)sendMsg:(NSMutableArray *)ary{
     [_msgArray addObject:ary];
     NSLog(@"收到收到");
+}
+-(void)pushToAddFriends{
+    AddFriendsVc* addfriend = [[AddFriendsVc alloc]init];
+    [self.navigationController pushViewController:addfriend animated:YES];
 }
 /*
 #pragma mark - Navigation

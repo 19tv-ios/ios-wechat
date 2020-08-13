@@ -73,6 +73,7 @@
 		2211994824E19FAF00F5D63E /* PlusMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlusMenu.h; sourceTree = "<group>"; };
 		2211994924E19FAF00F5D63E /* PlusMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlusMenu.m; sourceTree = "<group>"; };
 		2211994B24E2925400F5D63E /* PushToDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushToDetail.h; sourceTree = "<group>"; };
+		2211994C24E4457100F5D63E /* PushToAddFriends.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushToAddFriends.h; sourceTree = "<group>"; };
 		2212FF1D24DB9F710086724D /* GetConversation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetConversation.h; sourceTree = "<group>"; };
 		2212FF1E24DB9F710086724D /* GetConversation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetConversation.m; sourceTree = "<group>"; };
 		2212FF2024DBA7C40086724D /* GetProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetProtocol.h; sourceTree = "<group>"; };
@@ -416,6 +417,7 @@
 				2211994824E19FAF00F5D63E /* PlusMenu.h */,
 				2211994924E19FAF00F5D63E /* PlusMenu.m */,
 				2211994B24E2925400F5D63E /* PushToDetail.h */,
+				2211994C24E4457100F5D63E /* PushToAddFriends.h */,
 			);
 			path = Class;
 			sourceTree = "<group>";

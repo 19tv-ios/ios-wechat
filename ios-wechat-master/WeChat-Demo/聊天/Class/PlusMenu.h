@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "PushToAddFriends.h"
 @interface PlusMenu : UIViewController<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView* tableview;
+
+@property(nonatomic,strong)id<PushToAddFriends>delegate;
 
 @end
