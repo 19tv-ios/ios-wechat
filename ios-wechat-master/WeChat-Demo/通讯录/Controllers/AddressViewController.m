@@ -39,7 +39,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.view.backgroundColor = [UIColor whiteColor];
     
     //聊天页
@@ -113,7 +113,6 @@
 
     //拿出本地好友请求
     NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSLog(@"%@",path);
     NSString *filePath = [path stringByAppendingPathComponent:[NSString  stringWithFormat:@"%@userModelArray.plist",self.user.username]];
     NSData *data = [NSData dataWithContentsOfFile:filePath];
     self.userModelArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -150,6 +149,8 @@
     
     //更新通讯录列表
     [self updateFriendsList];
+    
+ 
 }
 
 - (void)didReceiveMemoryWarning {
@@ -472,6 +473,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 }
+
 //过滤搜索结果，更新
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController{
     
@@ -498,18 +500,19 @@
         }
     }
 
-//    self.tab.hidden = YES;
+    
     [self.tableView reloadData];
-
-   
     
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-//    [self.tab reloadData];
-//    self.tab.hidden = NO;
-    [self updateFriendsList];
+    self.tab.hidden = NO;
+     [self updateFriendsList];
     
+}
+
+- (void)presentSearchController:(UISearchController *)searchController{
+    self.tab.hidden = YES;
 }
 
 -(void)edgePan:(UIPanGestureRecognizer *)recognizer{

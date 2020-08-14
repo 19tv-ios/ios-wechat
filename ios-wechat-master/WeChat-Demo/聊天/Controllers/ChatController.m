@@ -146,6 +146,9 @@
     [self.bottomView addSubview:_emojiBtn];
     _emojiBtn.sd_layout.leftSpaceToView(_textView, 5).topSpaceToView(_bottomView, 15).heightIs(28).widthIs(28);
     [_emojiBtn setImage:[UIImage imageNamed:@"icon_im_face"] forState:UIControlStateNormal];
+    
+//    [_emojiBtn addTarget:self action:@selector(<#selector#>) forControlEvents:UIControlEventTouchUpInside];
+    
     [_emojiBtn updateLayout];
     
     _plusBtn = [[UIButton alloc]init];
@@ -275,4 +278,16 @@
 //    NSLog(@"%@ --- ",_msgArray);
 //}
 
+#pragma mark 表情包键盘
+//- (void)clickedEmoji:(UIButton *)sender {
+//    if (self.inputBar.textView.inputView == nil) {
+//        self.inputBar.textView.inputView = self.emojiKeyboard;
+//        [sender setImage:[UIImage imageNamed:@"btn_chat_input_keyborad"] forState:UIControlStateNormal];
+//    }else {
+//        self.inputBar.textView.inputView = nil;
+//        [sender setImage:[UIImage imageNamed:@"btn_chat_input_emoji"] forState:UIControlStateNormal];
+//    }
+//    [self.inputBar.textView reloadInputViews];
+//    [self.inputBar.textView becomeFirstResponder];
+//}
 @end
