@@ -12,7 +12,7 @@
 #import "AddFriendsVc.h"
 #import "newFriendsVc.h"
 #import "RemarkVc.h"
-@interface AddressViewController ()<JMessageDelegate,UITableViewDataSource,UITableViewDelegate,UISearchControllerDelegate,UISearchResultsUpdating>
+@interface AddressViewController ()<JMessageDelegate,UITableViewDataSource,UITableViewDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UISearchBarDelegate>
 //朋友数组
 @property (nonatomic,strong) NSMutableArray *userArray;
 //排序后的section数组
@@ -96,7 +96,7 @@
     self.tab.dataSource = self;
     self.tab.scrollEnabled = NO;
     [scrView addSubview:self.tab];
-    self.tab.sd_layout.topSpaceToView(scrView, 0).leftEqualToView(scrView).rightEqualToView(scrView).heightIs(80);
+    self.tab.sd_layout.topSpaceToView(scrView, 0).leftEqualToView(scrView).rightEqualToView(scrView).heightIs(44);
     
     
     //展示好友的uitableview
@@ -107,7 +107,7 @@
     self.tableView.scrollEnabled = NO;
     self.tableView.tableFooterView = [[UIView alloc]init];
     [scrView addSubview:self.tableView];
-    self.tableView.sd_layout.topSpaceToView(scrView, 44).leftEqualToView(scrView).rightEqualToView(scrView).bottomEqualToView(scrView);
+    self.tableView.sd_layout.topSpaceToView(self.tab, 0).leftEqualToView(scrView).rightEqualToView(scrView).bottomEqualToView(scrView);
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"address"];
     
 
@@ -128,6 +128,7 @@
     UISearchController *search = [[UISearchController alloc] initWithSearchResultsController:nil];
     search.searchResultsUpdater = self;
     search.dimsBackgroundDuringPresentation = false;
+    search.hidesNavigationBarDuringPresentation = YES;
     search.searchBar.backgroundColor = [UIColor clearColor];
     
     //设置边框的内部颜色 及边框宽度 圆角
@@ -144,6 +145,7 @@
     search.searchBar.placeholder = @"搜索联系人";
     [search.searchBar sizeToFit];
     search.delegate = self;
+    search.searchBar.delegate = self;
     self.navigationItem.searchController = search;
     
     //更新通讯录列表
@@ -185,15 +187,26 @@
 // 按首字母分组排序数组
 - (void)FriendsSort {
     
+    NSString *name = [[NSString alloc]init];
+    
     //中文昵称排序
     for (char c='A';c<='Z';c++) {
         NSInteger i = 0;
         self.rowArray = [NSMutableArray arrayWithCapacity:0];
         for (NSInteger j = 0;j<self.userArray.count; j++) {
             JMSGUser *user = self.userArray[j];
-            int a = [user.nickname characterAtIndex:i];
+            if (user.noteName.length != 0 ) {//优先排序备注名、然后是昵称、最后是用户名
+                name = user.noteName;
+            }else{
+                if (user.nickname.length != 0) {//判断有无昵称
+                    name = user.nickname;
+                }else{
+                    name = nil;
+                }
+            }
+            int a = [name characterAtIndex:i];
             if( a > 0x4e00 && a < 0x9fff){//判断字符串第一个是否是中文
-                NSString *pinyin = [self nameChangePinyin:user.nickname];
+                NSString *pinyin = [self nameChangePinyin:name];
                 NSString *firstChar = [pinyin substringToIndex:1];
                 NSString *str = [NSString stringWithFormat:@"%c",c];//字符转字符串
                 if ([firstChar isEqualToString:str]) {//判断第一个字发音是否是当前字母，是的话加入rowArray
@@ -215,22 +228,22 @@
     
     for (NSInteger i = 0; i<self.userArray.count; i++) {
         JMSGUser *user = self.userArray[i];
-        if (user.nickname == nil) {//判断有无昵称，如果没有用username代替
-            unichar first = [user.username characterAtIndex:0];
-            if (isdigit(first)||isalpha(first)) {//如果首个字符是数字或者字母
-                if (self.specialArray == nil) {
-                    self.specialArray = [NSMutableArray arrayWithCapacity:0];
-                }
-                [self.specialArray addObject:user];
-            }
+        if (user.noteName.length != 0 ) {//优先显示备注名、然后是昵称、最后是用户名
+            name = user.noteName;
         }else{
-            unichar first = [user.nickname characterAtIndex:0];
-            if (isdigit(first)||isalpha(first)) {//如果首个字符数字或者字母
-                if (self.specialArray == nil) {
-                    self.specialArray = [NSMutableArray arrayWithCapacity:0];
-                }
-                [self.specialArray addObject:user];
+            if (user.nickname.length != 0) {//判断有无昵称
+                name = user.nickname;
+            }else{
+                name = user.username;
             }
+        }
+        unichar first = [name characterAtIndex:0];
+        if (isdigit(first)||isalpha(first)) {//如果首个字符是数字或者字母
+            if (self.specialArray == nil) {
+                self.specialArray = [NSMutableArray arrayWithCapacity:0];
+            }
+            [self.specialArray addObject:user];
+        
         }
     }
     
@@ -277,7 +290,11 @@
     if (tableView.tag == 1) {
         return 1;
     }else{
-        return self.sectionArray.count ;//self.indexArray.count
+        if (self.indexArray.count == 0) {
+            return 1;
+        }else{
+            return self.sectionArray.count ;//self.indexArray.count
+        }
     }
     
 }
@@ -287,8 +304,13 @@
     if (tableView.tag == 1) {
         return 1;
     }else{
-        NSArray *rowArray = self.sectionArray[section];
-        return rowArray.count;//rowArray.count
+        if (self.indexArray.count == 0) {
+            return self.sectionArray.count;
+        }else{
+            NSArray *rowArray = self.sectionArray[section];
+            return rowArray.count;//rowArray.count
+        }
+       
     }
     
 }
@@ -297,7 +319,11 @@
     if (tableView.tag == 1) {
         return nil; 
     }else{
-        return self.indexArray[section];
+        if (self.indexArray.count == 0) {
+            return nil;
+        }else{
+            return self.indexArray[section];
+        }
     }
     
 }
@@ -339,8 +365,17 @@
                 [(UIView *)[cell.contentView.subviews lastObject] removeFromSuperview];
             }
         }
-        NSArray *rowArray = self.sectionArray[indexPath.section];
-        JMSGUser *user = rowArray[indexPath.row];
+       
+        NSArray *rowArray = [[NSArray alloc]init];
+        JMSGUser *user = [[JMSGUser alloc]init];
+        if (self.indexArray.count != 0) {
+            rowArray = self.sectionArray[indexPath.section];
+            user = rowArray[indexPath.row];
+        }else{
+            user = self.sectionArray[indexPath.row];
+            NSLog(@"%@",self.sectionArray);
+        }
+      
         
         cell.imageView.sd_layout.topSpaceToView(cell.contentView, 8).heightIs(30).widthIs(30);
         cell.imageView.layer.masksToBounds = YES;
@@ -353,17 +388,22 @@
                     cell.imageView.image  = [UIImage imageWithData:data];
                 }
                 //刷新该行
-                [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+//                [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+                [self.tableView reloadData];
             }];
         }
        
-        if (user.nickname == nil) {
-            cell.textLabel.text = [NSString stringWithFormat:@"%@",user.username];
+        
+        if (user.noteName.length != 0 ) {//优先显示备注名、然后是昵称、最后是用户名
+             cell.textLabel.text = [NSString stringWithFormat:@"%@",user.noteName];
         }else{
-            cell.textLabel.text = [NSString stringWithFormat:@"%@",user.nickname];
+            if (user.nickname) {//判断有无昵称
+                cell.textLabel.text = [NSString stringWithFormat:@"%@",user.nickname];
+            }else{
+                cell.textLabel.text = [NSString stringWithFormat:@"%@",user.username];
+            }
         }
         
- 
         //设置cell为编辑效果
         cell.editingAccessoryType = UITableViewCellAccessoryDetailButton;
 
@@ -432,10 +472,46 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 }
-
+//过滤搜索结果，更新
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController{
-    searchController.obscuresBackgroundDuringPresentation = YES;
+    
+    NSString *searchpinyin = [self nameChangePinyin:searchController.searchBar.text];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS %@",[searchpinyin  uppercaseString]];
+    self.indexArray = [NSMutableArray arrayWithCapacity:0];
+    self.sectionArray = [NSMutableArray arrayWithCapacity:0];
+    for (int i = 0; i<self.userArray.count; i++) {
+        JMSGUser *user = self.userArray[i];
+        NSString *name = [[NSString alloc]init];
+        if (user.noteName.length != 0 ) {//优先排序备注名、然后是昵称、最后是用户名
+            name = user.noteName;
+        }else{
+            if (user.nickname.length != 0) {//判断有无昵称
+                name = user.nickname;
+            }else{
+                name = nil;
+            }
+        }
+        NSString *pinyin = [self nameChangePinyin:name];
+        if([predicate evaluateWithObject:pinyin]){//搜索到了
+            [self.sectionArray addObject:user];
+        }
+    }
+
+//    self.tab.hidden = YES;
+    [self.tableView reloadData];
+
+   
+    
 }
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+//    [self.tab reloadData];
+//    self.tab.hidden = NO;
+    [self updateFriendsList];
+    
+}
+
 -(void)edgePan:(UIPanGestureRecognizer *)recognizer{
 //    [self dismissViewControllerAnimated:YES completion:nil];
     

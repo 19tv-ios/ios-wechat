@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DetailVc : UIViewController
 @property (nonatomic,strong) JMSGUser *user;
+//名字
+@property (nonatomic,strong) UILabel *Name;
+//详情tableview
+@property (nonatomic,strong) UITableView *tab;
+
 @end
 
 NS_ASSUME_NONNULL_END
