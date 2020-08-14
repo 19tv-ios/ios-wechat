@@ -46,5 +46,7 @@
 @property(nonatomic,strong) NSMutableArray* filtered;
 
 @property(nonatomic,strong) id<BringMenu>delegate;
+
+@property(nonatomic,strong) NSData* yourIcon;
 -(void)getMsgModel;
 @end

@@ -41,8 +41,10 @@
     _wordLabel.text = _model.latestMessageContentText;
     _wordLabel.font = [UIFont systemFontOfSize:12];
     
+    _iconView = [[UIImageView alloc]init];
+    _iconView = UIImageView.new;
     
-    [self.contentView sd_addSubviews:@[_timeLabel,_nameLabel,_wordLabel] ];
+    [self.contentView sd_addSubviews:@[_timeLabel,_nameLabel,_wordLabel,_iconView] ];
     
     [self layout];
     
@@ -55,19 +57,27 @@
               .widthIs(50)
     .heightIs(30);
     
+    
+    
+    _iconView.sd_layout.leftSpaceToView(self.contentView, 10).topSpaceToView(self.contentView, 15).heightIs(50).widthIs(50);
+    _iconView.layer.masksToBounds = YES;
+    _iconView.layer.cornerRadius = 5;
+    [_iconView updateLayout];
+    
     _nameLabel.sd_layout
-              .leftSpaceToView(self.imageView, 10)
-              .topEqualToView(self.imageView)
-              .autoHeightRatio(0)
-              .widthIs(70)
+    .leftSpaceToView(_iconView, 10)
+    .topEqualToView(_iconView)
+    .autoHeightRatio(0)
+    .widthIs(70)
     .heightIs(30);
+    [_nameLabel updateLayout];
     
     _wordLabel.sd_layout
-              .topSpaceToView(_nameLabel, 5)
-              .leftSpaceToView(self.imageView, 10)
-              .autoHeightRatio(0)
-              .widthIs(150)
-              .heightIs(30);
+    .topSpaceToView(_nameLabel, 5)
+    .leftSpaceToView(_iconView, 10)
+    .autoHeightRatio(0)
+    .widthIs(150)
+    .heightIs(30);
     [_wordLabel setMaxNumberOfLinesToShow:2];
 }
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andModel:(JMSGConversation *)model{

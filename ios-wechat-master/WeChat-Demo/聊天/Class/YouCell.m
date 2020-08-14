@@ -70,7 +70,7 @@
 -(void)layout{
     if(_picContent){
         _iconImage.sd_layout.leftSpaceToView(self.contentView, 10).topSpaceToView(self.contentView, 0).widthIs(45).heightIs(45);
-        _iconImage.sd_cornerRadius = [NSNumber numberWithInt:20];
+        _iconImage.sd_cornerRadius = [NSNumber numberWithInt:5];
         
         _picView.sd_layout.leftSpaceToView(_iconImage, 5).topSpaceToView(self.contentView, 5).widthIs(ScreenWeight/2 - 15).heightIs(200);
         dispatch_group_t group = dispatch_group_create();
@@ -85,7 +85,7 @@
         });
     }else{
         _iconImage.sd_layout.leftSpaceToView(self.contentView, 10).topSpaceToView(self.contentView, 0).widthIs(45).heightIs(45);
-        _iconImage.sd_cornerRadius = [NSNumber numberWithInt:20];
+        _iconImage.sd_cornerRadius = [NSNumber numberWithInt:5];
         [_iconImage updateLayout];
         
         _wordLabel.preferredMaxLayoutWidth = ScreenWeight/2 - 30;

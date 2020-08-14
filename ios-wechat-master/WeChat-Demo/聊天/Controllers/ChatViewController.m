@@ -127,15 +127,18 @@ CGFloat height;
         if(!cell){
             cell = [[ChatViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseID andModel:_model];
         }
+//        cell.imageView.sd_layout.topSpaceToView(cell.contentView, 8).heightIs(30).widthIs(30);
+//        cell.imageView.layer.masksToBounds = YES;
+//        cell.imageView.layer.cornerRadius = 5;
         UIImage* image = [UIImage imageNamed:@"微信"];
-        cell.imageView.image = image;
+        cell.iconView.image = image;
         
         cell.wordLabel.text = _model.latestMessageContentText;
         [_model avatarData:^(NSData *data, NSString *objectId, NSError *error) {
             if(error){
-                cell.imageView.image = image;
+                cell.iconView.image = image;
             }else{
-                cell.imageView.image = [UIImage imageWithData:data];
+                cell.iconView.image = [UIImage imageWithData:data];
             }
         }];
         return cell;
@@ -145,15 +148,18 @@ CGFloat height;
         if(!cell){
             cell = [[ChatViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"chat" andModel:_model];
         }
+//        cell.imageView.sd_layout.topSpaceToView(cell.contentView, 13).heightIs(30).widthIs(30);
+//        cell.imageView.layer.masksToBounds = YES;
+//        cell.imageView.layer.cornerRadius = 5;
         UIImage* image = [UIImage imageNamed:@"微信"];
-        cell.imageView.image = image;
+        cell.iconView.image = image;
         
         cell.wordLabel.text = _model.latestMessageContentText;
         [_model avatarData:^(NSData *data, NSString *objectId, NSError *error) {
             if(error){
-                cell.imageView.image = image;
+                cell.iconView.image = image;
             }else{
-                cell.imageView.image = [UIImage imageWithData:data];
+                cell.iconView.image = [UIImage imageWithData:data];
             }
         }];
         return cell;
@@ -190,11 +196,12 @@ CGFloat height;
     }];
     dispatch_group_enter(group);
     [con avatarData:^(NSData *data, NSString *objectId, NSError *error) {
-        self->_chatController.otherIcon = data;
+        self->_yourIcon = data;
         dispatch_group_leave(group);
     }];
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
         self->_chatController = [[ChatController alloc]initWithMsg:self->_certainMsg];
+        self->_chatController.otherIcon = self->_yourIcon;
         self->_chatController.hidesBottomBarWhenPushed = YES;
         self->_chatController.title = con.title;
         self->_chatController.otherSide = con.title;

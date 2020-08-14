@@ -17,6 +17,8 @@
 @property(nonatomic,strong)UILabel* wordLabel;
 
 @property(nonatomic,strong)JMSGConversation* model;
+
+@property(nonatomic,strong)UIImageView* iconView;
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andModel:(JMSGConversation*)model;
 -(void)initSubviews;
 @end
