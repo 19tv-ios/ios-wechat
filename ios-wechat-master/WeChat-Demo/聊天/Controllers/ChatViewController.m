@@ -12,6 +12,7 @@
 #import "PushToAddFriends.h"
 #import "AddFriendsVc.h"
 #import "GroupChat.h"
+#import <JMessage/JMessage.h>
 @interface ChatViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating,PushToAddFriends,UISearchControllerDelegate,UISearchResultsUpdating,UISearchBarDelegate>
 
 @end
@@ -257,7 +258,21 @@ CGFloat height;
         [self.tableview reloadData];
     });
 }
-
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIContextualAction *deleteRowAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"删除" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+        JMSGConversation* conToDelete = [self->_conversationArray objectAtIndex:indexPath.row];
+        [self->_conversationArray removeObject:conToDelete];
+        [self deleteCon:conToDelete.title];
+        [self->_tableview reloadData];
+    }];
+    deleteRowAction.backgroundColor = [UIColor redColor];
+    UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteRowAction]];
+    config.performsFirstActionWithFullSwipe = NO;
+    return config;
+}
+-(void)deleteCon:(NSString*)name{
+    [JMSGConversation deleteSingleConversationWithUsername:name];
+}
 /*
 #pragma mark - Navigation
 
