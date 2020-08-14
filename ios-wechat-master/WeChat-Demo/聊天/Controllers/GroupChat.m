@@ -29,6 +29,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _selectArray = [[NSMutableArray alloc]init];
+    
    self.view.backgroundColor = [UIColor whiteColor];
     //导航条右侧按钮
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -159,7 +161,29 @@
 }
 #pragma mark - 创建群聊
 - (void)rightButton {
+    [self showAlertView];
+}
+-(void)showAlertView{
+    UIAlertController* newCategoryAlert = [UIAlertController alertControllerWithTitle:@"新建群聊" message:@"请输入群名" preferredStyle:UIAlertControllerStyleAlert];
+    [newCategoryAlert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField){
+        textField.placeholder = @"群名";
+    }];
     
+    _cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action){
+        NSLog(@"cancelAction");
+    }];
+    _addAction = [UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
+        NSLog(@"addAction");
+        [JMSGGroup createGroupWithName:newCategoryAlert.textFields.firstObject.text desc:nil memberArray:self->_selectArray completionHandler:^(id resultObject, NSError *error) {
+            JMSGGroup* newGroup = resultObject;
+            [self.delegate creatConversationWithGroup:newGroup];
+        }];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    //添加action
+    [newCategoryAlert addAction:_cancelAction];
+    [newCategoryAlert addAction:_addAction];
+    [self presentViewController:newCategoryAlert animated:YES completion:nil];
 }
 #pragma mark - Table view data source
 //多少组
@@ -239,7 +263,16 @@
 {
     return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    JMSGUser* user = [_userArray objectAtIndex:indexPath.row];
+    NSString* username = user.username;
+    [_selectArray addObject:username];
+}
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath NS_AVAILABLE_IOS(3_0){
+    JMSGUser* user = [_userArray objectAtIndex:indexPath.row];
+    NSString* username = user.username;
+    [_selectArray removeObject:username];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
    

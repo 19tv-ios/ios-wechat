@@ -14,7 +14,10 @@
 #import "GetMsg.h"
 #import "GetProtocol.h"
 #import "PlusMenu.h"
-@interface ChatViewController : UIViewController<GetProtocol>
+#import "CreatGroup.h"
+#import "GroupChat.h"
+#import "BringMenu.h"
+@interface ChatViewController : UIViewController<GetProtocol,CreatGroup>
 
 @property(nonatomic,strong) UITableView* tableview;
 
@@ -37,5 +40,11 @@
 @property(nonatomic,strong) NSMutableArray* certainMsg;
 
 @property(nonatomic,strong) PlusMenu* plusMenu;
+
+@property(nonatomic,strong) GroupChat* groupChat;
+
+@property(nonatomic,strong) NSMutableArray* filtered;
+
+@property(nonatomic,strong) id<BringMenu>delegate;
 -(void)getMsgModel;
 @end

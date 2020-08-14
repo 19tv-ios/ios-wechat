@@ -10,18 +10,27 @@
 #import "GetConversation.h"
 #import <AFNetworking.h>
 #import "NoNetWork.h"
+#import <SDAutoLayout.h>
+#define ScreenHeight [UIScreen mainScreen].bounds.size.height
+#define ScreenWeight [UIScreen mainScreen].bounds.size.width
 @interface TabBarController ()
 
 @end
 
-@implementation TabBarController
+@implementation TabBarController{
+    bool hasMenu;
+    bool firstTime;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    firstTime = YES;
     _chatView = [[ChatViewController alloc]init];
     [self addChildViewController:_chatView withTitle:@"聊天" Image:@"聊天1" selectedImage:@"聊天1"];
     _chatView.getModel = [[GetConversation alloc]init];
+    _chatView.delegate = self;
     self.chatView.getModel.delegate = self.chatView;
     self.chatView.getMsg.delegate = self.chatView;
     [_chatView.getModel getConversation];
@@ -61,6 +70,8 @@
         }
         NSLog(@"%@",result);
     }];
+    
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -74,6 +85,22 @@
     //为每个tab的controller添加导航控制器
     UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:childController];
     [self addChildViewController:navController];
+}
+-(void)bringMenu:(PlusMenu*)view{
+    if(firstTime == YES){
+        _menu = [[PlusMenu alloc]init];
+        _menu = view;
+        [self.view addSubview:_menu.view];
+        firstTime = NO;
+        _menu.hasMenu = YES;
+    }
+    if(_menu.hasMenu == NO){
+        _menu.view.hidden = NO;
+        _menu.hasMenu = YES;
+    }else{
+        _menu.view.hidden = YES;
+        _menu.hasMenu = NO;
+    }
 }
 
 

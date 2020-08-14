@@ -9,6 +9,8 @@
 #import "PlusMenu.h"
 #import <SDAutoLayout.h>
 #import "AddFriendsVc.h"
+#define ScreenHeight [UIScreen mainScreen].bounds.size.height
+#define ScreenWeight [UIScreen mainScreen].bounds.size.width
 extern CGFloat height;
 
 @implementation PlusMenu
@@ -21,18 +23,18 @@ extern CGFloat height;
     _tableview.delegate = self;
     _tableview.dataSource = self;
     
-    self.view.frame = [UIScreen mainScreen].bounds;
+    self.view.frame = CGRectMake(0, 87, ScreenWeight, ScreenHeight-170);
     self.view.backgroundColor = [UIColor colorWithWhite:0.8 alpha:0.5];
     
     [self setupMenu];
     
-//    UINavigationController* navigationCtr = [[UINavigationController alloc]initWithRootViewController:self];
-//    [self addChildViewController:navigationCtr];
+//    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hide)];
+//    [self.view addGestureRecognizer:tap];
 }
 -(void)setupMenu{
     _tableview.sd_layout
     .rightSpaceToView(self.view, 5)
-    .topSpaceToView(self.view,height+5)
+    .topSpaceToView(self.view, 5)
     .widthIs(160)
     .heightIs(100);
 }
@@ -58,10 +60,18 @@ extern CGFloat height;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.row == 1){
         [self.delegate pushToAddFriends];
+        self.view.hidden = YES;
+        _hasMenu = NO;
     }else{
         [self.delegate pushToGroupChat];
+        self.view.hidden = YES;
+        _hasMenu = NO;
     }
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
 }
+//-(void)hide{
+//    _menu.hidden = YES;
+//    hasMenu = NO;
+//}
 
 @end

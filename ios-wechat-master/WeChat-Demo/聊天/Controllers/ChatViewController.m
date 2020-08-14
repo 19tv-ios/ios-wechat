@@ -24,6 +24,8 @@ CGFloat height;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _filtered = [[NSMutableArray alloc]init];
+    
     //获取状态栏的rect
     CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
     //获取导航栏的rect
@@ -48,6 +50,9 @@ CGFloat height;
     _plusMenu.delegate = self;
     hasMenu = NO;
     
+    _groupChat = [[GroupChat alloc] init];
+    _groupChat.delegate = self;
+    
     [self setupPlusBtn];
 }
 #pragma mark back button
@@ -56,11 +61,13 @@ CGFloat height;
     self.navigationItem.backBarButtonItem = back;
 }
 -(void)back{
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_group_enter(group);
-    [self getConversationModel];
-    dispatch_group_leave(group);
-    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+    dispatch_group_t group2 = dispatch_group_create();
+    dispatch_group_enter(group2);
+    [JMSGConversation allConversations:^(id resultObject, NSError *error) {
+        self->_conversationArray = resultObject;
+        dispatch_group_leave(group2);
+    }];
+    dispatch_group_notify(group2, dispatch_get_main_queue(), ^{
         [self.tableview reloadData];
         [self.navigationController popViewControllerAnimated:YES];
     });
@@ -93,20 +100,10 @@ CGFloat height;
     self.navigationItem.rightBarButtonItem = plus;
 }
 -(void)bringMenu{
-    [self.view addSubview:_plusMenu.view];
-    [self.view bringSubviewToFront:_plusMenu.view];
-    if(hasMenu == NO){
-        [UIView animateWithDuration:0.5 animations:^{
-            self->_plusMenu.view.alpha = 0;
-            self->_plusMenu.view.alpha = 1;
-            //self->_plusMenu.view.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
-            [self->_plusMenu.view setHidden:NO];
-        }];
-        hasMenu = YES;
-    }else{
-        [self->_plusMenu.view setHidden:YES];
-        hasMenu = NO;
-    }
+    //[self.navigationController.topViewController.view addSubview:_plusMenu.view];
+    //[self.view bringSubviewToFront:_plusMenu.view];
+    [self.delegate bringMenu:_plusMenu];
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -114,31 +111,66 @@ CGFloat height;
 }
 #pragma mark tableview delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _conversationArray.count;
+    if(_search.active){
+        return _filtered.count;
+    }else{
+        return _conversationArray.count;
+    }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString* reuseID = @"chat";
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    //ChatViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-    _model = [[JMSGConversation alloc]init];
-    _model = [_conversationArray objectAtIndex:indexPath.row];
-    if(!cell){
-        cell = [[ChatViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseID andModel:_model];
-    }
-//    cell.wordLabel.text = _model.latestMessageContentText;
-    [_model avatarData:^(NSData *data, NSString *objectId, NSError *error) {
+    if(!_search.active){
+        static NSString* reuseID = @"chat";
+        //    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        ChatViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+        _model = [[JMSGConversation alloc]init];
+        _model = [_conversationArray objectAtIndex:indexPath.row];
+        if(!cell){
+            cell = [[ChatViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseID andModel:_model];
+        }
+        UIImage* image = [UIImage imageNamed:@"微信"];
+        cell.imageView.image = image;
         
-        cell.imageView.image = [UIImage imageWithData:data];
-    }];
-    UIImage* image = [UIImage imageNamed:@"微信"];
-    cell.imageView.image = image;
-    return cell;
+        cell.wordLabel.text = _model.latestMessageContentText;
+        [_model avatarData:^(NSData *data, NSString *objectId, NSError *error) {
+            if(error){
+                cell.imageView.image = image;
+            }else{
+                cell.imageView.image = [UIImage imageWithData:data];
+            }
+        }];
+        return cell;
+    }else{
+        ChatViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+        _model = [_filtered objectAtIndex:indexPath.row];
+        if(!cell){
+            cell = [[ChatViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"chat" andModel:_model];
+        }
+        UIImage* image = [UIImage imageNamed:@"微信"];
+        cell.imageView.image = image;
+        
+        cell.wordLabel.text = _model.latestMessageContentText;
+        [_model avatarData:^(NSData *data, NSString *objectId, NSError *error) {
+            if(error){
+                cell.imageView.image = image;
+            }else{
+                cell.imageView.image = [UIImage imageWithData:data];
+            }
+        }];
+        return cell;
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 80;
 }
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController{
-    
+    [_filtered removeAllObjects];
+    NSString* searchString = _search.searchBar.text;
+    for(JMSGConversation* cnt in _conversationArray){
+        if([[cnt title] containsString:searchString]){
+            [_filtered addObject:cnt];
+        }
+    }
+    [self.tableview reloadData];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    JMSGMessage* msg = [_msgArray objectAtIndex:indexPath.row];
@@ -200,10 +232,23 @@ CGFloat height;
     [self.navigationController pushViewController:addfriend animated:YES];
 }
 -(void)pushToGroupChat {
-    GroupChat *groupChat = [[GroupChat alloc] init];
     self.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:groupChat animated:YES];
+    [self.navigationController pushViewController:_groupChat animated:YES];
     self.hidesBottomBarWhenPushed = NO;
+}
+-(void)creatConversationWithGroup:(JMSGGroup *)group{
+    dispatch_group_t group1 = dispatch_group_create();
+    dispatch_group_enter(group1);
+    [JMSGConversation createGroupConversationWithGroupId:group.gid completionHandler:^(id resultObject, NSError *error) {
+        JMSGConversation* groupConversation = resultObject;
+        [self->_conversationArray insertObject:groupConversation atIndex:0];
+        NSLog(@"%@ ==== ",resultObject);
+        dispatch_group_leave(group1);
+    }];
+    dispatch_group_notify(group1, dispatch_get_main_queue(), ^{
+        NSLog(@"creat group done");
+        [self.tableview reloadData];
+    });
 }
 
 /*

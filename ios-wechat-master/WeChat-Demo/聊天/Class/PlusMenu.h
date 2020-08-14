@@ -14,4 +14,6 @@
 
 @property(nonatomic,strong)id<PushToAddFriends>delegate;
 
+@property(nonatomic)bool hasMenu;
+
 @end
