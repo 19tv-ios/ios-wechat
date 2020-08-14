@@ -22,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0];
     
     // Do any additional setup after loading the view.
     _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWeight, ScreenHeight-83) style:UITableViewStylePlain];
@@ -40,7 +41,14 @@
     
     [JMessage addDelegate:self withConversation:_conModel];
     
-    //滚动到最后一行
+
+    _playRecordButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    _playRecordButton.frame = CGRectMake(50 , 200, 300 , 50);
+    [_playRecordButton setTitle:@"播放录音" forState:UIControlStateNormal];
+    [_playRecordButton addTarget:self action:@selector(playRecordButtonTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_playRecordButton];
+    
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan=NO;
     
 }
 
@@ -121,12 +129,22 @@
 }
 #pragma mark setup bottomview
 -(void)setupBottomView{
+    
     _bottomView = [[UIView alloc]init];
     _bottomView = UIView.new;
     [self.view addSubview:_bottomView];
     _bottomView.sd_layout.leftSpaceToView(self.view, 0).bottomSpaceToView(self.view, 0).widthIs(ScreenWeight).heightIs(83);
     _bottomView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.95];;
     [_bottomView updateLayout];
+    
+    _recordButton = [UIButton buttonWithType:UIButtonTypeCustom];
+     _recordButton.frame = CGRectMake(10 , self.view.frame.size.height - 75, 28 , 28);
+    _recordButton.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.95];;
+    [_recordButton setImage:[UIImage imageNamed:@"语音"] forState:UIControlStateNormal];
+    [_recordButton addTarget:self action:@selector(recordButtonTouchDown) forControlEvents:UIControlEventTouchDown];
+    [_recordButton addTarget:self action:@selector(recordButtonTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomView addSubview:_recordButton];
+    _recordButton.sd_layout.leftSpaceToView(_bottomView, 5).topSpaceToView(_bottomView, 15).widthIs(28).heightIs(28);
     
     _textView = [[UITextField alloc]init];
     _textView = UITextField.new;
@@ -151,9 +169,10 @@
     _plusBtn = [[UIButton alloc]init];
     _plusBtn = UIButton.new;
     [self.bottomView addSubview:_plusBtn];
-    _plusBtn.sd_layout.leftSpaceToView(_textView, 45).topSpaceToView(_bottomView, 15).heightIs(28).widthIs(28);
+    _plusBtn.sd_layout.leftSpaceToView(_textView,45).topSpaceToView(_bottomView, 15).heightIs(28).widthIs(28);
     [_plusBtn setImage:[UIImage imageNamed:@"icon_im_more"] forState:UIControlStateNormal];
     [_plusBtn addTarget:self action:@selector(cilckPlus) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 #pragma mark 重写初始化方法
 -(instancetype)initWithMsg:(NSMutableArray*)msg{
@@ -258,6 +277,130 @@
     detail.user = user;
     [self.navigationController pushViewController:detail animated:YES];
     //NSLog(@"push  ====  ");
+}
+
+
+
+- (void)playRecordButtonTouchUpInside {
+    if (_recordFilePath) {
+        _player = [[AVAudioPlayer alloc] initWithData:[NSData dataWithContentsOfFile:_recordFilePath] error:nil];
+        [_session setCategory:AVAudioSessionCategoryPlayback error:nil];
+        [_player play];
+        NSLog(@"%@",_recordFilePath);
+    }
+}
+//摁住说话
+- (void)recordButtonTouchDown {
+    //info.plist配置权限
+    if (![self canRecord]) {
+        NSLog(@"请启用麦克风-设置/隐私/麦克风");
+    }
+    _volumeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 120, 120)];
+    _volumeImageView.center = self.tableview.center;
+    _volumeImageView.image = [UIImage imageNamed:@"麦克风1"];
+    [self.view addSubview:_volumeImageView];
+    //开始录音
+    _countDown = 60;
+    //添加定时器
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(refreshLabelText) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+    _session =[AVAudioSession sharedInstance];
+    NSError *sessionError;
+    [_session setCategory:AVAudioSessionCategoryPlayAndRecord error:&sessionError];
+    if (_session == nil) {
+        NSLog(@"Error creating session: %@",[sessionError description]);
+    } else {
+        [_session setActive:YES error:nil];
+    }
+    //获取文件沙盒地址
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    _recordFilePath = [path stringByAppendingString:@"/RRecord.wav"];
+    //设置参数
+    NSDictionary *recordSetting = @{AVFormatIDKey: @(kAudioFormatLinearPCM),
+                                    AVSampleRateKey: @8000.00f,
+                                    AVNumberOfChannelsKey: @1,
+                                    AVLinearPCMBitDepthKey: @16,
+                                    AVLinearPCMIsNonInterleaved: @NO,
+                                    AVLinearPCMIsFloatKey: @NO,
+                                    AVLinearPCMIsBigEndianKey: @NO};
+    _recorder = [[AVAudioRecorder alloc] initWithURL:[NSURL fileURLWithPath:_recordFilePath] settings:recordSetting error:nil];
+    if (_recorder) {
+        _recorder.meteringEnabled = YES;
+        [_recorder prepareToRecord];
+        [_recorder record];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(60 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self recordButtonTouchUpInside];
+        });
+    }else{
+        NSLog(@"音频格式和文件存储格式不匹配,无法初始化Recorder");
+    }
+}
+- (void)refreshLabelText {
+    [_recorder updateMeters];
+    float level;
+    float minDecibels = -80.0f;
+    float decibels = [_recorder averagePowerForChannel:0];
+    if (decibels < minDecibels) {
+        level = 0.0f;
+    } else if (decibels >= 0.0f) {
+        level = 1.0f;
+    } else {
+        float root = 2.0f;
+        float minAmp = powf(10.0f, 0.05f * minDecibels);
+        float inverseAmpRange = 1.0f / (1.0f - minAmp);
+        float amp = powf(10.0f, 0.05f * decibels);
+        float adjAmp = (amp - minAmp) * inverseAmpRange;
+        level = powf(adjAmp, 1.0f / root);
+    }
+    NSInteger voice = level*10 + 1;
+    voice = voice > 8 ? 8 : voice;
+    NSLog(@"%ld",voice);
+    NSString *imageIndex = [NSString stringWithFormat:@"voice_%ld", voice];
+    if (_isLeaveSpeakBtn) {
+        _volumeImageView.image = [UIImage imageNamed:@"rc_ic_volume_cancel"];
+    } else {
+        _volumeImageView.image = [UIImage imageNamed:imageIndex];
+    }
+    _countDown --;
+    if (_countDown < 10 && _countDown > 0) {
+        _volumeLabel.text = [NSString stringWithFormat:@"还剩 %ld 秒",(long)_countDown];
+    }
+    //超时自动发送
+    if (_countDown < 1) {
+        [self recordButtonTouchUpInside];
+    }
+}
+//松开发送
+- (void)recordButtonTouchUpInside {
+    NSLog(@"recordButtonTouchUpInside");
+    if (!_timer) {
+        return;
+    }
+    //停止录音 移除定时器
+    [_timer invalidate];
+    _timer = nil;
+    if ([_recorder isRecording]) {
+        [_recorder stop];
+    }
+    [_volumeImageView removeFromSuperview];
+}
+//检查是否拥有麦克风权限
+- (BOOL)canRecord {
+    __block BOOL bCanRecord = YES;
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    if ([audioSession respondsToSelector:@selector(requestRecordPermission:)]) {
+        [audioSession performSelector:@selector(requestRecordPermission:) withObject:^(BOOL granted) {
+            if (granted) {
+                bCanRecord = YES;
+            } else {
+                bCanRecord = NO;
+            }
+        }];
+    }
+    return bCanRecord;
+}
+- (UIRectEdge)preferredScreenEdgesDeferringSystemGestures {
+    return UIRectEdgeBottom;
 }
 #pragma mark 获取对话信息
 //-(void)getAllMsg{

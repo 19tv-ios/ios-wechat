@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <JMessage/JMessage.h>
+#import <AVFoundation/AVFoundation.h>
 @interface ChatController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property(nonatomic,strong)UITableView* tableview;
@@ -41,6 +42,20 @@
 @property(nonatomic,strong)NSData* picData;
 
 @property(nonatomic,strong)NSData* otherIcon;
+
+@property(nonatomic,strong)UIButton *recordButton;
+@property(nonatomic,strong)UIButton *playRecordButton;
+@property(nonatomic,strong)NSTimer *timer;
+@property(nonatomic,assign)NSInteger countDown;
+@property(nonatomic,strong)AVAudioSession *session;
+@property(nonatomic,strong)AVAudioRecorder *recorder;
+@property(nonatomic,strong)AVAudioPlayer *player;
+@property(nonatomic,copy)NSString *recordFilePath;
+@property(nonatomic,strong)UIView *volumeBgView;
+@property(nonatomic,strong)UIImageView *volumeImageView;
+@property(nonatomic,strong)UILabel *volumeLabel;
+@property(nonatomic,assign)BOOL isLeaveSpeakBtn;
+
 
 @property(nonatomic,strong)JMSGMessage* lastmsg;
 -(instancetype)initWithMsg:(NSMutableArray*)msg;
