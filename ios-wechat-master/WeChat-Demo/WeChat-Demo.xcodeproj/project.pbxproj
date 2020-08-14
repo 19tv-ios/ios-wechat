@@ -48,6 +48,7 @@
 		E204E26524E1359000CA2B44 /* MoreMessageVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E204E26124E1359000CA2B44 /* MoreMessageVc.m */; };
 		E204E26B24E135B700CA2B44 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E204E26824E135B600CA2B44 /* AddressViewController.m */; };
 		E204E26C24E135B700CA2B44 /* AddFriendsVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E204E26A24E135B700CA2B44 /* AddFriendsVc.m */; };
+		E2E0432E24E57E0A000F9DBF /* SearchVc.m in Sources */ = {isa = PBXBuildFile; fileRef = E2E0432D24E57E0A000F9DBF /* SearchVc.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +154,8 @@
 		E204E26824E135B600CA2B44 /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddressViewController.m; path = "通讯录/Controllers/AddressViewController.m"; sourceTree = SOURCE_ROOT; };
 		E204E26924E135B700CA2B44 /* newFriendsVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = newFriendsVc.h; path = "通讯录/Controllers/newFriendsVc.h"; sourceTree = SOURCE_ROOT; };
 		E204E26A24E135B700CA2B44 /* AddFriendsVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddFriendsVc.m; path = "通讯录/Controllers/AddFriendsVc.m"; sourceTree = SOURCE_ROOT; };
+		E2E0432C24E57E0A000F9DBF /* SearchVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchVc.h; sourceTree = "<group>"; };
+		E2E0432D24E57E0A000F9DBF /* SearchVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchVc.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,6 +296,8 @@
 				5260742A24DCF72F00A91759 /* newFriendsVc.m */,
 				E204E25B24E1359000CA2B44 /* DetailVc.h */,
 				E204E25F24E1359000CA2B44 /* DetailVc.m */,
+				E2E0432C24E57E0A000F9DBF /* SearchVc.h */,
+				E2E0432D24E57E0A000F9DBF /* SearchVc.m */,
 				E204E25924E1359000CA2B44 /* 好友页详情 */,
 			);
 			path = Controllers;
@@ -606,6 +611,7 @@
 				22B47F8224DA9B820078122F /* MeCell.m in Sources */,
 				22B47F8824DA9D570078122F /* ChatViewController.m in Sources */,
 				2212FF1F24DB9F710086724D /* GetConversation.m in Sources */,
+				E2E0432E24E57E0A000F9DBF /* SearchVc.m in Sources */,
 				5220FF5224DD4B2500D51FDE /* changeInfoViewController.m in Sources */,
 				E204E26524E1359000CA2B44 /* MoreMessageVc.m in Sources */,
 				52028E6D24E127CD00EF6C9B /* DatePickerTool.m in Sources */,
