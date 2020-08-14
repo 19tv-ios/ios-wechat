@@ -48,5 +48,7 @@
 @property(nonatomic,strong) id<BringMenu>delegate;
 
 @property(nonatomic,strong) NSData* yourIcon;
+
+@property(nonatomic,strong) UIRefreshControl* refresh;
 -(void)getMsgModel;
 @end

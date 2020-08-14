@@ -36,6 +36,30 @@
     
         [self.contentView sd_addSubviews:@[_picView,_iconImage] ];
         //NSLog(@"piccont");
+    }else if(_voiceContent){
+        _bubbleView = [[UIImageView alloc]init];
+        _bubbleView = UIImageView.new;
+        //_bubbleView.image = [UIImage imageNamed:@"send"];
+        _bubbleView.backgroundColor = [UIColor colorWithRed:152/255.0 green:234/255.0 blue:112/255.0 alpha:1.0];
+        _bubbleView.layer.borderWidth = 1;
+        _bubbleView.layer.borderColor = [UIColor whiteColor].CGColor;
+        _bubbleView.layer.cornerRadius = 10;
+        
+        _iconImage = [[UIImageView alloc] init];
+        _iconImage = UIImageView.new;
+        UIImage* icon = [UIImage imageWithData:_icon];
+        if(icon){
+            _iconImage.image = icon;
+        }else{
+            _iconImage.image = [UIImage imageNamed:@"微信"];
+        }
+        
+        _voiceBtn = [[UIButton alloc]init];
+        _voiceBtn = UIButton.new;
+        [_voiceBtn addTarget:self action:@selector(tapVoiceBtn) forControlEvents:UIControlEventTouchUpInside];
+        [_voiceBtn setImage:_image forState:UIControlStateNormal];
+        
+        [self.contentView sd_addSubviews:@[_bubbleView,_iconImage,_voiceBtn] ];
     }else{
         _bubbleView = [[UIImageView alloc]init];
         _bubbleView = UIImageView.new;
@@ -85,6 +109,13 @@
             self->_picView.image = [UIImage imageWithData:self->_imageData];
             //NSLog(@"加载图片完毕");
         });
+    }else if(_voiceContent){
+        _iconImage.sd_layout.rightSpaceToView(self.contentView, 10).topSpaceToView(self.contentView, 0).widthIs(45).heightIs(45);
+        _iconImage.sd_cornerRadius = [NSNumber numberWithInt:5];
+        
+        _bubbleView.sd_layout.rightSpaceToView(_iconImage, 5).topSpaceToView(self.contentView, 5).widthIs(ScreenWeight/2 - 15).heightIs(40);
+        
+        _voiceBtn.sd_layout.rightSpaceToView(_iconImage, 40).topSpaceToView(self.contentView, 12).heightIs(30).widthIs(100);
     }else{
         _iconImage.sd_layout.rightSpaceToView(self.contentView, 10).topSpaceToView(self.contentView, 0).widthIs(45).heightIs(45);
         _iconImage.sd_cornerRadius = [NSNumber numberWithInt:5];
@@ -99,6 +130,17 @@
         
         _bubbleView.sd_layout.rightSpaceToView(_iconImage, 5).topSpaceToView(self.contentView, 5).widthIs(ScreenWeight/2 - 15).heightIs(_labelHeight + 15);
     }
+}
+-(void)tapVoiceBtn{
+    [_voiceContent voiceData:^(NSData *data, NSString *objectId, NSError *error) {
+        self->_voiceData = data;
+    }];
+    _session =[AVAudioSession sharedInstance];
+    [_session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    _player = [[AVAudioPlayer alloc]initWithData:_voiceData error:nil];
+    NSLog(@"%@",_player);
+    [_player play];
+    NSLog(@"播放语音");
 }
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andText:(NSString*)text{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -116,6 +158,14 @@
 -(instancetype)initWithImage:(JMSGImageContent *)content{
     self = [super init];
     _picContent = content;
+    [self initSubviews];
+    return self;
+}
+-(instancetype)initWithVoice:(JMSGVoiceContent *)content andPic:(UIImage *)image andIcon:(NSData *)data{
+    self = [super init];
+    _voiceContent = content;
+    _image = image;
+    _icon = data;
     [self initSubviews];
     return self;
 }

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <JMessage/JMessage.h>
 #import "PushToDetail.h"
+#import <AVFoundation/AVFoundation.h>
 @interface MeCell : UITableViewCell
 
 @property(nonatomic,strong)UIImageView* bubbleView;
@@ -25,13 +26,26 @@
 
 @property(nonatomic,strong)JMSGImageContent* picContent;
 
+@property(nonatomic,strong)JMSGVoiceContent* voiceContent;
+
 @property(nonatomic,strong)JMSGMessage* model;
 
 @property(nonatomic,strong)UIImageView* picView;
 
 @property(nonatomic,weak)id<PushToDetail>delegate;
 
+@property(nonatomic,strong)UIButton* voiceBtn;
+
 @property(nonatomic,strong)NSData* icon;
+
+@property(nonatomic,strong)AVAudioSession *session;
+
+@property(nonatomic,strong)AVAudioPlayer *player;
+
+@property(nonatomic,strong)NSData* voiceData;
+
+@property(nonatomic,strong)UIImage* image;
 -(instancetype)initWithText:(NSString*)text andIcon:(NSData*)data;
 -(instancetype)initWithImage:(JMSGImageContent*)content;
+-(instancetype)initWithVoice:(JMSGVoiceContent*)content andPic:(UIImage*)image andIcon:(NSData*)data;
 @end

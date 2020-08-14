@@ -19,14 +19,12 @@
 CGFloat height;
 @implementation ChatViewController{
     bool hasMenu;
-    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     _filtered = [[NSMutableArray alloc]init];
-    
     //获取状态栏的rect
     CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
     //获取导航栏的rect
@@ -34,32 +32,56 @@ CGFloat height;
     //那么导航栏+状态栏的高度
     height = statusRect.size.height+navRect.size.height;
     
-    _tableview = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    [self.view addSubview:_tableview];
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_enter(group);
+    _conversationArray = [[NSMutableArray alloc]init];
+    //JMSGConversation* conversation = [[JMSGConversation alloc]init];
+    [JMSGConversation allConversations:^(id resultObject, NSError *error) {
+        for(JMSGConversation* ret in resultObject){
+            [self->_conversationArray addObject:ret];
+        }
+        dispatch_group_leave(group);
+    }];
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        self->_tableview = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        [self.view addSubview:self->_tableview];
+        
+        self->_tableview.delegate = self;
+        self->_tableview.dataSource = self;
+        self->_tableview.tableFooterView = [[UIView alloc]init];
+        [self->_tableview registerClass:[ChatViewCell class] forCellReuseIdentifier:@"chat"];
+        
+        [self setupSearchBar];
+        self.navigationItem.searchController = self->_search;
+        
+        [self setupBackBtn];
+        
+        self->_plusMenu = [[PlusMenu alloc]init];
+        self->_plusMenu.delegate = self;
+        self->hasMenu = NO;
+        
+        self->_groupChat = [[GroupChat alloc] init];
+        self->_groupChat.delegate = self;
+        
+        [self setupPlusBtn];
+        
+        [self setupRefresh];
+        
+        [self->_refresh beginRefreshing];
+        [self->_refresh endRefreshing];
+    });
     
-    _tableview.delegate = self;
-    _tableview.dataSource = self;
-    _tableview.tableFooterView = [[UIView alloc]init];
-    [_tableview registerClass:[ChatViewCell class] forCellReuseIdentifier:@"chat"];
-    
-    [self setupSearchBar];
-    self.navigationItem.searchController = _search;
-
-    [self setupBackBtn];
-    
-    _plusMenu = [[PlusMenu alloc]init];
-    _plusMenu.delegate = self;
-    hasMenu = NO;
-    
-    _groupChat = [[GroupChat alloc] init];
-    _groupChat.delegate = self;
-    
-    [self setupPlusBtn];
 }
 #pragma mark back button
 -(void)setupBackBtn{
-    UIBarButtonItem* back = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
-    self.navigationItem.backBarButtonItem = back;
+    UIButton* btn = [[UIButton alloc]init];
+    [btn setTitle:@"返回" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    //UIBarButtonItem* back = [[UIBarButtonItem alloc]initWithCustomView:btn];
+    //self.navigationItem.backBarButtonItem = back;
+    btn.frame = CGRectMake(10, 40, 30, 50);
+    [self.navigationController.view addSubview:btn];
+    
 }
 -(void)back{
     dispatch_group_t group2 = dispatch_group_create();
@@ -72,6 +94,16 @@ CGFloat height;
         [self.tableview reloadData];
         [self.navigationController popViewControllerAnimated:YES];
     });
+}
+-(void)setupRefresh{
+    _refresh = [[UIRefreshControl alloc]init];
+    [_tableview addSubview:_refresh];
+    [_refresh addTarget:self action:@selector(fresh) forControlEvents:UIControlEventValueChanged];
+}
+-(void)fresh{
+    //[_refresh beginRefreshing];
+    [_tableview reloadData];
+    [_refresh endRefreshing];
 }
 -(void)setupSearchBar{
     _search = [[UISearchController alloc] initWithSearchResultsController:nil];
@@ -272,6 +304,18 @@ CGFloat height;
 }
 -(void)deleteCon:(NSString*)name{
     [JMSGConversation deleteSingleConversationWithUsername:name];
+}
+-(void)getConversation{
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_enter(group);
+    _conversationArray = [[NSMutableArray alloc]init];
+    //JMSGConversation* conversation = [[JMSGConversation alloc]init];
+    [JMSGConversation allConversations:^(id resultObject, NSError *error) {
+        for(JMSGConversation* ret in resultObject){
+            [self->_conversationArray addObject:ret];
+        }
+        dispatch_group_leave(group);
+    }];
 }
 /*
 #pragma mark - Navigation

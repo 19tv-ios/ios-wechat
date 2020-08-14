@@ -18,9 +18,14 @@
 
 @end
 
-@implementation ChatController
+@implementation ChatController{
+    int cnt;
+    UIImage* voicePic;
+}
 
 - (void)viewDidLoad {
+    cnt = 0;
+    voicePic = [UIImage imageNamed:@"声波"];
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0];
     
@@ -35,21 +40,19 @@
     
     [self setupBottomView];
     //轻点推出键盘
-    
     UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(popKeyboard)];
     [self.view addGestureRecognizer:tapRecognizer];
     
     [JMessage addDelegate:self withConversation:_conModel];
     
 
-    _playRecordButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    _playRecordButton.frame = CGRectMake(50 , 200, 300 , 50);
-    [_playRecordButton setTitle:@"播放录音" forState:UIControlStateNormal];
-    [_playRecordButton addTarget:self action:@selector(playRecordButtonTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_playRecordButton];
+//    _playRecordButton = [UIButton buttonWithType:UIButtonTypeSystem];
+//    _playRecordButton.frame = CGRectMake(50 , 200, 300 , 50);
+//    [_playRecordButton setTitle:@"播放录音" forState:UIControlStateNormal];
+//    [_playRecordButton addTarget:self action:@selector(playRecordButtonTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:_playRecordButton];
     
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan=NO;
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -122,9 +125,26 @@
             meCell.delegate = self;
             return meCell;
         }
-    }else{
-        return [[UITableViewCell alloc]init];
+    }else if(_model.contentType == 3){
+        JMSGVoiceContent* content = (JMSGVoiceContent*)_model.content;
+        if(_model.isReceived){
+            YouCell* youCell = [[YouCell alloc]initWithVoice:content andPic:voicePic andIcon:_otherIcon];
+            _cellHeight = 60;
+            youCell.model = _model;
+            youCell.delegate = self;
+            return youCell;
+        }else{
+            JMSGUser* user = [JMSGUser myInfo];
+            NSData* data = [NSData dataWithContentsOfFile:[user thumbAvatarLocalPath] ];
+            MeCell* meCell = [[MeCell alloc]initWithVoice:content andPic:voicePic andIcon:data];
+            _cellHeight = 60;
+            meCell.model = _model;
+            meCell.delegate = self;
+            //NSLog(@"%@ --- content",content);
+            return meCell;
+        }
     }
+    return [[UITableViewCell alloc]init];
 //    meCell.wordLabel.text = text;
 }
 #pragma mark setup bottomview
@@ -284,14 +304,15 @@
 
 
 
-- (void)playRecordButtonTouchUpInside {
-    if (_recordFilePath) {
-        _player = [[AVAudioPlayer alloc] initWithData:[NSData dataWithContentsOfFile:_recordFilePath] error:nil];
-        [_session setCategory:AVAudioSessionCategoryPlayback error:nil];
-        [_player play];
-        NSLog(@"%@",_recordFilePath);
-    }
-}
+//- (void)playRecordButtonTouchUpInside {
+//    if (_recordFilePath) {
+//        _player = [[AVAudioPlayer alloc] initWithData:[NSData dataWithContentsOfFile:_recordFilePath] error:nil];
+//        [_session setCategory:AVAudioSessionCategoryPlayback error:nil];
+//        [_player play];
+//        NSLog(@"%@",_recordFilePath);
+//        NSLog(@"%f",_player.duration);
+//    }
+//}
 //摁住说话
 - (void)recordButtonTouchDown {
     //info.plist配置权限
@@ -317,7 +338,7 @@
     }
     //获取文件沙盒地址
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    _recordFilePath = [path stringByAppendingString:@"/RRecord.wav"];
+    _recordFilePath = [path stringByAppendingString:[NSString stringWithFormat:@"/%d.wav",cnt] ];
     //设置参数
     NSDictionary *recordSetting = @{AVFormatIDKey: @(kAudioFormatLinearPCM),
                                     AVSampleRateKey: @8000.00f,
@@ -337,6 +358,7 @@
     }else{
         NSLog(@"音频格式和文件存储格式不匹配,无法初始化Recorder");
     }
+    cnt++;
 }
 - (void)refreshLabelText {
     [_recorder updateMeters];
@@ -383,7 +405,17 @@
     [_timer invalidate];
     _timer = nil;
     if ([_recorder isRecording]) {
+        //float seconds = CMTimeGetSeconds(voiceDuration);
+        //NSLog(@"seconds is %f --- ",seconds);
         [_recorder stop];
+        _player = [[AVAudioPlayer alloc]initWithData:[NSData dataWithContentsOfFile:_recordFilePath] error:nil];
+        [_session setCategory:AVAudioSessionCategoryPlayback error:nil];
+        //NSLog(@"%f",_player.duration);
+        JMSGVoiceContent* voiceContent = [ [JMSGVoiceContent alloc]initWithVoiceData:[NSData dataWithContentsOfFile:_recordFilePath] voiceDuration:[NSNumber numberWithDouble:_player.duration] ];
+        JMSGMessage* voiceMsg = [JMSGMessage createSingleMessageWithContent:voiceContent username:_otherSide];
+        [_conModel sendMessage:voiceMsg];
+        [_msgArray addObject:voiceMsg];
+        [_tableview reloadData];
     }
     [_volumeImageView removeFromSuperview];
 }
