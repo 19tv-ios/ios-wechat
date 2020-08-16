@@ -32,45 +32,46 @@ CGFloat height;
     //那么导航栏+状态栏的高度
     height = statusRect.size.height+navRect.size.height;
     
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_group_enter(group);
-    _conversationArray = [[NSMutableArray alloc]init];
-    //JMSGConversation* conversation = [[JMSGConversation alloc]init];
-    [JMSGConversation allConversations:^(id resultObject, NSError *error) {
-        for(JMSGConversation* ret in resultObject){
-            [self->_conversationArray addObject:ret];
-        }
-        dispatch_group_leave(group);
-    }];
-    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        self->_tableview = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
-        [self.view addSubview:self->_tableview];
-        
-        self->_tableview.delegate = self;
-        self->_tableview.dataSource = self;
-        self->_tableview.tableFooterView = [[UIView alloc]init];
-        [self->_tableview registerClass:[ChatViewCell class] forCellReuseIdentifier:@"chat"];
-        
-        [self setupSearchBar];
-        self.navigationItem.searchController = self->_search;
-        
-        [self setupBackBtn];
-        
-        self->_plusMenu = [[PlusMenu alloc]init];
-        self->_plusMenu.delegate = self;
-        self->hasMenu = NO;
-        
-        self->_groupChat = [[GroupChat alloc] init];
-        self->_groupChat.delegate = self;
-        
-        [self setupPlusBtn];
-        
-        [self setupRefresh];
-        
-        [self->_refresh beginRefreshing];
-        [self->_refresh endRefreshing];
-    });
+//    dispatch_group_t group = dispatch_group_create();
+//    dispatch_group_enter(group);
+//    _conversationArray = [[NSMutableArray alloc]init];
+//    //JMSGConversation* conversation = [[JMSGConversation alloc]init];
+//    [JMSGConversation allConversations:^(id resultObject, NSError *error) {
+//        for(JMSGConversation* ret in resultObject){
+//            [self->_conversationArray addObject:ret];
+//        }
+//        dispatch_group_leave(group);
+//    }];
+//    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+    _tableview = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    [self.view addSubview:_tableview];
     
+    _tableview.delegate = self;
+    _tableview.dataSource = self;
+    _tableview.tableFooterView = [[UIView alloc]init];
+    [_tableview registerClass:[ChatViewCell class] forCellReuseIdentifier:@"chat"];
+        
+    [self setupSearchBar];
+    self.navigationItem.searchController = self->_search;
+        
+    [self setupBackBtn];
+        
+    _plusMenu = [[PlusMenu alloc]init];
+    _plusMenu.delegate = self;
+    hasMenu = NO;
+        
+    _groupChat = [[GroupChat alloc] init];
+    _groupChat.delegate = self;
+        
+    [self setupPlusBtn];
+        
+    [self setupRefresh];
+        
+    [_refresh beginRefreshing];
+    [_refresh endRefreshing];
+        
+    [self.tableview reloadData];
+    //    });
 }
 #pragma mark back button
 -(void)setupBackBtn{
@@ -316,6 +317,12 @@ CGFloat height;
         }
         dispatch_group_leave(group);
     }];
+}
+-(instancetype)initAndSetup:(NSMutableArray *)con{
+    self = [super init];
+    _conversationArray = [[NSMutableArray alloc]init];
+    _conversationArray =  con;
+    return self;
 }
 /*
 #pragma mark - Navigation

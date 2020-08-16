@@ -46,6 +46,6 @@
 
 @property(nonatomic,strong)UIImage* image;
 -(instancetype)initWithText:(NSString*)text andIcon:(NSData*)data;
--(instancetype)initWithImage:(JMSGImageContent*)content;
+-(instancetype)initWithImage:(JMSGImageContent*)content andIcon:(NSData*)data;
 -(instancetype)initWithVoice:(JMSGVoiceContent*)content andPic:(UIImage*)image andIcon:(NSData*)data;
 @end

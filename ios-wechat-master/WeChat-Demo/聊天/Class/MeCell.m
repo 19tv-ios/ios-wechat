@@ -107,7 +107,6 @@
         }];
         dispatch_group_notify(group, dispatch_get_main_queue(), ^{
             self->_picView.image = [UIImage imageWithData:self->_imageData];
-            //NSLog(@"加载图片完毕");
         });
     }else if(_voiceContent){
         _iconImage.sd_layout.rightSpaceToView(self.contentView, 10).topSpaceToView(self.contentView, 0).widthIs(45).heightIs(45);
@@ -133,12 +132,20 @@
 }
 -(void)tapVoiceBtn{
     [_voiceContent voiceData:^(NSData *data, NSString *objectId, NSError *error) {
+        self->_voiceData = [[NSData alloc]init];
         self->_voiceData = data;
     }];
     _session =[AVAudioSession sharedInstance];
-    [_session setCategory:AVAudioSessionCategoryPlayback error:nil];
-    _player = [[AVAudioPlayer alloc]initWithData:_voiceData error:nil];
-    NSLog(@"%@",_player);
+    NSError* err1;
+    [_session setCategory:AVAudioSessionCategoryPlayback error:&err1];
+    NSError* err2;
+    _player = [[AVAudioPlayer alloc]initWithData:_voiceData error:&err2];
+    if(err1){
+        NSLog(@"%@",err1);
+    }
+    if(err2){
+        NSLog(@"%@",err2);
+    }
     [_player play];
     NSLog(@"播放语音");
 }
@@ -155,9 +162,10 @@
     [self initSubviews];
     return self;
 }
--(instancetype)initWithImage:(JMSGImageContent *)content{
+-(instancetype)initWithImage:(JMSGImageContent *)content andIcon:(NSData*)data{
     self = [super init];
     _picContent = content;
+    _icon = data;
     [self initSubviews];
     return self;
 }

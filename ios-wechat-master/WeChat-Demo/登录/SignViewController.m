@@ -240,6 +240,7 @@ NSString *infopassword;
             infopassword = passWord;
             [self writeToPlist];
             TabBarController *tabBarController = [[TabBarController alloc] init];
+            //[tabBarController setupChatView];
             [self presentViewController:tabBarController animated:YES completion:nil];
         }else{
             //提示信息有误

@@ -113,13 +113,15 @@
     }else if(_model.contentType == 2){
         JMSGImageContent* content = (JMSGImageContent*)_model.content;
         if(_model.isReceived){
-            YouCell* youCell = [[YouCell alloc]initWithImage:content];
+            YouCell* youCell = [[YouCell alloc]initWithImage:content andIcon:_otherIcon];
             _cellHeight = 210;
             youCell.model = _model;
             youCell.delegate = self;
             return youCell;
         }else{
-            MeCell* meCell = [[MeCell alloc]initWithImage:content];
+            JMSGUser* user = [JMSGUser myInfo];
+            NSData* data = [NSData dataWithContentsOfFile:[user thumbAvatarLocalPath] ];
+            MeCell* meCell = [[MeCell alloc]initWithImage:content andIcon:data];
             _cellHeight = 210;
             meCell.model = _model;
             meCell.delegate = self;
@@ -215,12 +217,14 @@
 #pragma mark uiimagepicker协议
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     UIImage* myImage = info[UIImagePickerControllerOriginalImage];
-    NSData* imageData = UIImagePNGRepresentation(myImage);
+    NSData* imageData = UIImageJPEGRepresentation(myImage, 0.7);
     JMSGImageContent* imageContent = [[JMSGImageContent alloc]initWithImageData:imageData];
     _freshMsg = [JMSGMessage createSingleMessageWithContent:imageContent username:_otherSide];
     //[JMSGMessage sendMessage:_freshMsg];
     [_conModel sendMessage:_freshMsg];
+    [_msgArray addObject:_freshMsg];
     //NSLog(@"%@ --- image %@ --- name ",_freshMsg,_otherSide);
+    [_tableview reloadData];
     [_picker dismissViewControllerAnimated:YES completion:nil];
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
@@ -329,8 +333,8 @@
     _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(refreshLabelText) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
     _session =[AVAudioSession sharedInstance];
-    NSError *sessionError;
-    [_session setCategory:AVAudioSessionCategoryPlayAndRecord error:&sessionError];
+    NSError *sessionError = nil;
+    [_session setCategory:AVAudioSessionCategoryRecord error:&sessionError];
     if (_session == nil) {
         NSLog(@"Error creating session: %@",[sessionError description]);
     } else {
@@ -338,7 +342,8 @@
     }
     //获取文件沙盒地址
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    _recordFilePath = [path stringByAppendingString:[NSString stringWithFormat:@"/%d.wav",cnt] ];
+    _recordFilePath = [path stringByAppendingString:@"/rr.wav" ];
+    NSLog(@"%@",_recordFilePath);
     //设置参数
     NSDictionary *recordSetting = @{AVFormatIDKey: @(kAudioFormatLinearPCM),
                                     AVSampleRateKey: @8000.00f,
@@ -347,9 +352,14 @@
                                     AVLinearPCMIsNonInterleaved: @NO,
                                     AVLinearPCMIsFloatKey: @NO,
                                     AVLinearPCMIsBigEndianKey: @NO};
-    _recorder = [[AVAudioRecorder alloc] initWithURL:[NSURL fileURLWithPath:_recordFilePath] settings:recordSetting error:nil];
+    NSError* err;
+    _recorder = [[AVAudioRecorder alloc] initWithURL:[NSURL fileURLWithPath:_recordFilePath] settings:recordSetting error:&err];
+    if (err) {
+        NSLog(@"[AudioRecorder][Error] %@", err);
+    }
     if (_recorder) {
         _recorder.meteringEnabled = YES;
+        [self resetEnvironment];
         [_recorder prepareToRecord];
         [_recorder record];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(60 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -360,6 +370,18 @@
     }
     cnt++;
 }
+- (void)resetEnvironment {
+    //check doc path
+    NSFileManager *fm = [NSFileManager defaultManager];
+    if ([fm fileExistsAtPath:_recordFilePath]) {
+        NSError *error;
+        [fm removeItemAtPath:_recordFilePath error:&error];
+        if (error) {
+            NSLog(@"[AudioRecorder][FM]ERROR %@", error);
+        }
+    }
+}
+
 - (void)refreshLabelText {
     [_recorder updateMeters];
     float level;

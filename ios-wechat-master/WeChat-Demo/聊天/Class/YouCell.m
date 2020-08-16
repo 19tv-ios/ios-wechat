@@ -29,7 +29,7 @@
         
         _iconImage = [[UIImageView alloc] init];
         _iconImage = UIImageView.new;
-        UIImage* icon = [UIImage imageNamed:@"微信"];
+        UIImage* icon = [UIImage imageWithData:_icon];
         _iconImage.image = icon;
         
         [self.contentView sd_addSubviews:@[_picView,_iconImage] ];
@@ -155,9 +155,10 @@
     [self initSubviews];
     return self;
 }
--(instancetype)initWithImage:(JMSGImageContent *)content{
+-(instancetype)initWithImage:(JMSGImageContent *)content andIcon:(NSData*)data{
     self = [super init];
     _picContent = content;
+    _icon = data;
     [self initSubviews];
     return self;
 }

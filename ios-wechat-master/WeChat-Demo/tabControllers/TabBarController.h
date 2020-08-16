@@ -23,4 +23,5 @@
 @property(nonatomic,strong)PlusMenu* menu;
 
 - (void)addChildViewController:(UIViewController *)childController withTitle:(NSString*)title Image:(NSString*)imageName selectedImage:(NSString*)selectedImageName;
+-(void)setupChatView;
 @end

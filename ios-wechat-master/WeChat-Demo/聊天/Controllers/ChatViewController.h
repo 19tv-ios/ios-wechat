@@ -51,4 +51,5 @@
 
 @property(nonatomic,strong) UIRefreshControl* refresh;
 -(void)getMsgModel;
+-(instancetype)initAndSetup:(NSMutableArray*)con;
 @end
