@@ -111,7 +111,7 @@
         _iconImage.sd_layout.leftSpaceToView(self.contentView, 10).topSpaceToView(self.contentView, 0).widthIs(45).heightIs(45);
         _iconImage.sd_cornerRadius = [NSNumber numberWithInt:5];
         
-        _bubbleView.sd_layout.leftSpaceToView(_iconImage, 5).topSpaceToView(self.contentView, 5).widthIs(ScreenWeight/2 - 15).heightIs(40);
+        _bubbleView.sd_layout.leftSpaceToView(_iconImage, 5).topSpaceToView(self.contentView, 5).widthIs(ScreenWeight/2 - 75).heightIs(40);
         
         _voiceBtn.sd_layout.leftSpaceToView(_iconImage, 40).topSpaceToView(self.contentView, 12).heightIs(30).widthIs(100);
     }else{

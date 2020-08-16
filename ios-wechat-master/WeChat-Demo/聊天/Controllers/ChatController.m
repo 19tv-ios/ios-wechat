@@ -35,6 +35,9 @@
     _tableview.dataSource = self;
     //去除tableview的横线
     _tableview.separatorStyle = NO;
+    if (@available (iOS 11,*)) {
+        _tableview.estimatedRowHeight = 0;
+    }
     //_tableview.backgroundView = [[UIView alloc]init];
     [self.view addSubview:_tableview];
     
@@ -44,13 +47,6 @@
     [self.view addGestureRecognizer:tapRecognizer];
     
     [JMessage addDelegate:self withConversation:_conModel];
-    
-
-//    _playRecordButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//    _playRecordButton.frame = CGRectMake(50 , 200, 300 , 50);
-//    [_playRecordButton setTitle:@"播放录音" forState:UIControlStateNormal];
-//    [_playRecordButton addTarget:self action:@selector(playRecordButtonTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:_playRecordButton];
     
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan=NO;
 }

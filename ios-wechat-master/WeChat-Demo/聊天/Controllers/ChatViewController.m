@@ -19,6 +19,7 @@
 CGFloat height;
 @implementation ChatViewController{
     bool hasMenu;
+    bool firstTime;
 }
 
 - (void)viewDidLoad {
@@ -32,17 +33,6 @@ CGFloat height;
     //那么导航栏+状态栏的高度
     height = statusRect.size.height+navRect.size.height;
     
-//    dispatch_group_t group = dispatch_group_create();
-//    dispatch_group_enter(group);
-//    _conversationArray = [[NSMutableArray alloc]init];
-//    //JMSGConversation* conversation = [[JMSGConversation alloc]init];
-//    [JMSGConversation allConversations:^(id resultObject, NSError *error) {
-//        for(JMSGConversation* ret in resultObject){
-//            [self->_conversationArray addObject:ret];
-//        }
-//        dispatch_group_leave(group);
-//    }];
-//    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
     _tableview = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     [self.view addSubview:_tableview];
     
@@ -50,6 +40,11 @@ CGFloat height;
     _tableview.dataSource = self;
     _tableview.tableFooterView = [[UIView alloc]init];
     [_tableview registerClass:[ChatViewCell class] forCellReuseIdentifier:@"chat"];
+    if (@available (iOS 11,*)) {
+        _tableview.estimatedRowHeight = 0;
+        _tableview.estimatedSectionHeaderHeight = 0;
+        _tableview.estimatedSectionFooterHeight = 0;
+    }
         
     [self setupSearchBar];
     self.navigationItem.searchController = self->_search;
@@ -67,11 +62,19 @@ CGFloat height;
         
     [self setupRefresh];
         
-    [_refresh beginRefreshing];
-    [_refresh endRefreshing];
-        
-    [self.tableview reloadData];
-    //    });
+
+    if(firstTime == YES){
+        [self getConversation];
+        firstTime = NO;
+    }
+    [self getConversation];
+    
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    [self.refresh beginRefreshing];
+    [self.refresh sendActionsForControlEvents:UIControlEventValueChanged];
 }
 #pragma mark back button
 -(void)setupBackBtn{
@@ -98,12 +101,14 @@ CGFloat height;
 }
 -(void)setupRefresh{
     _refresh = [[UIRefreshControl alloc]init];
-    [_tableview addSubview:_refresh];
+    _tableview.refreshControl = _refresh;
     [_refresh addTarget:self action:@selector(fresh) forControlEvents:UIControlEventValueChanged];
 }
 -(void)fresh{
     //[_refresh beginRefreshing];
+    [self getConversation];
     [_tableview reloadData];
+    NSLog(@"刷新");
     [_refresh endRefreshing];
 }
 -(void)setupSearchBar{
@@ -317,11 +322,19 @@ CGFloat height;
         }
         dispatch_group_leave(group);
     }];
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        [self.tableview reloadData];
+        if(self->_refresh.isRefreshing == YES){
+            [self->_refresh endRefreshing];
+        }
+    });
+    
 }
 -(instancetype)initAndSetup:(NSMutableArray *)con{
     self = [super init];
     _conversationArray = [[NSMutableArray alloc]init];
     _conversationArray =  con;
+    firstTime = YES;
     return self;
 }
 /*

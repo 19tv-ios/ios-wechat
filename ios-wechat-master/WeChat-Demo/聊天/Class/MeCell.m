@@ -67,7 +67,7 @@
         _bubbleView.backgroundColor = [UIColor colorWithRed:152/255.0 green:234/255.0 blue:112/255.0 alpha:1.0];
         _bubbleView.layer.borderWidth = 1;
         _bubbleView.layer.borderColor = [UIColor whiteColor].CGColor;
-        _bubbleView.layer.cornerRadius = 10;
+        _bubbleView.layer.cornerRadius = 5;
         
         _wordLabel = [[UILabel alloc] init];
         _wordLabel = UILabel.new;
@@ -91,7 +91,7 @@
     
     [self layout];
     //self.selectedBackgroundView = [[UIView alloc]init];
-    self.selectionStyle = UITableViewCellSelectionStyleDefault;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 -(void)layout{
     if(_picContent){
@@ -99,6 +99,8 @@
         _iconImage.sd_cornerRadius = [NSNumber numberWithInt:5];
         
         _picView.sd_layout.rightSpaceToView(_iconImage, 5).topSpaceToView(self.contentView, 5).widthIs(ScreenWeight/2 - 15).heightIs(200);
+        _picView.sd_cornerRadius = [NSNumber numberWithInt:5];
+        
         dispatch_group_t group = dispatch_group_create();
         dispatch_group_enter(group);
         [_picContent thumbImageData:^(NSData *data, NSString *objectId, NSError *error) {
@@ -112,22 +114,43 @@
         _iconImage.sd_layout.rightSpaceToView(self.contentView, 10).topSpaceToView(self.contentView, 0).widthIs(45).heightIs(45);
         _iconImage.sd_cornerRadius = [NSNumber numberWithInt:5];
         
-        _bubbleView.sd_layout.rightSpaceToView(_iconImage, 5).topSpaceToView(self.contentView, 5).widthIs(ScreenWeight/2 - 15).heightIs(40);
+        _bubbleView.sd_layout.rightSpaceToView(_iconImage, 5).topSpaceToView(self.contentView, 5).widthIs(ScreenWeight/2 - 75).heightIs(40);
         
-        _voiceBtn.sd_layout.rightSpaceToView(_iconImage, 40).topSpaceToView(self.contentView, 12).heightIs(30).widthIs(100);
+        _voiceBtn.sd_layout.rightSpaceToView(_iconImage, 12).topSpaceToView(self.contentView, 12).heightIs(30).widthIs(100);
     }else{
         _iconImage.sd_layout.rightSpaceToView(self.contentView, 10).topSpaceToView(self.contentView, 0).widthIs(45).heightIs(45);
         _iconImage.sd_cornerRadius = [NSNumber numberWithInt:5];
         [_iconImage updateLayout];
         
-        _wordLabel.preferredMaxLayoutWidth = ScreenWeight/2 - 30;
+        _wordLabel.preferredMaxLayoutWidth = _text.length * 10;
+        
+//        CGSize textBound = CGSizeMake(_text.length * 10, MAXFLOAT);
+//        NSDictionary* textBoundParam = @{NSFontAttributeName : [UIFont systemFontOfSize:14]};
+//        _labelHeight = [_wordLabel.text boundingRectWithSize:textBound options:NSStringDrawingUsesLineFragmentOrigin attributes:textBoundParam context:nil].size.height;
+        
+        if(_text.length < 5){
+            _wordLabel.preferredMaxLayoutWidth = _text.length * 10;
+
+            CGSize textBound = CGSizeMake(_text.length * 10, MAXFLOAT);
+            NSDictionary* textBoundParam = @{NSFontAttributeName : [UIFont systemFontOfSize:14]};
+            _labelHeight = [_wordLabel.text boundingRectWithSize:textBound options:NSStringDrawingUsesLineFragmentOrigin attributes:textBoundParam context:nil].size.height;
+        }else if(_text.length < 15 && _text.length > 5){
+            _wordLabel.preferredMaxLayoutWidth = _text.length * 10;
+
+            CGSize textBound = CGSizeMake(_text.length * 10, MAXFLOAT);
+            NSDictionary* textBoundParam = @{NSFontAttributeName : [UIFont systemFontOfSize:14]};
+            _labelHeight = [_wordLabel.text boundingRectWithSize:textBound options:NSStringDrawingUsesLineFragmentOrigin attributes:textBoundParam context:nil].size.height;
+        }else{
+            _wordLabel.preferredMaxLayoutWidth = ScreenWeight/2 - 50;
+
+            CGSize textBound = CGSizeMake(ScreenWeight/2-50, MAXFLOAT);
+            NSDictionary* textBoundParam = @{NSFontAttributeName : [UIFont systemFontOfSize:14]};
+            _labelHeight = [_wordLabel.text boundingRectWithSize:textBound options:NSStringDrawingUsesLineFragmentOrigin attributes:textBoundParam context:nil].size.height;
+        }
         _wordLabel.sd_layout.rightSpaceToView(_iconImage, 10).topSpaceToView(self.contentView, 15).widthIs(_wordLabel.preferredMaxLayoutWidth).autoHeightRatio(0);
         _wordLabel.font = [UIFont systemFontOfSize:14];
-        CGSize textBound = CGSizeMake(ScreenWeight/2-30, MAXFLOAT);
-        NSDictionary* textBoundParam = @{NSFontAttributeName : [UIFont systemFontOfSize:14]};
-        _labelHeight = [_wordLabel.text boundingRectWithSize:textBound options:NSStringDrawingUsesLineFragmentOrigin attributes:textBoundParam context:nil].size.height;
         
-        _bubbleView.sd_layout.rightSpaceToView(_iconImage, 5).topSpaceToView(self.contentView, 5).widthIs(ScreenWeight/2 - 15).heightIs(_labelHeight + 15);
+        _bubbleView.sd_layout.rightSpaceToView(_iconImage, 5).topSpaceToView(self.contentView, 5).widthIs(_wordLabel.preferredMaxLayoutWidth + 10).heightIs(_labelHeight + 15);
     }
 }
 -(void)tapVoiceBtn{
