@@ -12,6 +12,7 @@
 #import "YouCell.h"
 #import "PushToDetail.h"
 #import "DetailVc.h"
+#import "VoiceView.h"
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
 #define ScreenWeight [UIScreen mainScreen].bounds.size.width
 @interface ChatController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,JMessageDelegate,PushToDetail>
@@ -45,14 +46,10 @@
     
     [JMessage addDelegate:self withConversation:_conModel];
     
-
-//    _playRecordButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//    _playRecordButton.frame = CGRectMake(50 , 200, 300 , 50);
-//    [_playRecordButton setTitle:@"播放录音" forState:UIControlStateNormal];
-//    [_playRecordButton addTarget:self action:@selector(playRecordButtonTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:_playRecordButton];
     
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan=NO;
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -323,10 +320,6 @@
     if (![self canRecord]) {
         NSLog(@"请启用麦克风-设置/隐私/麦克风");
     }
-    _volumeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 120, 120)];
-    _volumeImageView.center = self.tableview.center;
-    _volumeImageView.image = [UIImage imageNamed:@"麦克风1"];
-    [self.view addSubview:_volumeImageView];
     //开始录音
     _countDown = 60;
     //添加定时器
@@ -369,6 +362,10 @@
         NSLog(@"音频格式和文件存储格式不匹配,无法初始化Recorder");
     }
     cnt++;
+    _voiceview = [[VoiceView alloc] init];
+    _voiceview.frame = CGRectMake(0, 0, 150, 120);
+    _voiceview.center = self.view.center;
+    [self.view addSubview:_voiceview];
 }
 - (void)resetEnvironment {
     //check doc path
@@ -402,16 +399,10 @@
     NSInteger voice = level*10 + 1;
     voice = voice > 8 ? 8 : voice;
     NSLog(@"%ld",voice);
-    NSString *imageIndex = [NSString stringWithFormat:@"voice_%ld", voice];
-    if (_isLeaveSpeakBtn) {
-        _volumeImageView.image = [UIImage imageNamed:@"rc_ic_volume_cancel"];
-    } else {
-        _volumeImageView.image = [UIImage imageNamed:imageIndex];
-    }
     _countDown --;
-    if (_countDown < 10 && _countDown > 0) {
-        _volumeLabel.text = [NSString stringWithFormat:@"还剩 %ld 秒",(long)_countDown];
-    }
+    //更新音量大小
+    NSString *time = [NSString stringWithFormat:@"%lds",(long)_countDown];
+    [_voiceview fillViewColorAndTime:(int)voice :time];
     //超时自动发送
     if (_countDown < 1) {
         [self recordButtonTouchUpInside];
@@ -438,8 +429,9 @@
         [_conModel sendMessage:voiceMsg];
         [_msgArray addObject:voiceMsg];
         [_tableview reloadData];
+        [_voiceview removeFromSuperview];
     }
-    [_volumeImageView removeFromSuperview];
+    
 }
 //检查是否拥有麦克风权限
 - (BOOL)canRecord {

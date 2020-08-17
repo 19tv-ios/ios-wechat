@@ -66,9 +66,12 @@ extern NSString *infopassword;
             dispatch_group_t group = dispatch_group_create();
             dispatch_group_enter(group);
             [JMSGUser loginWithUsername:model.username password:model.password completionHandler:^(id resultObject, NSError *error) {
-                NSLog(@"%@",resultObject);
-                infopassword = model.password;
-                self.window.rootViewController = self->_tabBarController;
+                if (error) {
+                    self.window.rootViewController = self->_signViewController;
+                }else {
+                    infopassword = model.password;
+                    self.window.rootViewController = self->_tabBarController;
+                }
             }];
             dispatch_group_notify(group, dispatch_get_main_queue(), ^{
                 NSLog(@"11");

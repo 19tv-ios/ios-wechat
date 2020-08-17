@@ -37,6 +37,7 @@
 		5239903F24D9AA2F00310576 /* SignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239903E24D9AA2F00310576 /* SignViewController.m */; };
 		5260742B24DCF72F00A91759 /* newFriendsVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 5260742A24DCF72F00A91759 /* newFriendsVc.m */; };
 		5267E15224E53C5200F68F19 /* GroupChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 5267E15124E53C5200F68F19 /* GroupChat.m */; };
+		5271A5A124EAABE4004B6171 /* VoiceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5271A5A024EAABE4004B6171 /* VoiceView.m */; };
 		528A773224DE84890094F398 /* GFAddressPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 528A773024DE84890094F398 /* GFAddressPicker.m */; };
 		528A773324DE84890094F398 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 528A773124DE84890094F398 /* Address.plist */; };
 		52BF02D724E2919B004D183F /* accountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 52BF02D624E2919B004D183F /* accountModel.m */; };
@@ -132,6 +133,8 @@
 		5260742A24DCF72F00A91759 /* newFriendsVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = newFriendsVc.m; sourceTree = "<group>"; };
 		5267E15024E53C5200F68F19 /* GroupChat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupChat.h; sourceTree = "<group>"; };
 		5267E15124E53C5200F68F19 /* GroupChat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupChat.m; sourceTree = "<group>"; };
+		5271A59F24EAABE4004B6171 /* VoiceView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoiceView.h; sourceTree = "<group>"; };
+		5271A5A024EAABE4004B6171 /* VoiceView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoiceView.m; sourceTree = "<group>"; };
 		528A772F24DE84890094F398 /* GFAddressPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFAddressPicker.h; sourceTree = "<group>"; };
 		528A773024DE84890094F398 /* GFAddressPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFAddressPicker.m; sourceTree = "<group>"; };
 		528A773124DE84890094F398 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
@@ -403,6 +406,8 @@
 				22B47F8424DA9D560078122F /* ChatViewController.m */,
 				5267E15024E53C5200F68F19 /* GroupChat.h */,
 				5267E15124E53C5200F68F19 /* GroupChat.m */,
+				5271A59F24EAABE4004B6171 /* VoiceView.h */,
+				5271A5A024EAABE4004B6171 /* VoiceView.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -626,6 +631,7 @@
 				52028E6B24E127CD00EF6C9B /* SexPickerTool.m in Sources */,
 				22B47F2624D908BA0078122F /* AppDelegate.m in Sources */,
 				E204E26424E1359000CA2B44 /* SettingVc.m in Sources */,
+				5271A5A124EAABE4004B6171 /* VoiceView.m in Sources */,
 				22B47F6224D90C8E0078122F /* MyViewController.m in Sources */,
 				5239903F24D9AA2F00310576 /* SignViewController.m in Sources */,
 				2211994724E1967400F5D63E /* NoNetWork.m in Sources */,
