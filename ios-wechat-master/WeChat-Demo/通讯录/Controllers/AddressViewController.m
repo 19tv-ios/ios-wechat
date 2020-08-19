@@ -27,6 +27,8 @@
 @property (nonatomic,strong) newFriendsVc *FriendsVc;
 //新的朋友tableview
 @property (nonatomic,strong) UITableView *tab;
+//加载菊花
+@property (nonatomic,strong) UIActivityIndicatorView *activityIndicator;
 
 //当前登陆用户
 @property (nonatomic,strong) JMSGUser *user;
@@ -147,6 +149,14 @@
     search.searchBar.delegate = self;
     self.navigationItem.searchController = search;
     
+    //菊花动画
+    self.activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.activityIndicator.backgroundColor = [UIColor grayColor];
+    self.activityIndicator.frame =  CGRectMake(162, 382, 50, 50);
+    [self.view addSubview:self.activityIndicator];
+//    self.activityIndicator.sd_layout.topSpaceToView(self.view, 162).leftSpaceToView(self.view, 382).widthIs(50).heightIs(50);
+//    self.activityIndicator.hidesWhenStopped = NO;
+    
     //更新通讯录列表
     [self updateFriendsList];
     
@@ -161,6 +171,10 @@
 
 //更新通讯录页面
 - (void)updateFriendsList{
+   
+    //开始菊花动画
+    [self.activityIndicator startAnimating];
+    
     //    获取好友列表
     [JMSGFriendManager getFriendList:^(id resultObject, NSError *error) {
         NSArray *array = resultObject;
@@ -183,6 +197,9 @@
     if (_userModelArray.count != 0) {
         self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu",self.userModelArray.count];
     }
+    
+    //停止菊花动画
+    [self.activityIndicator stopAnimating];
 }
 
 // 按首字母分组排序数组
@@ -532,21 +549,21 @@
             [self.navigationController pushViewController:Vc animated:YES];
         }];
         RemarkAction.backgroundColor = [UIColor grayColor];
-        UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"删除" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-            UIAlertController *AlertController = [UIAlertController alertControllerWithTitle:@"确定删除该好友吗？" message:nil preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *agreeAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [JMSGFriendManager removeFriendWithUsername:self.user.username appKey:@"0a974aa68871f642444ae38b" completionHandler:^(id resultObject, NSError *error) {
-                    if (error == nil) {NSLog(@"删除好友成功");}
-                    [self updateFriendsList];
-                }];
-            }];
-            UIAlertAction *disagreeAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:nil];
-            [AlertController addAction:agreeAction];
-            [AlertController addAction:disagreeAction];
-            [self presentViewController:AlertController animated:YES completion:nil];
-        }];
-        deleteAction.backgroundColor = [UIColor redColor];
-        UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteAction,RemarkAction]];
+//        UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"删除" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+//            UIAlertController *AlertController = [UIAlertController alertControllerWithTitle:@"确定删除该好友吗？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+//            UIAlertAction *agreeAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                [JMSGFriendManager removeFriendWithUsername:self.user.username appKey:@"0a974aa68871f642444ae38b" completionHandler:^(id resultObject, NSError *error) {
+//                    if (error == nil) {NSLog(@"删除好友成功");}
+//                    [self updateFriendsList];
+//                }];
+//            }];
+//            UIAlertAction *disagreeAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:nil];
+//            [AlertController addAction:agreeAction];
+//            [AlertController addAction:disagreeAction];
+//            [self presentViewController:AlertController animated:YES completion:nil];
+//        }];
+//        deleteAction.backgroundColor = [UIColor redColor];
+        UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[RemarkAction]];//deleteAction,
         config.performsFirstActionWithFullSwipe = NO;
         return config;
     }

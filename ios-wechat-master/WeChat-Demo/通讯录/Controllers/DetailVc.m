@@ -12,8 +12,9 @@
 #import "SettingVc.h"
 #import "MoreMessageVc.h"
 #import "ChatController.h"
-@interface DetailVc ()<UITableViewDataSource,UITableViewDelegate>
-
+@interface DetailVc ()<UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate>
+//图片预览的scrolView
+@property (nonatomic,strong) UIScrollView *scrollView;
 @end
 
 @implementation DetailVc
@@ -46,7 +47,9 @@
         }
     }];
    
-   
+    headView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showZoomImageView:)];
+    [headView addGestureRecognizer:tap];
     
     
     //昵称
@@ -216,5 +219,98 @@
     return cell;
 }
 
+#pragma mark 图片预览
+- (void)showZoomImageView:(UITapGestureRecognizer *)tap{
+    if (![(UIImageView *)tap.view image]) {
+        return;
+    }
+    //scrollView作为背景
+    UIScrollView *bgView = [[UIScrollView alloc] init];
+    bgView.frame = [UIScreen mainScreen].bounds;
+    bgView.backgroundColor = [UIColor blackColor];
+    //点击手势
+    UITapGestureRecognizer *tapBg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBgView:)];
+    [bgView addGestureRecognizer:tapBg];
+    
+    UIImageView *picView = (UIImageView *)tap.view;
+    
+    UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.image = picView.image;
+    imageView.userInteractionEnabled = YES;
+    imageView.multipleTouchEnabled = YES;
+    [bgView addSubview:imageView];
+//    imageView.sd_layout.topSpaceToView(bgView, 200).leftEqualToView(bgView).widthIs(375).heightIs(375);
+    imageView.frame = CGRectMake(self.view.origin.x,self.view.origin.y+200, 375, 375);
+    //缩放手势
+    UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchView:)];
+    pinchGestureRecognizer.delegate =self;
+    
+    [imageView addGestureRecognizer:pinchGestureRecognizer];
+    // 拖拉手势
+    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panView:)];
+    [imageView addGestureRecognizer:panGestureRecognizer];
+    // 旋转手势
+    UIRotationGestureRecognizer *rotationGestureRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotateView:)];
+    [imageView addGestureRecognizer:rotationGestureRecognizer];
+//    //长按手势
+//    UILongPressGestureRecognizer *longPressGesstureRecognizer = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPress:)];
+//    longPressGesstureRecognizer.minimumPressDuration = 2.0;
+//    [imageView addGestureRecognizer:longPressGesstureRecognizer];
+    
+    [[[UIApplication sharedApplication] keyWindow] addSubview:bgView];
+    
+ 
+    self.scrollView = bgView;
+    self.scrollView.delegate = self;
 
+ 
+    
+ 
+}
+#pragma mark 手势
+//再次点击手势
+- (void)tapBgView:(UITapGestureRecognizer *)tapBgRecognizer{
+    [UIView animateWithDuration:0.5 animations:^{
+         tapBgRecognizer.view.backgroundColor = [UIColor clearColor];
+    } completion:^(BOOL finished) {
+        [tapBgRecognizer.view removeFromSuperview];
+    }];
+}
+
+- (void) pinchView:(UIPinchGestureRecognizer *)pinchGestureRecognizer{
+    NSLog(@"手势缩放");
+    UIView *view = pinchGestureRecognizer.view;
+    
+    if (pinchGestureRecognizer.state == UIGestureRecognizerStateBegan || pinchGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        view.transform = CGAffineTransformScale(view.transform, pinchGestureRecognizer.scale, pinchGestureRecognizer.scale);
+//        if (pinchGestureRecognizer.scale > 2.0) {return ;}
+//         if (pinchGestureRecognizer.scale < 0.5) {return ;}
+        pinchGestureRecognizer.scale = 1;
+    }
+ 
+}
+
+// 处理拖拉手势
+- (void) panView:(UIPanGestureRecognizer *)panGestureRecognizer{
+     NSLog(@"手势拖拉");
+    UIView *view = panGestureRecognizer.view;
+    if (panGestureRecognizer.state == UIGestureRecognizerStateBegan || panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        CGPoint translation = [panGestureRecognizer translationInView:view.superview];
+        [view setCenter:(CGPoint){view.center.x + translation.x, view.center.y + translation.y}];
+        [panGestureRecognizer setTranslation:CGPointZero inView:view.superview];
+    }
+}
+
+// 处理旋转手势
+- (void) rotateView:(UIRotationGestureRecognizer *)rotationGestureRecognizer{
+    UIView *view = rotationGestureRecognizer.view;
+    if (rotationGestureRecognizer.state == UIGestureRecognizerStateBegan || rotationGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        view.transform = CGAffineTransformRotate(view.transform, rotationGestureRecognizer.rotation);
+        [rotationGestureRecognizer setRotation:0];
+    }
+}
+////长按手势
+//- (void) longPress:(UILongPressGestureRecognizer *)longPressGestureRecognizer{
+//    
+//}
 @end
