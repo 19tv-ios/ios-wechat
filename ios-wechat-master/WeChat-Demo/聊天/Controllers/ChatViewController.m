@@ -13,7 +13,7 @@
 #import "AddFriendsVc.h"
 #import "GroupChat.h"
 #import <JMessage/JMessage.h>
-@interface ChatViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating,PushToAddFriends,UISearchControllerDelegate,UISearchResultsUpdating,UISearchBarDelegate>
+@interface ChatViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating,PushToAddFriends,UISearchControllerDelegate,UISearchResultsUpdating,UISearchBarDelegate,JMSGConversationDelegate>
 
 @end
 CGFloat height;
@@ -95,7 +95,7 @@ CGFloat height;
         dispatch_group_leave(group2);
     }];
     dispatch_group_notify(group2, dispatch_get_main_queue(), ^{
-        [self.tableview reloadData];
+        [self.tableview reloadRowsAtIndexPaths:@[self->_selectedIndexPath] withRowAnimation:UITableViewRowAnimationNone];
         [self.navigationController popViewControllerAnimated:YES];
     });
 }
@@ -222,6 +222,7 @@ CGFloat height;
     //con.conversationType = kJMSGConversationTypeSingle;
     JMSGConversation* con = [_conversationArray objectAtIndex:indexPath.row];
     _certainMsg = [[NSMutableArray alloc]init];
+    _selectedIndexPath = indexPath;
     
     dispatch_group_t group = dispatch_group_create();
     dispatch_group_enter(group);
@@ -336,6 +337,10 @@ CGFloat height;
     _conversationArray =  con;
     firstTime = YES;
     return self;
+}
+- (void)onConversationChanged:(JMSGConversation *)conversation{
+    [self.tableview reloadData];
+    NSLog(@"对话变更");
 }
 /*
 #pragma mark - Navigation

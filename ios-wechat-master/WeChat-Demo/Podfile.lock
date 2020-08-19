@@ -18,12 +18,16 @@ PODS:
   - JMessage (3.9.1):
     - JCore (< 3.0.0, >= 2.0.0)
   - SDAutoLayout (2.2.1)
+  - SDWebImage (5.8.4):
+    - SDWebImage/Core (= 5.8.4)
+  - SDWebImage/Core (5.8.4)
   - YUChineseSorting (1.0.2)
 
 DEPENDENCIES:
   - AFNetworking
   - JMessage
   - SDAutoLayout
+  - SDWebImage
   - YUChineseSorting
 
 SPEC REPOS:
@@ -32,6 +36,7 @@ SPEC REPOS:
     - JCore
     - JMessage
     - SDAutoLayout
+    - SDWebImage
     - YUChineseSorting
 
 SPEC CHECKSUMS:
@@ -39,8 +44,9 @@ SPEC CHECKSUMS:
   JCore: 8aa29dc57ba3730dd9fe7544ce1a4e1cbe221135
   JMessage: 43dfcd5348573b2f4f24357b12e9b19076322606
   SDAutoLayout: 8bf6b3bbc8b01f775d4defbb4fda2ace805461be
+  SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
   YUChineseSorting: 46bbd4fa0344e21b169a537bb17aafec0980c560
 
-PODFILE CHECKSUM: c354d6043b0e95454009fef18f29d7af8d85f5e5
+PODFILE CHECKSUM: b8067e4b0e2a4e478973c80ca0099d1c1d2364f0
 
 COCOAPODS: 1.9.3

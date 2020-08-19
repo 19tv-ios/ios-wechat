@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20CC5D962E047210420108E4 /* libPods-WeChat-DemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 571E6C1EE8C32856D1BBE68B /* libPods-WeChat-DemoTests.a */; };
 		2211994724E1967400F5D63E /* NoNetWork.m in Sources */ = {isa = PBXBuildFile; fileRef = 2211994624E1967400F5D63E /* NoNetWork.m */; };
 		2211994A24E19FAF00F5D63E /* PlusMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2211994924E19FAF00F5D63E /* PlusMenu.m */; };
 		2212FF1F24DB9F710086724D /* GetConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2212FF1E24DB9F710086724D /* GetConversation.m */; };
@@ -156,7 +157,9 @@
 		52BF02D624E2919B004D183F /* accountModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = accountModel.m; sourceTree = "<group>"; };
 		52EED49D24DFD57400A3EB9F /* Zhbutton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Zhbutton.m; path = "通讯录/class/Zhbutton.m"; sourceTree = SOURCE_ROOT; };
 		52EED49E24DFD57400A3EB9F /* Zhbutton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Zhbutton.h; path = "通讯录/class/Zhbutton.h"; sourceTree = SOURCE_ROOT; };
+		571E6C1EE8C32856D1BBE68B /* libPods-WeChat-DemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeChat-DemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		69AFE9673C9041676E05E05A /* Pods-WeChat-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChat-Demo.debug.xcconfig"; path = "Target Support Files/Pods-WeChat-Demo/Pods-WeChat-Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		72947F5C5DDF1381B372D137 /* Pods-WeChat-DemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChat-DemoTests.release.xcconfig"; path = "Target Support Files/Pods-WeChat-DemoTests/Pods-WeChat-DemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		A36C5BAE38B0ABD6ADB1F0C6 /* Pods-WeChat-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChat-Demo.release.xcconfig"; path = "Target Support Files/Pods-WeChat-Demo/Pods-WeChat-Demo.release.xcconfig"; sourceTree = "<group>"; };
 		E204E25A24E1359000CA2B44 /* RemarkVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemarkVc.m; sourceTree = "<group>"; };
 		E204E25B24E1359000CA2B44 /* DetailVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailVc.h; sourceTree = "<group>"; };
@@ -173,6 +176,7 @@
 		E204E26A24E135B700CA2B44 /* AddFriendsVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddFriendsVc.m; path = "通讯录/Controllers/AddFriendsVc.m"; sourceTree = SOURCE_ROOT; };
 		E2E0432C24E57E0A000F9DBF /* SearchVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchVc.h; sourceTree = "<group>"; };
 		E2E0432D24E57E0A000F9DBF /* SearchVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchVc.m; sourceTree = "<group>"; };
+		F1A838D20D305CD31E9C36A9 /* Pods-WeChat-DemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChat-DemoTests.debug.xcconfig"; path = "Target Support Files/Pods-WeChat-DemoTests/Pods-WeChat-DemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +193,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20CC5D962E047210420108E4 /* libPods-WeChat-DemoTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +362,7 @@
 			children = (
 				2212FF3924DC07750086724D /* CoreGraphics.framework */,
 				0FD9065A6A368963FDD894F1 /* libPods-WeChat-Demo.a */,
+				571E6C1EE8C32856D1BBE68B /* libPods-WeChat-DemoTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -461,6 +467,8 @@
 			children = (
 				69AFE9673C9041676E05E05A /* Pods-WeChat-Demo.debug.xcconfig */,
 				A36C5BAE38B0ABD6ADB1F0C6 /* Pods-WeChat-Demo.release.xcconfig */,
+				F1A838D20D305CD31E9C36A9 /* Pods-WeChat-DemoTests.debug.xcconfig */,
+				72947F5C5DDF1381B372D137 /* Pods-WeChat-DemoTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -492,6 +500,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 22B47F5024D908BB0078122F /* Build configuration list for PBXNativeTarget "WeChat-DemoTests" */;
 			buildPhases = (
+				2F378452FB30E3CCCF2B921D /* [CP] Check Pods Manifest.lock */,
 				22B47F3524D908BB0078122F /* Sources */,
 				22B47F3624D908BB0078122F /* Frameworks */,
 				22B47F3724D908BB0078122F /* Resources */,
@@ -615,6 +624,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nbash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"\n";
+		};
+		2F378452FB30E3CCCF2B921D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WeChat-DemoTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		FEA194D3C799DB0CA45E25EB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -886,6 +917,7 @@
 		};
 		22B47F5124D908BB0078122F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1A838D20D305CD31E9C36A9 /* Pods-WeChat-DemoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -905,6 +937,7 @@
 		};
 		22B47F5224D908BB0078122F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 72947F5C5DDF1381B372D137 /* Pods-WeChat-DemoTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;

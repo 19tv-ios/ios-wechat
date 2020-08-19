@@ -50,6 +50,8 @@
 @property(nonatomic,strong) NSData* yourIcon;
 
 @property(nonatomic,strong) UIRefreshControl* refresh;
+
+@property(nonatomic,strong) NSIndexPath* selectedIndexPath;
 -(void)getMsgModel;
 -(instancetype)initAndSetup:(NSMutableArray*)con;
 @end
