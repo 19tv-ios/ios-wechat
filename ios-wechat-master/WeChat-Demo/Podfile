@@ -5,4 +5,11 @@ pod 'AFNetworking'
 pod 'SDAutoLayout'
 pod 'JMessage'
 pod 'YUChineseSorting'
+pod 'Realm'
+
+ target 'WeChat-DemoTests' do
+    inherit! :search_paths
+    # Pods for testing
+   pod 'Realm/Headers'  
+end
 end

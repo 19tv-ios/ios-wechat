@@ -13,6 +13,8 @@
 		2212FF2224DBAB250086724D /* Chat.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2212FF2124DBAB250086724D /* Chat.plist */; };
 		2212FF2524DBF0040086724D /* GetMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 2212FF2424DBF0040086724D /* GetMsg.m */; };
 		2212FF3B24DC0C090086724D /* registerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239904224D9B70E00310576 /* registerViewController.m */; };
+		221C75F824ECF66A00E552D7 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 221C75F724ECF66A00E552D7 /* Realm.framework */; };
+		221C75F924ECF66A00E552D7 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 221C75F724ECF66A00E552D7 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		22B47F2624D908BA0078122F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F2524D908BA0078122F /* AppDelegate.m */; };
 		22B47F2924D908BA0078122F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F2824D908BA0078122F /* ViewController.m */; };
 		22B47F2C24D908BA0078122F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22B47F2A24D908BA0078122F /* Main.storyboard */; };
@@ -68,6 +70,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		221C75FA24ECF66A00E552D7 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				221C75F924ECF66A00E552D7 /* Realm.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0FD9065A6A368963FDD894F1 /* libPods-WeChat-Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeChat-Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2211994524E1967400F5D63E /* NoNetWork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoNetWork.h; sourceTree = "<group>"; };
@@ -85,6 +101,7 @@
 		2212FF2324DBF0040086724D /* GetMsg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetMsg.h; sourceTree = "<group>"; };
 		2212FF2424DBF0040086724D /* GetMsg.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetMsg.m; sourceTree = "<group>"; };
 		2212FF3924DC07750086724D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		221C75F724ECF66A00E552D7 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		22B47F2124D908BA0078122F /* WeChat-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WeChat-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22B47F2424D908BA0078122F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		22B47F2524D908BA0078122F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -163,6 +180,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				221C75F824ECF66A00E552D7 /* Realm.framework in Frameworks */,
 				8CF6B0FD6D9C7547EDE797E2 /* libPods-WeChat-Demo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -187,6 +205,7 @@
 		22B47F1824D908BA0078122F = {
 			isa = PBXGroup;
 			children = (
+				221C75F724ECF66A00E552D7 /* Realm.framework */,
 				E2D4A36E24D94B6F00CE151F /* 我的 */,
 				E2D4A36C24D94B2000CE151F /* 聊天 */,
 				E2D4A36D24D94B3E00CE151F /* 通讯录 */,
@@ -457,6 +476,8 @@
 				22B47F1D24D908BA0078122F /* Sources */,
 				22B47F1E24D908BA0078122F /* Frameworks */,
 				22B47F1F24D908BA0078122F /* Resources */,
+				221C75FA24ECF66A00E552D7 /* Embed Frameworks */,
+				221C75FB24ECF6AC00E552D7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -578,6 +599,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		221C75FB24ECF6AC00E552D7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nbash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"\n";
+		};
 		FEA194D3C799DB0CA45E25EB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -805,6 +843,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_MODULES_AUTOLINK = YES;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "WeChat-Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -825,6 +867,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_MODULES_AUTOLINK = YES;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "WeChat-Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -843,6 +889,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../../Downloads/Compressed/realm-objc-5.3.4/ios/dynamic\"";
 				INFOPLIST_FILE = "WeChat-DemoTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -861,6 +908,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../../Downloads/Compressed/realm-objc-5.3.4/ios/dynamic\"";
 				INFOPLIST_FILE = "WeChat-DemoTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
