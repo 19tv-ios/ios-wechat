@@ -93,13 +93,14 @@
         [self.view addSubview:_menu.view];
         firstTime = NO;
         _menu.hasMenu = YES;
-    }
-    if(_menu.hasMenu == NO){
-        _menu.view.hidden = NO;
-        _menu.hasMenu = YES;
     }else{
-        _menu.view.hidden = YES;
-        _menu.hasMenu = NO;
+        if(_menu.hasMenu == NO){
+            _menu.view.hidden = NO;
+            _menu.hasMenu = YES;
+        }else{
+            _menu.view.hidden = YES;
+            _menu.hasMenu = NO;
+        }
     }
 }
 

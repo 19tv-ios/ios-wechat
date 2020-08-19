@@ -134,7 +134,7 @@
             CGSize textBound = CGSizeMake(_text.length * 10, MAXFLOAT);
             NSDictionary* textBoundParam = @{NSFontAttributeName : [UIFont systemFontOfSize:14]};
             _labelHeight = [_wordLabel.text boundingRectWithSize:textBound options:NSStringDrawingUsesLineFragmentOrigin attributes:textBoundParam context:nil].size.height;
-        }else if(_text.length < 15 && _text.length > 5){
+        }else if(_text.length < 15 && _text.length >= 5){
             _wordLabel.preferredMaxLayoutWidth = _text.length * 10;
 
             CGSize textBound = CGSizeMake(_text.length * 10, MAXFLOAT);
