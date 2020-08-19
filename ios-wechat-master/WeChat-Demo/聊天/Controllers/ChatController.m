@@ -13,9 +13,11 @@
 #import "PushToDetail.h"
 #import "DetailVc.h"
 #import "VoiceView.h"
+#import "EmojiView.h"
+#import "EmojiViewCell.h"
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
 #define ScreenWeight [UIScreen mainScreen].bounds.size.width
-@interface ChatController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,JMessageDelegate,PushToDetail>
+@interface ChatController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,JMessageDelegate,PushToDetail,UICollectionViewDataSource,UICollectionViewDelegate>
 
 @end
 
@@ -49,7 +51,7 @@
     
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan=NO;
     
-    
+    [self setupEmojiView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -184,7 +186,7 @@
     _emojiBtn.sd_layout.leftSpaceToView(_textView, 5).topSpaceToView(_bottomView, 15).heightIs(28).widthIs(28);
     [_emojiBtn setImage:[UIImage imageNamed:@"icon_im_face"] forState:UIControlStateNormal];
     
-//    [_emojiBtn addTarget:self action:@selector(<#selector#>) forControlEvents:UIControlEventTouchUpInside];
+    [_emojiBtn addTarget:self action:@selector(bringEmoji) forControlEvents:UIControlEventTouchUpInside];
     
     [_emojiBtn updateLayout];
     
@@ -239,11 +241,15 @@
     [UIView setAnimationDuration:0.42];
     //使用当前正在运行的状态开始下一段动画
     [UIView setAnimationBeginsFromCurrentState: YES];
-    if(_msgArray.count>6){
-        self.view.frame = CGRectMake(0, -230, self.view.frame.size.width, self.view.frame.size.height);
-        _bottomView.frame = CGRectMake(0, ScreenHeight-170, ScreenWeight, 83);
+    if(_emojiView.isEmoji){
+        _bottomView.frame = CGRectMake(0, ScreenHeight-270, ScreenWeight, 83);
     }else{
-        _bottomView.frame = CGRectMake(0, ScreenHeight-390, ScreenWeight, 83);
+        if(_msgArray.count>6){
+            self.view.frame = CGRectMake(0, -230, self.view.frame.size.width, self.view.frame.size.height);
+            _bottomView.frame = CGRectMake(0, ScreenHeight-170, ScreenWeight, 83);
+        }else{
+            _bottomView.frame = CGRectMake(0, ScreenHeight-390, ScreenWeight, 83);
+        }
     }
     [UIView commitAnimations];
     
@@ -279,9 +285,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.tableview becomeFirstResponder];
     [_textView resignFirstResponder];
+    _emojiView.isEmoji = NO;
 }
 -(void)popKeyboard{
     [_textView resignFirstResponder];
+    [self changeToKeyboard:1];
+    _emojiView.isEmoji = NO;
 }
 //展示最下方的cell
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -303,18 +312,6 @@
     //NSLog(@"push  ====  ");
 }
 
-
-
-//- (void)playRecordButtonTouchUpInside {
-//    if (_recordFilePath) {
-//        _player = [[AVAudioPlayer alloc] initWithData:[NSData dataWithContentsOfFile:_recordFilePath] error:nil];
-//        [_session setCategory:AVAudioSessionCategoryPlayback error:nil];
-//        [_player play];
-//        NSLog(@"%@",_recordFilePath);
-//        NSLog(@"%f",_player.duration);
-//    }
-//}
-//摁住说话
 - (void)recordButtonTouchDown {
     //info.plist配置权限
     if (![self canRecord]) {
@@ -479,4 +476,84 @@
 //    [self.inputBar.textView reloadInputViews];
 //    [self.inputBar.textView becomeFirstResponder];
 //}
+#pragma mark 表情键盘
+-(void)bringEmoji{
+    [self changeToKeyboard:2];
+    if([_textView isFirstResponder]){
+        [UIView beginAnimations:@"收回键盘" context:nil];
+        [UIView setAnimationDuration:0.42];
+        //使用当前正在运行的状态开始下一段动画
+        [UIView setAnimationBeginsFromCurrentState: YES];
+        if(_msgArray.count>6){
+            self.view.frame = [UIScreen mainScreen].bounds;
+            _bottomView.frame = CGRectMake(0, ScreenHeight-270, ScreenWeight, 83);
+        }else{
+            _bottomView.frame = CGRectMake(0, ScreenHeight-270, ScreenWeight, 83);
+        }
+        [UIView commitAnimations];
+        _emojiView.isEmoji = YES;
+        [_textView reloadInputViews];
+    }else{
+        [_textView becomeFirstResponder];
+    }
+}
+-(void)changeToKeyboard:(NSInteger)type{
+    switch (type) {
+        case 1:
+            _textView.inputView = nil;
+            [_textView.inputView reloadInputViews];
+            // 系统键盘
+            break;
+        case 2:
+            _textView.inputView = _emojiView;
+            [_textView.inputView reloadInputViews];
+            _emojiView.isEmoji = YES;
+            // 表情键盘
+            //NSLog(@"2");
+            break;
+        default:
+            break;
+    }
+}
+-(void)setupEmojiView{
+    CGFloat collectionViewW = self.view.frame.size.width;
+    CGFloat collectionViewH = 200;
+    _emojiView = [ [EmojiView alloc]initWithFrame:CGRectMake(0, 0, collectionViewW, collectionViewH) collectionViewLayout:[[UICollectionViewFlowLayout alloc]init] ];
+    _emojiView.dataSource = self;
+    _emojiView.delegate = self;
+    
+    [_emojiView registerClass:[EmojiViewCell class] forCellWithReuseIdentifier:@"emoji"];
+}
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return _emojiView.emojiArray.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UICollectionViewCell * cell = [_emojiView dequeueReusableCellWithReuseIdentifier:@"emoji" forIndexPath:indexPath];
+    //EmojiViewCell* cell = [_emojiView dequeueReusableCellWithReuseIdentifier:@"emoji" forIndexPath:indexPath];
+    //EmojiViewCell* cell = [_emojiView cellForItemAtIndexPath:indexPath];
+    if(!cell){
+        cell = [[UICollectionViewCell alloc]init];
+    }
+    // 设置圆角
+    cell.layer.cornerRadius = 5.0;
+    cell.layer.masksToBounds = YES;
+    //cell.backgroundColor = [UIColor redColor];
+    UIImage* emoji = [_emojiView.emojiArray objectAtIndex:indexPath.row];
+    UIImageView* imageview = [[UIImageView alloc]initWithImage:emoji];
+    //imageview.image = emoji;
+    cell.backgroundView = imageview;
+    
+    return cell;
+}
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    UIImage* emoji = [_emojiView.emojiArray objectAtIndex:indexPath.row];
+    NSData* imageData = UIImageJPEGRepresentation(emoji, 0.7);
+    JMSGImageContent* imageContent = [[JMSGImageContent alloc]initWithImageData:imageData];
+    _freshMsg = [JMSGMessage createSingleMessageWithContent:imageContent username:_otherSide];
+    [_conModel sendMessage:_freshMsg];
+    [_msgArray addObject:_freshMsg];
+    [_tableview reloadData];
+}
 @end

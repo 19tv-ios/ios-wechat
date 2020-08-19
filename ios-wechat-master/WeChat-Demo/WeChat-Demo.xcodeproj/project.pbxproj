@@ -14,6 +14,9 @@
 		2212FF2224DBAB250086724D /* Chat.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2212FF2124DBAB250086724D /* Chat.plist */; };
 		2212FF2524DBF0040086724D /* GetMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 2212FF2424DBF0040086724D /* GetMsg.m */; };
 		2212FF3B24DC0C090086724D /* registerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5239904224D9B70E00310576 /* registerViewController.m */; };
+		221701BA24ED4516004F2A57 /* EmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221701B924ED4516004F2A57 /* EmojiView.m */; };
+		221701BC24ED5487004F2A57 /* Emoji.plist in Resources */ = {isa = PBXBuildFile; fileRef = 221701BB24ED5487004F2A57 /* Emoji.plist */; };
+		221701BF24ED5B30004F2A57 /* EmojiViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 221701BE24ED5B30004F2A57 /* EmojiViewCell.m */; };
 		221C75F824ECF66A00E552D7 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 221C75F724ECF66A00E552D7 /* Realm.framework */; };
 		221C75F924ECF66A00E552D7 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 221C75F724ECF66A00E552D7 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		22B47F2624D908BA0078122F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F2524D908BA0078122F /* AppDelegate.m */; };
@@ -103,6 +106,11 @@
 		2212FF2324DBF0040086724D /* GetMsg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetMsg.h; sourceTree = "<group>"; };
 		2212FF2424DBF0040086724D /* GetMsg.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetMsg.m; sourceTree = "<group>"; };
 		2212FF3924DC07750086724D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		221701B824ED4516004F2A57 /* EmojiView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmojiView.h; sourceTree = "<group>"; };
+		221701B924ED4516004F2A57 /* EmojiView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmojiView.m; sourceTree = "<group>"; };
+		221701BB24ED5487004F2A57 /* Emoji.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Emoji.plist; sourceTree = "<group>"; };
+		221701BD24ED5B30004F2A57 /* EmojiViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmojiViewCell.h; sourceTree = "<group>"; };
+		221701BE24ED5B30004F2A57 /* EmojiViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmojiViewCell.m; sourceTree = "<group>"; };
 		221C75F724ECF66A00E552D7 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		22B47F2124D908BA0078122F /* WeChat-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WeChat-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22B47F2424D908BA0078122F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -293,6 +301,7 @@
 				2212FF2024DBA7C40086724D /* GetProtocol.h */,
 				2212FF2324DBF0040086724D /* GetMsg.h */,
 				2212FF2424DBF0040086724D /* GetMsg.m */,
+				221701BB24ED5487004F2A57 /* Emoji.plist */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -463,6 +472,10 @@
 				2211994C24E4457100F5D63E /* PushToAddFriends.h */,
 				2211994D24E58A6600F5D63E /* CreatGroup.h */,
 				2211994E24E5989900F5D63E /* BringMenu.h */,
+				221701B824ED4516004F2A57 /* EmojiView.h */,
+				221701B924ED4516004F2A57 /* EmojiView.m */,
+				221701BD24ED5B30004F2A57 /* EmojiViewCell.h */,
+				221701BE24ED5B30004F2A57 /* EmojiViewCell.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -585,6 +598,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				221701BC24ED5487004F2A57 /* Emoji.plist in Resources */,
 				22B47F3124D908BB0078122F /* LaunchScreen.storyboard in Resources */,
 				22B47F8C24DAB4B30078122F /* Image.xcassets in Resources */,
 				22B47F2E24D908BB0078122F /* Assets.xcassets in Resources */,
@@ -695,6 +709,8 @@
 				22B47F2924D908BA0078122F /* ViewController.m in Sources */,
 				E204E26B24E135B700CA2B44 /* AddressViewController.m in Sources */,
 				22B47F5824D908E60078122F /* TabBarController.m in Sources */,
+				221701BA24ED4516004F2A57 /* EmojiView.m in Sources */,
+				221701BF24ED5B30004F2A57 /* EmojiViewCell.m in Sources */,
 				E204E26C24E135B700CA2B44 /* AddFriendsVc.m in Sources */,
 				22B47F3424D908BB0078122F /* main.m in Sources */,
 				52028E6B24E127CD00EF6C9B /* SexPickerTool.m in Sources */,
