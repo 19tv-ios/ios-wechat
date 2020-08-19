@@ -4,5 +4,5 @@ target 'WeChat-Demo' do
 pod 'AFNetworking'
 pod 'SDAutoLayout'
 pod 'JMessage'
-pod 'YUChineseSorting'
+pod 'Realm'
 end
