@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <JMessage/JMessage.h>
 #import <AVFoundation/AVFoundation.h>
+#import "VoiceView.h"
 @interface ChatController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property(nonatomic,strong)UITableView* tableview;
@@ -52,8 +53,9 @@
 @property(nonatomic,strong)AVAudioPlayer *player;
 @property(nonatomic,copy)NSString *recordFilePath;
 @property(nonatomic,strong)UIView *volumeBgView;
-@property(nonatomic,strong)UIImageView *volumeImageView;
-@property(nonatomic,strong)UILabel *volumeLabel;
+
+
+@property(nonatomic,strong)VoiceView *voiceview;
 @property(nonatomic,assign)BOOL isLeaveSpeakBtn;
 
 
