@@ -15,15 +15,19 @@
 #import "VoiceView.h"
 #import "EmojiView.h"
 #import "EmojiViewCell.h"
+#import <SDWebImage.h>
+#import "PushToPhotoView.h"
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
 #define ScreenWeight [UIScreen mainScreen].bounds.size.width
-@interface ChatController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,JMessageDelegate,PushToDetail,UICollectionViewDataSource,UICollectionViewDelegate>
+@interface ChatController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,JMessageDelegate,PushToDetail,UICollectionViewDataSource,UICollectionViewDelegate,PushToPhotoView>
 
 @end
 
 @implementation ChatController{
     int cnt;
     UIImage* voicePic;
+    NSData* pic;
+ 
 }
 
 - (void)viewDidLoad {
@@ -52,6 +56,9 @@
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan=NO;
     
     [self setupEmojiView];
+    
+    _picArray = [[NSMutableArray alloc]init];
+    //[self setupPhotoView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -89,6 +96,7 @@
                 _cellHeight = youCell.labelHeight + 30;
                 youCell.model = _model;
                 youCell.delegate = self;
+                youCell.delegate2 = self;
             }
             return youCell;
         }else{
@@ -106,16 +114,28 @@
                 _cellHeight = meCell.labelHeight + 30;
                 meCell.model = _model;
                 meCell.delegate = self;
+                meCell.delegate2 = self;
             }
             return meCell;
         }
     }else if(_model.contentType == 2){
         JMSGImageContent* content = (JMSGImageContent*)_model.content;
+//        dispatch_group_t picGroup = dispatch_group_create();
+//        dispatch_group_enter(picGroup);
+//        [content thumbImageData:^(NSData *data, NSString *objectId, NSError *error) {
+//            self->pic = data;
+//            dispatch_group_leave(picGroup);
+//        }];
+//        dispatch_group_notify(picGroup, dispatch_get_main_queue(), ^{
+//            //UIImage* picToshow = [UIImage imageWithData:self->pic];
+//            [self->_picArray addObject:[UIImage imageWithData:self->pic]];
+//        });
         if(_model.isReceived){
             YouCell* youCell = [[YouCell alloc]initWithImage:content andIcon:_otherIcon];
             _cellHeight = 210;
             youCell.model = _model;
             youCell.delegate = self;
+            youCell.delegate2 = self;
             return youCell;
         }else{
             JMSGUser* user = [JMSGUser myInfo];
@@ -124,6 +144,7 @@
             _cellHeight = 210;
             meCell.model = _model;
             meCell.delegate = self;
+            meCell.delegate2 = self;
             return meCell;
         }
     }else if(_model.contentType == 3){
@@ -133,6 +154,7 @@
             _cellHeight = 60;
             youCell.model = _model;
             youCell.delegate = self;
+            youCell.delegate2 = self;
             return youCell;
         }else{
             JMSGUser* user = [JMSGUser myInfo];
@@ -141,6 +163,7 @@
             _cellHeight = 60;
             meCell.model = _model;
             meCell.delegate = self;
+            meCell.delegate2 = self;
             //NSLog(@"%@ --- content",content);
             return meCell;
         }
@@ -549,7 +572,7 @@
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     UIImage* emoji = [_emojiView.emojiArray objectAtIndex:indexPath.row];
-    NSData* imageData = UIImageJPEGRepresentation(emoji, 0.7);
+    NSData* imageData = UIImageJPEGRepresentation(emoji, 0.8);
     JMSGImageContent* imageContent = [[JMSGImageContent alloc]initWithImageData:imageData];
     _freshMsg = [JMSGMessage createSingleMessageWithContent:imageContent username:_otherSide];
     [_conModel sendMessage:_freshMsg];

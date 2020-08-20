@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <JMessage/JMessage.h>
 #import "PushToDetail.h"
+#import "PushToPhotoView.h"
 #import <AVFoundation/AVFoundation.h>
 @interface YouCell : UITableViewCell
 
@@ -33,6 +34,8 @@
 @property(nonatomic,strong)JMSGMessage* model;
 
 @property(nonatomic,weak)id<PushToDetail>delegate;
+
+@property(nonatomic,weak)id<PushToPhotoView>delegate2;
 
 @property(nonatomic,strong)UIButton* voiceBtn;
 

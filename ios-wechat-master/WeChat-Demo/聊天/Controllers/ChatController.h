@@ -27,6 +27,8 @@
 
 @property(nonatomic,strong)NSMutableArray* msgArray;
 
+@property(nonatomic,strong)NSMutableArray* picArray;
+
 @property(nonatomic,strong)JMSGMessage* model;
 
 @property(nonatomic,strong)NSData* iconData;
@@ -56,6 +58,7 @@
 @property(nonatomic,strong)AVAudioPlayer *player;
 @property(nonatomic,copy)NSString *recordFilePath;
 @property(nonatomic,strong)UIView *volumeBgView;
+
 
 
 @property(nonatomic,strong)VoiceView *voiceview;

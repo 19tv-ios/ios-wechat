@@ -10,6 +10,7 @@
 #import "MeCell.h"
 #import <SDAutoLayout.h>
 #import "DetailVc.h"
+#import <SDWebImage.h>
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
 #define ScreenWeight [UIScreen mainScreen].bounds.size.width
 @implementation MeCell
@@ -89,6 +90,10 @@
     _iconImage.userInteractionEnabled = YES;
     [_iconImage addGestureRecognizer:tap];
     
+//    UITapGestureRecognizer* tapPic = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(photoView)];
+//    _picView.userInteractionEnabled = YES;
+//    [_picView addGestureRecognizer:tapPic];
+//
     [self layout];
     //self.selectedBackgroundView = [[UIView alloc]init];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -103,12 +108,17 @@
         
         dispatch_group_t group = dispatch_group_create();
         dispatch_group_enter(group);
+//        [_picContent largeImageDataWithProgress:nil completionHandler:^(NSData *data, NSString *objectId, NSError *error) {
+//            self->_imageData = data;
+//            dispatch_group_leave(group);
+//        }];
         [_picContent thumbImageData:^(NSData *data, NSString *objectId, NSError *error) {
             self->_imageData = data;
             dispatch_group_leave(group);
         }];
         dispatch_group_notify(group, dispatch_get_main_queue(), ^{
             self->_picView.image = [UIImage imageWithData:self->_imageData];
+//            self->_picView.image = [UIImage sd_imageWithGIFData:self->_imageData];
         });
     }else if(_voiceContent){
         _iconImage.sd_layout.rightSpaceToView(self.contentView, 10).topSpaceToView(self.contentView, 0).widthIs(45).heightIs(45);
@@ -203,5 +213,8 @@
 -(void)pushToDetail{
     [self.delegate pushWithUser:_model.fromUser];
     //NSLog(@"delegate ==== ");
+}
+-(void)photoView{
+    [self.delegate2 pushToPhotoView];
 }
 @end

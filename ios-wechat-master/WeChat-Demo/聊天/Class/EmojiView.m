@@ -7,7 +7,7 @@
 //
 
 #import "EmojiView.h"
-
+#import <SDWebImage.h>
 @implementation EmojiView
 
 /*
@@ -42,5 +42,18 @@
     
     _emojiArray = [[NSMutableArray alloc]init];
     [_emojiArray addObjectsFromArray:@[emoji1,emoji2,emoji3,emoji4,emoji5,emoji6,emoji7] ];
+    
+//    NSString* path = [[NSBundle mainBundle] pathForResource:@"00" ofType:@"gif"];
+//    NSData* data = [NSData dataWithContentsOfFile:path];
+//    UIImage* gif1 = [UIImage sd_imageWithGIFData:data];
+    
+    for(int i=0;i<11;i++){
+        NSString* path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%d",i] ofType:@"gif"];
+        NSData* data = [NSData dataWithContentsOfFile:path];
+        UIImage* gif = [UIImage sd_imageWithGIFData:data];
+        [_emojiArray addObject:gif];
+    }
+    
+    
 }
 @end

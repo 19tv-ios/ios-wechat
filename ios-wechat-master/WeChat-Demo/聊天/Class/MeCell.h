@@ -10,6 +10,7 @@
 #import <JMessage/JMessage.h>
 #import "PushToDetail.h"
 #import <AVFoundation/AVFoundation.h>
+#import "PushToPhotoView.h"
 @interface MeCell : UITableViewCell
 
 @property(nonatomic,strong)UIImageView* bubbleView;
@@ -33,6 +34,8 @@
 @property(nonatomic,strong)UIImageView* picView;
 
 @property(nonatomic,weak)id<PushToDetail>delegate;
+
+@property(nonatomic,weak)id<PushToPhotoView>delegate2;
 
 @property(nonatomic,strong)UIButton* voiceBtn;
 

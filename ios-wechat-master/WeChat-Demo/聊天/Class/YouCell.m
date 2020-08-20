@@ -88,6 +88,10 @@
     _iconImage.userInteractionEnabled = YES;
     [_iconImage addGestureRecognizer:tap];
     
+//    UITapGestureRecognizer* tapPic = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(photoView)];
+//    _picView.userInteractionEnabled = YES;
+//    [_picView addGestureRecognizer:tapPic];
+    
     [self layout];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.selectedBackgroundView = [[UIView alloc]init];
@@ -195,5 +199,8 @@
 }
 -(void)pushToDetail{
     [self.delegate pushWithUser:_model.fromUser];
+}
+-(void)photoView{
+    [self.delegate2 pushToPhotoView];
 }
 @end

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,6 +17,17 @@
 		221701BA24ED4516004F2A57 /* EmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = 221701B924ED4516004F2A57 /* EmojiView.m */; };
 		221701BC24ED5487004F2A57 /* Emoji.plist in Resources */ = {isa = PBXBuildFile; fileRef = 221701BB24ED5487004F2A57 /* Emoji.plist */; };
 		221701BF24ED5B30004F2A57 /* EmojiViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 221701BE24ED5B30004F2A57 /* EmojiViewCell.m */; };
+		221701C124EE2050004F2A57 /* 0.gif in Resources */ = {isa = PBXBuildFile; fileRef = 221701C024EE2050004F2A57 /* 0.gif */; };
+		221701CC24EE20B2004F2A57 /* 3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 221701C324EE20B0004F2A57 /* 3.gif */; };
+		221701CD24EE20B2004F2A57 /* 8.gif in Resources */ = {isa = PBXBuildFile; fileRef = 221701C424EE20B1004F2A57 /* 8.gif */; };
+		221701CE24EE20B2004F2A57 /* 1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 221701C524EE20B1004F2A57 /* 1.gif */; };
+		221701CF24EE20B2004F2A57 /* 7.gif in Resources */ = {isa = PBXBuildFile; fileRef = 221701C624EE20B1004F2A57 /* 7.gif */; };
+		221701D024EE20B2004F2A57 /* 2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 221701C724EE20B1004F2A57 /* 2.gif */; };
+		221701D124EE20B2004F2A57 /* 4.gif in Resources */ = {isa = PBXBuildFile; fileRef = 221701C824EE20B1004F2A57 /* 4.gif */; };
+		221701D224EE20B2004F2A57 /* 6.gif in Resources */ = {isa = PBXBuildFile; fileRef = 221701C924EE20B1004F2A57 /* 6.gif */; };
+		221701D324EE20B2004F2A57 /* 9.gif in Resources */ = {isa = PBXBuildFile; fileRef = 221701CA24EE20B1004F2A57 /* 9.gif */; };
+		221701D424EE20B2004F2A57 /* 10.gif in Resources */ = {isa = PBXBuildFile; fileRef = 221701CB24EE20B1004F2A57 /* 10.gif */; };
+		221701D624EE214A004F2A57 /* 5.gif in Resources */ = {isa = PBXBuildFile; fileRef = 221701D524EE214A004F2A57 /* 5.gif */; };
 		221C75F824ECF66A00E552D7 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 221C75F724ECF66A00E552D7 /* Realm.framework */; };
 		221C75F924ECF66A00E552D7 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 221C75F724ECF66A00E552D7 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		22B47F2624D908BA0078122F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F2524D908BA0078122F /* AppDelegate.m */; };
@@ -111,6 +122,18 @@
 		221701BB24ED5487004F2A57 /* Emoji.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Emoji.plist; sourceTree = "<group>"; };
 		221701BD24ED5B30004F2A57 /* EmojiViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmojiViewCell.h; sourceTree = "<group>"; };
 		221701BE24ED5B30004F2A57 /* EmojiViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmojiViewCell.m; sourceTree = "<group>"; };
+		221701C024EE2050004F2A57 /* 0.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 0.gif; sourceTree = "<group>"; };
+		221701C324EE20B0004F2A57 /* 3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 3.gif; sourceTree = "<group>"; };
+		221701C424EE20B1004F2A57 /* 8.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 8.gif; sourceTree = "<group>"; };
+		221701C524EE20B1004F2A57 /* 1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 1.gif; sourceTree = "<group>"; };
+		221701C624EE20B1004F2A57 /* 7.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 7.gif; sourceTree = "<group>"; };
+		221701C724EE20B1004F2A57 /* 2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 2.gif; sourceTree = "<group>"; };
+		221701C824EE20B1004F2A57 /* 4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 4.gif; sourceTree = "<group>"; };
+		221701C924EE20B1004F2A57 /* 6.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 6.gif; sourceTree = "<group>"; };
+		221701CA24EE20B1004F2A57 /* 9.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 9.gif; sourceTree = "<group>"; };
+		221701CB24EE20B1004F2A57 /* 10.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 10.gif; sourceTree = "<group>"; };
+		221701D524EE214A004F2A57 /* 5.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 5.gif; sourceTree = "<group>"; };
+		221849B624EE95CE00532313 /* PushToPhotoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushToPhotoView.h; sourceTree = "<group>"; };
 		221C75F724ECF66A00E552D7 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		22B47F2124D908BA0078122F /* WeChat-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WeChat-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22B47F2424D908BA0078122F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -218,6 +241,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		221701C224EE2089004F2A57 /* GIF */ = {
+			isa = PBXGroup;
+			children = (
+				221701C024EE2050004F2A57 /* 0.gif */,
+				221701C524EE20B1004F2A57 /* 1.gif */,
+				221701C724EE20B1004F2A57 /* 2.gif */,
+				221701C324EE20B0004F2A57 /* 3.gif */,
+				221701C824EE20B1004F2A57 /* 4.gif */,
+				221701D524EE214A004F2A57 /* 5.gif */,
+				221701C924EE20B1004F2A57 /* 6.gif */,
+				221701C624EE20B1004F2A57 /* 7.gif */,
+				221701C424EE20B1004F2A57 /* 8.gif */,
+				221701CA24EE20B1004F2A57 /* 9.gif */,
+				221701CB24EE20B1004F2A57 /* 10.gif */,
+			);
+			path = GIF;
+			sourceTree = "<group>";
+		};
 		22B47F1824D908BA0078122F = {
 			isa = PBXGroup;
 			children = (
@@ -296,6 +337,7 @@
 		22B47F8D24DB06E80078122F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				221701C224EE2089004F2A57 /* GIF */,
 				2212FF1D24DB9F710086724D /* GetConversation.h */,
 				2212FF1E24DB9F710086724D /* GetConversation.m */,
 				2212FF2024DBA7C40086724D /* GetProtocol.h */,
@@ -470,6 +512,7 @@
 				2211994924E19FAF00F5D63E /* PlusMenu.m */,
 				2211994B24E2925400F5D63E /* PushToDetail.h */,
 				2211994C24E4457100F5D63E /* PushToAddFriends.h */,
+				221849B624EE95CE00532313 /* PushToPhotoView.h */,
 				2211994D24E58A6600F5D63E /* CreatGroup.h */,
 				2211994E24E5989900F5D63E /* BringMenu.h */,
 				221701B824ED4516004F2A57 /* EmojiView.h */,
@@ -598,14 +641,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				221701CE24EE20B2004F2A57 /* 1.gif in Resources */,
+				221701C124EE2050004F2A57 /* 0.gif in Resources */,
 				221701BC24ED5487004F2A57 /* Emoji.plist in Resources */,
+				221701D324EE20B2004F2A57 /* 9.gif in Resources */,
 				22B47F3124D908BB0078122F /* LaunchScreen.storyboard in Resources */,
+				221701D224EE20B2004F2A57 /* 6.gif in Resources */,
 				22B47F8C24DAB4B30078122F /* Image.xcassets in Resources */,
 				22B47F2E24D908BB0078122F /* Assets.xcassets in Resources */,
 				2212FF2224DBAB250086724D /* Chat.plist in Resources */,
+				221701D424EE20B2004F2A57 /* 10.gif in Resources */,
+				221701D624EE214A004F2A57 /* 5.gif in Resources */,
+				221701CC24EE20B2004F2A57 /* 3.gif in Resources */,
 				528A773324DE84890094F398 /* Address.plist in Resources */,
 				52028E6E24E127CD00EF6C9B /* DatePickerTool.xib in Resources */,
+				221701D024EE20B2004F2A57 /* 2.gif in Resources */,
 				52028E6C24E127CD00EF6C9B /* SexPickerTool.xib in Resources */,
+				221701CF24EE20B2004F2A57 /* 7.gif in Resources */,
+				221701CD24EE20B2004F2A57 /* 8.gif in Resources */,
+				221701D124EE20B2004F2A57 /* 4.gif in Resources */,
 				22B47F2C24D908BA0078122F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
