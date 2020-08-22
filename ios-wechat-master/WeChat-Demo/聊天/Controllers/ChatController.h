@@ -11,6 +11,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "VoiceView.h"
 #import "EmojiView.h"
+#import "PhotoView.h"
 @interface ChatController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property(nonatomic,strong)UITableView* tableview;
@@ -28,6 +29,8 @@
 @property(nonatomic,strong)NSMutableArray* msgArray;
 
 @property(nonatomic,strong)NSMutableArray* picArray;
+
+@property(nonatomic,strong)PhotoView* photoView;
 
 @property(nonatomic,strong)JMSGMessage* model;
 
@@ -48,6 +51,8 @@
 @property(nonatomic,strong)NSData* otherIcon;
 
 @property(nonatomic,strong)EmojiView* emojiView;
+
+@property(nonatomic,strong)UIActivityIndicatorView* activityIndicator;
 
 @property(nonatomic,strong)UIButton *recordButton;
 @property(nonatomic,strong)UIButton *playRecordButton;

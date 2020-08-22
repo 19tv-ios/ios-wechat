@@ -17,6 +17,7 @@
 #import "EmojiViewCell.h"
 #import <SDWebImage.h>
 #import "PushToPhotoView.h"
+#import "PhotoView.h"
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
 #define ScreenWeight [UIScreen mainScreen].bounds.size.width
 @interface ChatController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,JMessageDelegate,PushToDetail,UICollectionViewDataSource,UICollectionViewDelegate,PushToPhotoView>
@@ -27,7 +28,7 @@
     int cnt;
     UIImage* voicePic;
     NSData* pic;
- 
+    bool firstTimePhoto;
 }
 
 - (void)viewDidLoad {
@@ -57,8 +58,12 @@
     
     [self setupEmojiView];
     
-    _picArray = [[NSMutableArray alloc]init];
-    //[self setupPhotoView];
+    [self getPic];
+    
+    _activityIndicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(ScreenWeight/2-70, ScreenHeight/2-120, 150, 150)];
+    _activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    _activityIndicator.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.95];
+    [self.view addSubview:_activityIndicator];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -73,8 +78,36 @@
     });
     return _msgArray.count;
 }
-
-
+-(void)getPic{
+    _picArray = [[NSMutableArray alloc]init];
+    dispatch_group_t picGroup = dispatch_group_create();
+    for(JMSGMessage* msg in _msgArray){
+        if(msg.contentType == 2){
+            dispatch_group_enter(picGroup);
+            JMSGImageContent* cnt = (JMSGImageContent*)msg.content;
+            [cnt thumbImageData:^(NSData *data, NSString *objectId, NSError *error) {
+                self->pic = data;
+                [self->_picArray addObject:[UIImage imageWithData:self->pic]];
+                dispatch_group_leave(picGroup);
+            }];
+        }
+    }
+    dispatch_group_notify(picGroup, dispatch_get_main_queue(), ^{
+        //UIImage* picToshow = [UIImage imageWithData:self->pic];
+        self->_photoView = [[PhotoView alloc]initWithModel:self->_picArray];
+        self->firstTimePhoto = YES;
+    });
+}
+-(void)pushToPhotoView{
+    if(firstTimePhoto == YES){
+        [self.view addSubview:_photoView];
+        //NSLog(@"p2");
+        firstTimePhoto = NO;
+    }else{
+        _photoView.hidden = NO;
+        //NSLog(@"p3");
+    }
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     _model = [_msgArray objectAtIndex:indexPath.row];
@@ -238,6 +271,7 @@
 
 #pragma mark uiimagepicker协议
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    [_activityIndicator startAnimating];
     UIImage* myImage = info[UIImagePickerControllerOriginalImage];
     NSData* imageData = UIImageJPEGRepresentation(myImage, 0.7);
     JMSGImageContent* imageContent = [[JMSGImageContent alloc]initWithImageData:imageData];
@@ -248,11 +282,15 @@
     //NSLog(@"%@ --- image %@ --- name ",_freshMsg,_otherSide);
     [_tableview reloadData];
     [_picker dismissViewControllerAnimated:YES completion:nil];
+    [self performSelector:@selector(stop) withObject:nil afterDelay:1.5];
+    //[_activityIndicator stopAnimating];
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     [_picker dismissViewControllerAnimated:YES completion:nil];
 }
-
+-(void)stop{
+    [_activityIndicator stopAnimating];
+}
 #pragma mark textFiled delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     //return [self cellHeightForIndexPath:indexPath cellContentViewWidth:self.tableview.contentSize.width tableView:_tableview];

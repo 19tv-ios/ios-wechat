@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -30,6 +30,8 @@
 		221701D624EE214A004F2A57 /* 5.gif in Resources */ = {isa = PBXBuildFile; fileRef = 221701D524EE214A004F2A57 /* 5.gif */; };
 		221C75F824ECF66A00E552D7 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 221C75F724ECF66A00E552D7 /* Realm.framework */; };
 		221C75F924ECF66A00E552D7 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 221C75F724ECF66A00E552D7 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		22A49EC924EF717B009AFE59 /* Conversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A49EC824EF717B009AFE59 /* Conversation.m */; };
+		22A49ECC24EFFF29009AFE59 /* PhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A49ECB24EFFF29009AFE59 /* PhotoView.m */; };
 		22B47F2624D908BA0078122F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F2524D908BA0078122F /* AppDelegate.m */; };
 		22B47F2924D908BA0078122F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B47F2824D908BA0078122F /* ViewController.m */; };
 		22B47F2C24D908BA0078122F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22B47F2A24D908BA0078122F /* Main.storyboard */; };
@@ -135,6 +137,10 @@
 		221701D524EE214A004F2A57 /* 5.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 5.gif; sourceTree = "<group>"; };
 		221849B624EE95CE00532313 /* PushToPhotoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushToPhotoView.h; sourceTree = "<group>"; };
 		221C75F724ECF66A00E552D7 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		22A49EC724EF717B009AFE59 /* Conversation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Conversation.h; sourceTree = "<group>"; };
+		22A49EC824EF717B009AFE59 /* Conversation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Conversation.m; sourceTree = "<group>"; };
+		22A49ECA24EFFF29009AFE59 /* PhotoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoView.h; sourceTree = "<group>"; };
+		22A49ECB24EFFF29009AFE59 /* PhotoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoView.m; sourceTree = "<group>"; };
 		22B47F2124D908BA0078122F /* WeChat-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WeChat-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22B47F2424D908BA0078122F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		22B47F2524D908BA0078122F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -344,6 +350,8 @@
 				2212FF2324DBF0040086724D /* GetMsg.h */,
 				2212FF2424DBF0040086724D /* GetMsg.m */,
 				221701BB24ED5487004F2A57 /* Emoji.plist */,
+				22A49EC724EF717B009AFE59 /* Conversation.h */,
+				22A49EC824EF717B009AFE59 /* Conversation.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -519,6 +527,8 @@
 				221701B924ED4516004F2A57 /* EmojiView.m */,
 				221701BD24ED5B30004F2A57 /* EmojiViewCell.h */,
 				221701BE24ED5B30004F2A57 /* EmojiViewCell.m */,
+				22A49ECA24EFFF29009AFE59 /* PhotoView.h */,
+				22A49ECB24EFFF29009AFE59 /* PhotoView.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -765,12 +775,14 @@
 				22B47F5824D908E60078122F /* TabBarController.m in Sources */,
 				221701BA24ED4516004F2A57 /* EmojiView.m in Sources */,
 				221701BF24ED5B30004F2A57 /* EmojiViewCell.m in Sources */,
+				22A49EC924EF717B009AFE59 /* Conversation.m in Sources */,
 				E204E26C24E135B700CA2B44 /* AddFriendsVc.m in Sources */,
 				22B47F3424D908BB0078122F /* main.m in Sources */,
 				52028E6B24E127CD00EF6C9B /* SexPickerTool.m in Sources */,
 				22B47F2624D908BA0078122F /* AppDelegate.m in Sources */,
 				E204E26424E1359000CA2B44 /* SettingVc.m in Sources */,
 				5271A5A124EAABE4004B6171 /* VoiceView.m in Sources */,
+				22A49ECC24EFFF29009AFE59 /* PhotoView.m in Sources */,
 				22B47F6224D90C8E0078122F /* MyViewController.m in Sources */,
 				5239903F24D9AA2F00310576 /* SignViewController.m in Sources */,
 				2211994724E1967400F5D63E /* NoNetWork.m in Sources */,

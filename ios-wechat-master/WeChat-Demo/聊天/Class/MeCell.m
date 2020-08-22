@@ -90,9 +90,9 @@
     _iconImage.userInteractionEnabled = YES;
     [_iconImage addGestureRecognizer:tap];
     
-//    UITapGestureRecognizer* tapPic = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(photoView)];
-//    _picView.userInteractionEnabled = YES;
-//    [_picView addGestureRecognizer:tapPic];
+    UITapGestureRecognizer* tapPic = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(photoView)];
+    _picView.userInteractionEnabled = YES;
+    [_picView addGestureRecognizer:tapPic];
 //
     [self layout];
     //self.selectedBackgroundView = [[UIView alloc]init];
@@ -216,5 +216,6 @@
 }
 -(void)photoView{
     [self.delegate2 pushToPhotoView];
+    //NSLog(@"p1");
 }
 @end

@@ -13,6 +13,8 @@
 #import "AddFriendsVc.h"
 #import "GroupChat.h"
 #import <JMessage/JMessage.h>
+#import <Realm/Realm.h>
+#import "Conversation.h"
 @interface ChatViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating,PushToAddFriends,UISearchControllerDelegate,UISearchResultsUpdating,UISearchBarDelegate,JMSGConversationDelegate>
 
 @end
@@ -26,6 +28,7 @@ CGFloat height;
     [super viewDidLoad];
     
     _filtered = [[NSMutableArray alloc]init];
+    _conversationToStore = [[NSMutableArray alloc]init];
     //获取状态栏的rect
     CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
     //获取导航栏的rect
@@ -110,6 +113,8 @@ CGFloat height;
     [_tableview reloadData];
     NSLog(@"刷新");
     [_refresh endRefreshing];
+    
+    [self store];
 }
 -(void)setupSearchBar{
     _search = [[UISearchController alloc] initWithSearchResultsController:nil];
@@ -163,6 +168,8 @@ CGFloat height;
         ChatViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
         _model = [[JMSGConversation alloc]init];
         _model = [_conversationArray objectAtIndex:indexPath.row];
+        
+        Conversation* toStore = [[Conversation alloc]init];
         if(!cell){
             cell = [[ChatViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseID andModel:_model];
         }
@@ -173,13 +180,26 @@ CGFloat height;
         cell.iconView.image = image;
         
         cell.wordLabel.text = _model.latestMessageContentText;
+        toStore.lastMsg = _model.latestMessageContentText;
+        toStore.title = _model.title;
+        
+        NSTimeInterval interval = [_model.latestMsgTime doubleValue]/1000;
+        NSDate* lastDate = [NSDate dateWithTimeIntervalSince1970:interval];
+        NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
+        [formatter setDateFormat:@"MM-dd HH:mm"];
+        NSString* lastTime = [formatter stringFromDate:lastDate];
+        toStore.lastTime = lastTime;
+        
         [_model avatarData:^(NSData *data, NSString *objectId, NSError *error) {
             if(error){
                 cell.iconView.image = image;
             }else{
                 cell.iconView.image = [UIImage imageWithData:data];
+                toStore.iconData = data;
             }
         }];
+        
+        [_conversationToStore addObject:toStore];
         return cell;
     }else{
         ChatViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
@@ -341,6 +361,22 @@ CGFloat height;
 - (void)onConversationChanged:(JMSGConversation *)conversation{
     [self.tableview reloadData];
     NSLog(@"对话变更");
+}
+-(void)store{
+    RLMRealm* realm = [RLMRealm defaultRealm];
+    [realm beginWriteTransaction];
+    
+    for(Conversation* cnt in _conversationToStore){
+        [realm addObject:cnt];
+    }
+    
+    [realm commitWriteTransaction];
+    
+//    NSLog(@"%@",realm.configuration.fileURL);
+//
+//    NSLog(@"%@",realm.configuration.encryptionKey);
+//
+//    NSLog(@"%@",[Conversation allObjects]);
 }
 /*
 #pragma mark - Navigation

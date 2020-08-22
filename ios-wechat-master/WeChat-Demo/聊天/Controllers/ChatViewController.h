@@ -52,6 +52,8 @@
 @property(nonatomic,strong) UIRefreshControl* refresh;
 
 @property(nonatomic,strong) NSIndexPath* selectedIndexPath;
+
+@property(nonatomic,strong) NSMutableArray* conversationToStore;
 -(void)getMsgModel;
 -(instancetype)initAndSetup:(NSMutableArray*)con;
 @end
